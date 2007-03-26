@@ -2,8 +2,16 @@ package optimization.ttga;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
-import org.jgap.Genotype;
+import org.jgap.DefaultFitnessEvaluator;
 import org.jgap.FitnessFunction;
+import org.jgap.Genotype;
+import org.jgap.InvalidConfigurationException;
+import org.jgap.event.EventManager;
+import org.jgap.impl.BestChromosomesSelector;
+import org.jgap.impl.GreedyCrossover;
+import org.jgap.impl.StockRandomGenerator;
+import org.jgap.impl.SwappingMutationOperator;
+
 
 /**
  * 
@@ -110,11 +118,19 @@ public class OptimizationFacade {
 	 * 
 	 *
 	 */
-	private void createConfiguration(){
+	private void createConfiguration() throws InvalidConfigurationException{
 		gaConfig = new Configuration();
-		//gaConfig.addNaturalSelector(NaturalSelector,true);
-		//gaConfig.setRandomGenerator(new UniqueRandomNumberGenerator());
-		
+		BestChromosomesSelector bestChromsSelector = new BestChromosomesSelector(gaConfig,1.0d);
+		gaConfig.addNaturalSelector(bestChromsSelector,true);
+		gaConfig.setRandomGenerator(new StockRandomGenerator());
+		gaConfig.setMinimumPopSizePercent(0);
+		gaConfig.setEventManager(new EventManager());
+		gaConfig.setFitnessEvaluator(new DefaultFitnessEvaluator());
+		//config.setChromosomePool(new ChromosomePool());
+		gaConfig.setPreservFittestIndividual(true);
+		gaConfig.addGeneticOperator(new GreedyCrossover(gaConfig));
+		// Utilizar algún mecanismo para cargar los parámetros de un archivo de configuración.
+		gaConfig.addGeneticOperator(new SwappingMutationOperator(gaConfig,50));
 	}
 	
 	/**
