@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<section name="parameters">
+	<section name="GAparameters">
 		<entry key="population" value="500"/>
 		<entry key="crossover_rate" value="0.8"/>
 		<entry key="mutation_rate" value="0.2"/>
