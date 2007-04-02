@@ -26,4 +26,11 @@ public class Repository {
 		
 		//3. Add the object to the repository in memory
 	}
+	public int getCardinalityOfType(Class type){
+		//1. Construct a DB Query for count the number of elements of the type
+		
+		//2. Execute the query with the DAO		
+		
+		return 0;
+	}
 }
