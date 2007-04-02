@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<section name="GAparameters">
+	<section name="GAParameters">
 		<entry key="population" value="500"/>
-		<entry key="crossover_rate" value="0.8"/>
-		<entry key="mutation_rate" value="0.2"/>
+		<entry key="crossoverRate" value="0.8"/>
+		<entry key="mutationRate" value="20"/>
 	</section>
 </configuration>
