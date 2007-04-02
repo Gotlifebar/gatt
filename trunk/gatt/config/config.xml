@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<section name="locos">
-		<entry key="instance" value="development"/>
-	</section>
 	<section name="parameters">
 		<entry key="population" value="500"/>
 		<entry key="crossover_rate" value="0.8"/>
