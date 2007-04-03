@@ -1,8 +1,17 @@
 package org.gatt.domain;
 
 public abstract class DomainObject {
-	/** This is the numeric representation of the object (applying the numeric transformation) 
-	 * @return
+	private int id;	
+	public DomainObject(){
+		
+	}
+	public DomainObject(int id){
+		this.id = id;
+	}	
+	/** Return the id in the database	 
+	 * @return the id in the database
 	 */
-	public abstract int getNumericId();
+	public int getId(){
+		return id;
+	}	
 }
