@@ -9,4 +9,9 @@ public abstract class DAOFactory {
 	public abstract SessionDAO getSessionDAO();
 	public abstract SubjectDAO getSubjectDAO();
 	public abstract TeacherDAO getTeacherDAO();
+	
+	public static DAOFactory getDAOFactory(String daoFactory)
+		throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+		return (DAOFactory) ClassLoader.getSystemClassLoader().loadClass(daoFactory).newInstance();
+	}
 }
