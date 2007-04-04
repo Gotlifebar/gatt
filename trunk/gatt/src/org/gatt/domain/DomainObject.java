@@ -1,6 +1,6 @@
 package org.gatt.domain;
 
-public abstract class DomainObject {
+public abstract class DomainObject implements java.io.Serializable{
 	private int id;	
 	public DomainObject(){
 		
