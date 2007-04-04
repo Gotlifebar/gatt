@@ -1,5 +1,10 @@
 package org.gatt.optimization.ttga;
 
+import org.gatt.util.GattConfigLocator;
+import org.igfay.jfig.JFig;
+import org.igfay.jfig.JFigException;
+import org.igfay.jfig.JFigIF;
+import org.igfay.jfig.JFigLocatorIF;
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
 import org.jgap.DefaultFitnessEvaluator;
@@ -42,9 +47,16 @@ public class OptimizationFacade {
 	
 	/**
 	 * 
+	 */
+	private JFigLocatorIF locator;
+	
+	/**
+	 * 
 	 *
 	 */
-	protected OptimizationFacade(){}
+	protected OptimizationFacade(){
+		locator = new GattConfigLocator("config.xml","config");
+	}
 	
 	/**
 	 * 
@@ -130,7 +142,9 @@ public class OptimizationFacade {
 		gaConfig.setPreservFittestIndividual(true);
 		gaConfig.addGeneticOperator(new GreedyCrossover(gaConfig));
 		// Utilizar algún mecanismo para cargar los parámetros de un archivo de configuración.
-		gaConfig.addGeneticOperator(new SwappingMutationOperator(gaConfig,50));
+		JFigIF config = JFig.getInstance(locator);
+		int mutationRate = config.getIntegerValue("GAParameters", "crossoverRate", "0");
+		gaConfig.addGeneticOperator(new SwappingMutationOperator(gaConfig,mutationRate));
 	}
 	
 	/**
