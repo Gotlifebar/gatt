@@ -6,7 +6,7 @@ public class DomainObjectFactoryFacade {
 	DAOFactory factory;	
 	public void setDAOFactoryClass(String daoFactoryClass) 
 		throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-		factory = (DAOFactory) ClassLoader.getSystemClassLoader().loadClass(daoFactoryClass).newInstance();
+		factory = DAOFactory.getDAOFactory(daoFactoryClass);
 	}
 	
 	public Group getGroup(int id){
