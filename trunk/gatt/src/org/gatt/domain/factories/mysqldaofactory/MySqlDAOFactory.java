@@ -23,7 +23,6 @@ public class MySqlDAOFactory extends DAOFactory {
 	
 	private static Connection conn = null;
 	
-	// method to create Cloudscape connections
 	public static Connection getConnection() {
 		if(conn != null)
 			return conn;
@@ -38,7 +37,7 @@ public class MySqlDAOFactory extends DAOFactory {
 		    String pass = config.getValue("MySqlConnectionInfo", "PasswordConnection");
 			conn = DriverManager.getConnection(connUrl, name, pass);
 		}catch (SQLException sqlEx){
-			sqlEx.printStackTrace();						
+			sqlEx.printStackTrace();
 			return null;
 		}catch(JFigException jFigEx){
 			jFigEx.printStackTrace();						
