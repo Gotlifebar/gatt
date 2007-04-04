@@ -10,4 +10,9 @@ public class MySqlTeacherDAO implements TeacherDAO {
 		return null;
 	}
 
+	public int countTeachers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

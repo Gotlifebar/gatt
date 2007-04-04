@@ -3,4 +3,5 @@ import org.gatt.domain.*;
 
 public interface SessionDAO {
 	public Session findSession(int id);
+	public int countSessions();
 }

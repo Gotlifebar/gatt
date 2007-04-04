@@ -6,6 +6,11 @@ import java.sql.*;
 
 public class MySqlHourDAO implements HourDAO {
 
+	public int countHours() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	public Hour findHour(int id) {
 		// TODO Auto-generated method stub
 		return null;
