@@ -1,7 +1,23 @@
 package org.gatt.domain.factories.mysqldaofactory;
 
-import org.gatt.domain.factories.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import org.gatt.domain.factories.DAOFactory;
+import org.gatt.domain.factories.GroupDAO;
+import org.gatt.domain.factories.HourDAO;
+import org.gatt.domain.factories.MediaTypeDAO;
+import org.gatt.domain.factories.RoomDAO;
+import org.gatt.domain.factories.SessionDAO;
+import org.gatt.domain.factories.SubjectDAO;
+import org.gatt.domain.factories.TeacherDAO;
+import org.gatt.util.GattConfigLocator;
+import org.igfay.jfig.JFig;
+import org.igfay.jfig.JFigException;
+import org.igfay.jfig.JFigIF;
+import org.igfay.jfig.JFigLocatorIF;
+
 
 public class MySqlDAOFactory extends DAOFactory {
 	
@@ -11,17 +27,21 @@ public class MySqlDAOFactory extends DAOFactory {
 	public static Connection getConnection() {
 		if(conn != null)
 			return conn;
+		
+		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
+		JFigIF config = JFig.getInstance(locator);
+		
 		try{			
 		    DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
-//		  	TODO Change this to a loaded configuration property
-		    String connUrl = "jdbc:mysql://localhost/gatt";
-//		  	TODO Change this to a loaded configuration property
-		    String name = "gatt"; 
-//		  	TODO Change this to a loaded configuration property
-		    String pass = "gatt";
+		    String connUrl = config.getValue("MySqlConnectionInfo", "URLConnectionString");
+		    String name = config.getValue("MySqlConnectionInfo", "UserConnection"); 
+		    String pass = config.getValue("MySqlConnectionInfo", "PasswordConnection");
 			conn = DriverManager.getConnection(connUrl, name, pass);
-		}catch (Exception e){
-			e.printStackTrace();						
+		}catch (SQLException sqlEx){
+			sqlEx.printStackTrace();						
+			return null;
+		}catch(JFigException jFigEx){
+			jFigEx.printStackTrace();						
 			return null;
 		}
 		return conn;
