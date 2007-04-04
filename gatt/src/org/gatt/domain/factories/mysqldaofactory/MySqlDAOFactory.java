@@ -18,7 +18,6 @@ import org.igfay.jfig.JFigException;
 import org.igfay.jfig.JFigIF;
 import org.igfay.jfig.JFigLocatorIF;
 
-
 public class MySqlDAOFactory extends DAOFactory {
 	
 	private static Connection conn = null;
