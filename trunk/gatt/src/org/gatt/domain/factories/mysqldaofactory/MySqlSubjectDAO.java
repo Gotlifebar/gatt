@@ -21,7 +21,7 @@ public class MySqlSubjectDAO implements SubjectDAO {
 			s.setName(r.getString("name"));
 			s.setProgram(r.getInt("program"));
 			s.setSemester(r.getInt("semester"));
-			ps.close();			
+			ps.close();
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
