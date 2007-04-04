@@ -1,0 +1,18 @@
+# DEFAULT CACHE REGION   
+
+jcs.default=
+jcs.default.cacheattributes=org.apache.jcs.engine.CompositeCacheAttributes
+jcs.default.cacheattributes.MaxObjects=1000
+jcs.default.cacheattributes.MemoryCacheName=org.apache.jcs.engine.memory.lru.LRUMemoryCache
+
+# PRE-DEFINED CACHE REGION
+jcs.region.subjects=DC
+jcs.region.subjects.cacheattributes=org.apache.jcs.engine.CompositeCacheAttributes
+jcs.region.subjects.cacheattributes.MaxObjects=1000
+jcs.region.subjects.cacheattributes.MemoryCacheName=org.apache.jcs.engine.memory.lru.LRUMemoryCache
+jcs.region.subjects.cacheattributes.UseMemoryShrinker=true
+jcs.region.subjects.cacheattributes.MaxMemoryIdleTimeSeconds=3600
+jcs.region.subjects.cacheattributes.ShrinkerIntervalSeconds=60
+jcs.region.subjects.cacheattributes.MaxSpoolPerRun=500
+jcs.region.subjects.elementattributes=org.apache.jcs.engine.ElementAttributes
+jcs.region.subjects.elementattributes.IsEternal=false        
