@@ -3,4 +3,5 @@ import org.gatt.domain.*;
 
 public interface GroupDAO {
 	public Group findGroup(int id);
+	public int countGroups();
 }

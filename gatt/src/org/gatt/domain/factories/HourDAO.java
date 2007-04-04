@@ -3,4 +3,5 @@ import org.gatt.domain.*;
 
 public interface HourDAO {
 	public Hour findHour(int id);
+	public int countHours();
 }

@@ -4,6 +4,11 @@ import org.gatt.domain.Subject;
 import org.gatt.domain.factories.SubjectDAO;
 import java.sql.*;
 public class MySqlSubjectDAO implements SubjectDAO {
+	public int countSubjects() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	public Subject findSubject(int id) {
 		Connection c = MySqlDAOFactory.getConnection();
 		Subject s = null;

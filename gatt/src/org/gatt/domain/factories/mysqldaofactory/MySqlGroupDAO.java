@@ -11,4 +11,9 @@ public class MySqlGroupDAO implements GroupDAO {
 		return null;
 	}
 
+	public int countGroups() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }
