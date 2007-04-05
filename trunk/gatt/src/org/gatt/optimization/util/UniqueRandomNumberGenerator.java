@@ -16,7 +16,7 @@ public class UniqueRandomNumberGenerator {
 		uniqueNumbersLeft = highBound - lowBound;
 		numbers = new int[uniqueNumbersLeft];
 		for(int i = lowBound; i < highBound; i++)
-			numbers[i] = i;
+			numbers[i - lowBound] = i;
 	}
 	public int nextRandom(){
 		//1. Generate a random position between 0 and uniqueNumbersLeft
