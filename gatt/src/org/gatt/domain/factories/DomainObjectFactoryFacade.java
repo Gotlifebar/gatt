@@ -59,7 +59,9 @@ public class DomainObjectFactoryFacade {
 			e.printStackTrace();
 			return;
 		}
-		Subject s = doff.getSubject(1);
-		System.out.println(s.getName());
+		int count = doff.getSubjectsCount();
+		System.out.println(count);
+		//Subject s = doff.getSubject(1);
+		//System.out.println(s.getName());
 	}
 }
