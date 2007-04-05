@@ -166,7 +166,7 @@ public class OptimizationFacade {
 		
 		try {
 			for (int i = 0; i < genes.length; i++) {
-				genes[i] = new IntegerGene(this.getConfiguration(),lowBound,numberOfGroups);
+				genes[i] = new IntegerGene(this.getConfiguration(),lowBound,numberOfGroups-1);
 				genes[i].setAllele(new Integer(rand.nextRandom()));
 			}
 			
