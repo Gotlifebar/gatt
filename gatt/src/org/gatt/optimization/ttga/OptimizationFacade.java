@@ -86,6 +86,7 @@ public class OptimizationFacade {
 			return;
 		}
 		evolutionThread = new Thread(genotype);
+		final int numEvolutions = 1000;
 		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT, new GeneticEventListener() {
 			public void geneticEventFired(GeneticEvent a_firedEvent) {
 				Genotype genotype = (Genotype) a_firedEvent.getSource();
@@ -98,14 +99,14 @@ public class OptimizationFacade {
 		        if (evno > numEvolutions) {
 		          evolutionThread.stop();
 		        }
-		        else {
+		      /*  else {
 		          try {
 		            evolutionThread.sleep( (j + 1) * 3);
 		          } catch (InterruptedException iex) {
 		            iex.printStackTrace();
 		            System.exit(1);
 		          }
-		        }
+		        }*/
 		      }
 		    });
 		evolutionThread.run();
@@ -178,6 +179,7 @@ public class OptimizationFacade {
 		gaConfig.setChromosomePool(new ChromosomePool());
 		gaConfig.setPreservFittestIndividual(true);
 		int populationSize = config.getIntegerValue("GAParamaters", "PopulationSize", "0");
+		System.out.println(populationSize);
 		gaConfig.setPopulationSize(populationSize);
 		gaConfig.addGeneticOperator(new GreedyCrossover(gaConfig));
 		int mutationRate = config.getIntegerValue("GAParameters", "MutationRate", "0");
