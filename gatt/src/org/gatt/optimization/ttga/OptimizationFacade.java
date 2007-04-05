@@ -178,7 +178,7 @@ public class OptimizationFacade {
 		gaConfig.setFitnessEvaluator(new DefaultFitnessEvaluator());
 		gaConfig.setChromosomePool(new ChromosomePool());
 		gaConfig.setPreservFittestIndividual(true);
-		int populationSize = config.getIntegerValue("GAParamaters", "PopulationSize", "0");
+		int populationSize = config.getIntegerValue("GAParameters", "PopulationSize", "0");
 		System.out.println(populationSize);
 		gaConfig.setPopulationSize(populationSize);
 		gaConfig.addGeneticOperator(new GreedyCrossover(gaConfig));
