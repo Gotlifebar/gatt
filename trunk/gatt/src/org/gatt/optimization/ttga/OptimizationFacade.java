@@ -1,19 +1,23 @@
 package org.gatt.optimization.ttga;
 
+import org.gatt.domain.factories.DomainObjectFactoryFacade;
+import org.gatt.optimization.util.UniqueRandomNumberGenerator;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
-import org.igfay.jfig.JFigException;
 import org.igfay.jfig.JFigIF;
 import org.igfay.jfig.JFigLocatorIF;
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
 import org.jgap.DefaultFitnessEvaluator;
 import org.jgap.FitnessFunction;
+import org.jgap.Gene;
 import org.jgap.Genotype;
+import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.event.EventManager;
 import org.jgap.impl.BestChromosomesSelector;
 import org.jgap.impl.GreedyCrossover;
+import org.jgap.impl.IntegerGene;
 import org.jgap.impl.StockRandomGenerator;
 import org.jgap.impl.SwappingMutationOperator;
 
@@ -43,19 +47,13 @@ public class OptimizationFacade {
 	/**
 	 * 
 	 */
-	private static OptimizationFacade instance;
-	
-	/**
-	 * 
-	 */
-	private JFigLocatorIF locator;
+	private static OptimizationFacade instance; 
 	
 	/**
 	 * 
 	 *
 	 */
 	protected OptimizationFacade(){
-		locator = new GattConfigLocator("config.xml","config");
 	}
 	
 	/**
@@ -141,10 +139,40 @@ public class OptimizationFacade {
 		//config.setChromosomePool(new ChromosomePool());
 		gaConfig.setPreservFittestIndividual(true);
 		gaConfig.addGeneticOperator(new GreedyCrossover(gaConfig));
-		// Utilizar algún mecanismo para cargar los parámetros de un archivo de configuración.
+		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
 		JFigIF config = JFig.getInstance(locator);
-		int mutationRate = config.getIntegerValue("GAParameters", "crossoverRate", "0");
+		int mutationRate = config.getIntegerValue("GAParameters", "MutationRate", "0");
 		gaConfig.addGeneticOperator(new SwappingMutationOperator(gaConfig,mutationRate));
+	}
+	
+	private IChromosome createSampleChromosome(){
+		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
+		
+		int numberOfRooms = dofFacade.getRoomsCount();
+		int numberOfSessions = dofFacade.getSessionsCount();
+		int numberOfGroups = dofFacade.getGroupsCount();
+		
+		int genesArraySize = numberOfRooms*numberOfSessions;
+		Gene[] genes = new Gene[genesArraySize];
+		
+		int lowBound = numberOfGroups - genesArraySize;
+		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
+		
+		IChromosome sample = null;
+		
+		try {
+			for (int i = 0; i < genes.length; i++) {
+				genes[i] = new IntegerGene(this.getConfiguration(),lowBound,numberOfGroups);
+				genes[i].setAllele(new Integer(rand.nextRandom()));
+			}
+			
+			sample = new Chromosome(this.getConfiguration(),genes);
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return sample;
 	}
 	
 	/**
@@ -161,5 +189,9 @@ public class OptimizationFacade {
 	 */
 	private void saveSolution(){
 		
+	}
+
+	public Configuration getConfiguration() {
+		return gaConfig;
 	}
 }
