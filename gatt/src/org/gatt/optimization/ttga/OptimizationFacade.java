@@ -14,8 +14,10 @@ import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.Population;
 import org.jgap.event.EventManager;
 import org.jgap.impl.BestChromosomesSelector;
+import org.jgap.impl.ChromosomePool;
 import org.jgap.impl.GreedyCrossover;
 import org.jgap.impl.IntegerGene;
 import org.jgap.impl.StockRandomGenerator;
@@ -129,6 +131,9 @@ public class OptimizationFacade {
 	 *
 	 */
 	private void createConfiguration() throws InvalidConfigurationException{
+		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
+		JFigIF config = JFig.getInstance(locator);
+		
 		gaConfig = new Configuration();
 		BestChromosomesSelector bestChromsSelector = new BestChromosomesSelector(gaConfig,1.0d);
 		gaConfig.addNaturalSelector(bestChromsSelector,true);
@@ -136,11 +141,11 @@ public class OptimizationFacade {
 		gaConfig.setMinimumPopSizePercent(0);
 		gaConfig.setEventManager(new EventManager());
 		gaConfig.setFitnessEvaluator(new DefaultFitnessEvaluator());
-		//config.setChromosomePool(new ChromosomePool());
+		gaConfig.setChromosomePool(new ChromosomePool());
 		gaConfig.setPreservFittestIndividual(true);
+		int populationSize = config.getIntegerValue("GAParamaters", "PopulationSize", "0");
+		gaConfig.setPopulationSize(populationSize);
 		gaConfig.addGeneticOperator(new GreedyCrossover(gaConfig));
-		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
-		JFigIF config = JFig.getInstance(locator);
 		int mutationRate = config.getIntegerValue("GAParameters", "MutationRate", "0");
 		gaConfig.addGeneticOperator(new SwappingMutationOperator(gaConfig,mutationRate));
 	}
@@ -184,7 +189,42 @@ public class OptimizationFacade {
 	 *
 	 */
 	private void initPopulation(){
+		try {
+			this.createConfiguration();
+			FitnessFunction fitnessFunction = this.createFitnessFunction();
+			gaConfig.setFitnessFunction(fitnessFunction);
+			gaConfig.setSampleChromosome(this.createSampleChromosome());
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+			return;
+		}
 		
+		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
+
+		int numberOfRooms = dofFacade.getRoomsCount();
+		int numberOfSessions = dofFacade.getSessionsCount();
+		int numberOfGroups = dofFacade.getGroupsCount();
+		int genesArraySize = numberOfRooms*numberOfSessions;
+		int lowBound = numberOfGroups - genesArraySize;
+		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
+		
+		IChromosome[] chromosomes = new IChromosome[gaConfig.getPopulationSize()];
+		
+		try {
+			for (int i = 0; i < chromosomes.length; i++) {
+				Gene[] genes = new Gene[genesArraySize];
+				for (int j = 0; j < genes.length; j++) {
+					genes[j] = new IntegerGene(gaConfig,lowBound,numberOfGroups-1);
+					genes[j].setAllele(new Integer(rand.nextRandom()));
+				}
+				chromosomes[i] = new Chromosome(gaConfig,genes);
+			}
+			
+			genotype = new Genotype(gaConfig, new Population(gaConfig,chromosomes));
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+			return;
+		}
 	}
 	
 	/**
