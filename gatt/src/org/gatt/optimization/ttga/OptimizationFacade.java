@@ -145,6 +145,10 @@ public class OptimizationFacade {
 		gaConfig.addGeneticOperator(new SwappingMutationOperator(gaConfig,mutationRate));
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private IChromosome createSampleChromosome(){
 		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
 		
