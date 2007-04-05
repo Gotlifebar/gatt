@@ -74,6 +74,15 @@ public class OptimizationFacade {
 	 *
 	 */
 	public void optimize(){
+		try {
+			this.createConfiguration();
+			FitnessFunction fitnessFunction = this.createFitnessFunction();
+			gaConfig.setFitnessFunction(fitnessFunction);
+			gaConfig.setSampleChromosome(this.createSampleChromosome());
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+			return;
+		}
 		evolutionThread = new Thread(genotype);
 		evolutionThread.run();
 	}
@@ -124,7 +133,7 @@ public class OptimizationFacade {
 	 * @return
 	 */
 	private FitnessFunction createFitnessFunction(){
-		return new TTFitnessFunction();
+		return new OrderFitnessFunction();
 	}
 	
 	/**
@@ -158,9 +167,9 @@ public class OptimizationFacade {
 	private IChromosome createSampleChromosome(){
 		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
 		
-		int numberOfRooms = dofFacade.getRoomsCount();
-		int numberOfSessions = dofFacade.getSessionsCount();
-		int numberOfGroups = dofFacade.getGroupsCount();
+		int numberOfRooms = 50;//dofFacade.getRoomsCount();
+		int numberOfSessions = 60;//dofFacade.getSessionsCount();
+		int numberOfGroups = 2000;//dofFacade.getGroupsCount();
 		
 		int genesArraySize = numberOfRooms*numberOfSessions;
 		Gene[] genes = new Gene[genesArraySize];
@@ -189,22 +198,13 @@ public class OptimizationFacade {
 	 * 
 	 *
 	 */
-	private void initPopulation(){
-		try {
-			this.createConfiguration();
-			FitnessFunction fitnessFunction = this.createFitnessFunction();
-			gaConfig.setFitnessFunction(fitnessFunction);
-			gaConfig.setSampleChromosome(this.createSampleChromosome());
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-			return;
-		}
+	private void initPopulation(){		
 		
 		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
 
-		int numberOfRooms = dofFacade.getRoomsCount();
-		int numberOfSessions = dofFacade.getSessionsCount();
-		int numberOfGroups = dofFacade.getGroupsCount();
+		int numberOfRooms = 50;//dofFacade.getRoomsCount();
+		int numberOfSessions = 60;//dofFacade.getSessionsCount();
+		int numberOfGroups = 2000;//dofFacade.getGroupsCount();
 		int genesArraySize = numberOfRooms*numberOfSessions;
 		int lowBound = numberOfGroups - genesArraySize;
 		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
@@ -238,5 +238,10 @@ public class OptimizationFacade {
 
 	public Configuration getConfiguration() {
 		return gaConfig;
+	}
+	public static void main(String ar[]){
+		OptimizationFacade of = OptimizationFacade.getInstance();
+		//of.createConfiguration();
+		of.optimize();
 	}
 }
