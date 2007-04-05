@@ -75,6 +75,7 @@ public class OptimizationFacade {
 	 */
 	public void optimize(){
 		evolutionThread = new Thread(genotype);
+		evolutionThread.run();
 	}
 	
 	/**
