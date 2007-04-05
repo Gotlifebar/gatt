@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<section name="GAParameters">
-		<entry key="Population" value="500"/>
+		<entry key="PopulationSize" value="500"/>
 		<entry key="CrossoverRate" value="0.8"/>
 		<entry key="MutationRate" value="20"/>
 	</section>
