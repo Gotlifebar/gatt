@@ -5,8 +5,17 @@ import org.gatt.domain.factories.SubjectDAO;
 import java.sql.*;
 public class MySqlSubjectDAO implements SubjectDAO {
 	public int countSubjects() {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection c = MySqlDAOFactory.getConnection();		
+		try{			
+			PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) AS total FROM tbl_Subject");			
+			ResultSet r = ps.executeQuery();			
+			if( !r.next() )
+				return -1;
+			return r.getInt("total");			
+		}catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 	public Subject findSubject(int id) {
