@@ -16,6 +16,8 @@ import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.Population;
 import org.jgap.event.EventManager;
+import org.jgap.event.GeneticEvent;
+import org.jgap.event.GeneticEventListener;
 import org.jgap.impl.BestChromosomesSelector;
 import org.jgap.impl.ChromosomePool;
 import org.jgap.impl.GreedyCrossover;
@@ -84,6 +86,28 @@ public class OptimizationFacade {
 			return;
 		}
 		evolutionThread = new Thread(genotype);
+		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT, new GeneticEventListener() {
+			public void geneticEventFired(GeneticEvent a_firedEvent) {
+				Genotype genotype = (Genotype) a_firedEvent.getSource();
+		        int evno = genotype.getConfiguration().getGenerationNr();
+		        if (evno % 10 == 0) {
+		          double bestFitness = genotype.getFittestChromosome().getFitnessValue();
+		          System.out.println(evolutionThread.getName() + ": Evolving generation " + evno
+		                             + ", best fitness: " + bestFitness);
+		        }
+		        if (evno > numEvolutions) {
+		          evolutionThread.stop();
+		        }
+		        else {
+		          try {
+		            evolutionThread.sleep( (j + 1) * 3);
+		          } catch (InterruptedException iex) {
+		            iex.printStackTrace();
+		            System.exit(1);
+		          }
+		        }
+		      }
+		    });
 		evolutionThread.run();
 	}
 	
