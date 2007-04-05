@@ -12,6 +12,12 @@ public class UniqueRandomNumberGenerator {
 			numbers[i] = i;
 		uniqueNumbersLeft = totalRandomNumbers;
 	}
+	public UniqueRandomNumberGenerator(int lowBound, int highBound){
+		uniqueNumbersLeft = highBound - lowBound;
+		numbers = new int[uniqueNumbersLeft];
+		for(int i = lowBound; i < highBound; i++)
+			numbers[i] = i;
+	}
 	public int nextRandom(){
 		//1. Generate a random position between 0 and uniqueNumbersLeft
 		int position = (int) (Math.random() * uniqueNumbersLeft);
