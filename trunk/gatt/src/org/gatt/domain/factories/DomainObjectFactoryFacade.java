@@ -3,7 +3,20 @@ import org.gatt.domain.*;
 
 public class DomainObjectFactoryFacade {
 	
-	DAOFactory factory;	
+	//Singleton Implementation
+	private static DomainObjectFactoryFacade instance = null;
+	public static DomainObjectFactoryFacade getInstance(){
+		if( instance == null )
+			instance = new DomainObjectFactoryFacade();
+		return instance;
+	}
+	private DomainObjectFactoryFacade(){
+		
+	}
+	
+	
+	
+	private DAOFactory factory;	
 	public void setDAOFactoryClass(String daoFactoryClass) 
 		throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 		factory = DAOFactory.getDAOFactory(daoFactoryClass);
