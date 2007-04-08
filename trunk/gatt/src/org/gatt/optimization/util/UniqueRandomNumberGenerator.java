@@ -19,6 +19,10 @@ public class UniqueRandomNumberGenerator {
 			numbers[i - lowBound] = i;
 	}
 	public int nextRandom(){
+		//------- This step is for iterative calls ---------
+		//0. If the uniqueNumbersLeft is 0, start again
+		if( uniqueNumbersLeft == 0 )
+			uniqueNumbersLeft = numbers.length;
 		//1. Generate a random position between 0 and uniqueNumbersLeft
 		int position = (int) (Math.random() * uniqueNumbersLeft);
 		//2. Decrement the uniqueNumbers left by one
