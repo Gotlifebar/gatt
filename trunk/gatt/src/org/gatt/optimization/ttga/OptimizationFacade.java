@@ -76,6 +76,7 @@ public class OptimizationFacade {
 	 *
 	 */
 	public void optimize(){
+		System.out.println("Initializating...");
 		try {
 			this.createConfiguration();
 			FitnessFunction fitnessFunction = this.createFitnessFunction();
@@ -85,12 +86,14 @@ public class OptimizationFacade {
 			e.printStackTrace();
 			return;
 		}
+		this.initPopulation();
 		evolutionThread = new Thread(genotype);
 		final int numEvolutions = 1000;
 		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT, new GeneticEventListener() {
 			public void geneticEventFired(GeneticEvent a_firedEvent) {
 				Genotype genotype = (Genotype) a_firedEvent.getSource();
 		        int evno = genotype.getConfiguration().getGenerationNr();
+		        System.out.println("Evolution:"+evno);
 		        if (evno % 10 == 0) {
 		          double bestFitness = genotype.getFittestChromosome().getFitnessValue();
 		          System.out.println(evolutionThread.getName() + ": Evolving generation " + evno
@@ -109,7 +112,7 @@ public class OptimizationFacade {
 		        }*/
 		      }
 		    });
-		evolutionThread.run();
+		evolutionThread.start();
 	}
 	
 	/**
@@ -269,5 +272,6 @@ public class OptimizationFacade {
 		OptimizationFacade of = OptimizationFacade.getInstance();
 		//of.createConfiguration();
 		of.optimize();
+		Thread.yield();
 	}
 }
