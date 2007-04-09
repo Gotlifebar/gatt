@@ -196,9 +196,9 @@ public class OptimizationFacade {
 	private IChromosome createSampleChromosome(){
 		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
 		
-		int numberOfRooms = 50;//dofFacade.getRoomsCount();
-		int numberOfSessions = 60;//dofFacade.getSessionsCount();
-		int numberOfGroups = 2000;//dofFacade.getGroupsCount();
+		int numberOfRooms = 3;//dofFacade.getRoomsCount();
+		int numberOfSessions = 4;//dofFacade.getSessionsCount();
+		int numberOfGroups = 10;//dofFacade.getGroupsCount();
 		
 		int genesArraySize = numberOfRooms*numberOfSessions;
 		Gene[] genes = new Gene[genesArraySize];
@@ -231,9 +231,9 @@ public class OptimizationFacade {
 		
 		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
 
-		int numberOfRooms = 50;//dofFacade.getRoomsCount();
-		int numberOfSessions = 60;//dofFacade.getSessionsCount();
-		int numberOfGroups = 2000;//dofFacade.getGroupsCount();
+		int numberOfRooms = 3;//dofFacade.getRoomsCount();
+		int numberOfSessions = 4;//dofFacade.getSessionsCount();
+		int numberOfGroups = 10;//dofFacade.getGroupsCount();
 		int genesArraySize = numberOfRooms*numberOfSessions;
 		int lowBound = numberOfGroups - genesArraySize;
 		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
@@ -248,6 +248,11 @@ public class OptimizationFacade {
 					genes[j].setAllele(new Integer(rand.nextRandom()));
 				}
 				chromosomes[i] = new Chromosome(gaConfig,genes);
+				System.out.print("Chromosome " + i + ": ");
+				for (int j = 0; j < genes.length; j++) {
+					System.out.print(genes[j].getAllele() + " ");
+				}
+				System.out.println();
 			}
 			
 			genotype = new Genotype(gaConfig, new Population(gaConfig,chromosomes));
