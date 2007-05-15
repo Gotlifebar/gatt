@@ -3,7 +3,7 @@ package org.gatt.optimization.util;
 public class ImpShuffler implements Shuffler {
 
 	@Override
-	public void shuffle(Object[] arr) {
+	public void shuffle(final Object[] arr) {
 		int n = arr.length;
 		int rPos = 0;
 		Object tmp;
