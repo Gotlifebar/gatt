@@ -5,6 +5,7 @@ public class DomainObjectFactoryFacade {
 	
 	//Singleton Implementation
 	private static DomainObjectFactoryFacade instance = null;
+	private DAOFactory factory;
 	public static DomainObjectFactoryFacade getInstance(){
 		if( instance == null )
 			instance = new DomainObjectFactoryFacade();
@@ -12,11 +13,7 @@ public class DomainObjectFactoryFacade {
 	}
 	private DomainObjectFactoryFacade(){
 		
-	}
-	
-	
-	
-	private DAOFactory factory;	
+	}	
 	public void setDAOFactoryClass(String daoFactoryClass) 
 		throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 		factory = DAOFactory.getDAOFactory(daoFactoryClass);
