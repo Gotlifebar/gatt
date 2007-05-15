@@ -1,6 +1,8 @@
 package org.gatt.optimization.ttga;
 
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
+import org.gatt.optimization.util.ImpShuffler;
+import org.gatt.optimization.util.Shuffler;
 import org.gatt.optimization.util.UniqueRandomNumberGenerator;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
@@ -194,33 +196,32 @@ public class OptimizationFacade {
 	 * @return
 	 */
 	private IChromosome createSampleChromosome(){
-		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
+		//DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
 		
-		int numberOfRooms = 3;//dofFacade.getRoomsCount();
-		int numberOfSessions = 4;//dofFacade.getSessionsCount();
-		int numberOfGroups = 10;//dofFacade.getGroupsCount();
+		int numberOfRooms = 2;//dofFacade.getRoomsCount();
+		int numberOfSessions = 5;//dofFacade.getSessionsCount();
+		int numberOfGroups = 8;//dofFacade.getGroupsCount();
 		
 		int genesArraySize = numberOfRooms*numberOfSessions;
-		Gene[] genes = new Gene[genesArraySize];
 		
 		int lowBound = numberOfGroups - genesArraySize;
 		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
 		
-		IChromosome sample = null;
-		
 		try {
+			Gene[] genes = new Gene[genesArraySize];
+			
 			for (int i = 0; i < genes.length; i++) {
-				genes[i] = new IntegerGene(this.getConfiguration(),lowBound,numberOfGroups-1);
+				genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfGroups-1);
 				genes[i].setAllele(new Integer(rand.nextRandom()));
 			}
 			
-			sample = new Chromosome(this.getConfiguration(),genes);
+			IChromosome sample = new Chromosome(getConfiguration(),genes);
+				
+			return sample;
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
 			return null;
 		}
-		
-		return sample;
 	}
 	
 	/**
@@ -229,30 +230,30 @@ public class OptimizationFacade {
 	 */
 	private void initPopulation(){		
 		
-		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
-
-		int numberOfRooms = 3;//dofFacade.getRoomsCount();
-		int numberOfSessions = 4;//dofFacade.getSessionsCount();
-		int numberOfGroups = 10;//dofFacade.getGroupsCount();
-		int genesArraySize = numberOfRooms*numberOfSessions;
-		int lowBound = numberOfGroups - genesArraySize;
-		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
+		IChromosome sampleChromosome = gaConfig.getSampleChromosome();
 		
 		IChromosome[] chromosomes = new IChromosome[gaConfig.getPopulationSize()];
 		
+		Shuffler shuffler = new ImpShuffler();
+		
 		try {
+			Gene[] sampleGenes = sampleChromosome.getGenes(); 
 			for (int i = 0; i < chromosomes.length; i++) {
-				Gene[] genes = new Gene[genesArraySize];
+				Gene[] genes = new Gene[sampleGenes.length];
 				for (int j = 0; j < genes.length; j++) {
-					genes[j] = new IntegerGene(gaConfig,lowBound,numberOfGroups-1);
-					genes[j].setAllele(new Integer(rand.nextRandom()));
+					genes[j] = sampleGenes[j].newGene();
+					genes[j].setAllele(sampleGenes[j].getAllele());
 				}
+				shuffler.shuffle(genes);
 				chromosomes[i] = new Chromosome(gaConfig,genes);
-				System.out.print("Chromosome " + i + ": ");
+			}
+			
+			for (int i = 0; i < chromosomes.length; i++) {
+				Gene[] genes = chromosomes[i].getGenes();
+				System.out.print("\nChromosome "+(i+1)+": ");
 				for (int j = 0; j < genes.length; j++) {
 					System.out.print(genes[j].getAllele() + " ");
 				}
-				System.out.println();
 			}
 			
 			genotype = new Genotype(gaConfig, new Population(gaConfig,chromosomes));
