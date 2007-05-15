@@ -48,7 +48,7 @@ public class OptimizationFacade {
 	/**
 	 * 
 	 */
-	private Thread evolutionThread;
+	private volatile Thread evolutionThread;
 	
 	/**
 	 * 
@@ -79,30 +79,38 @@ public class OptimizationFacade {
 	 */
 	public void optimize(){
 		System.out.println("Initializating...");
+		
 		try {
-			this.createConfiguration();
-			FitnessFunction fitnessFunction = this.createFitnessFunction();
+			gaConfig = createConfiguration();
+			
+			FitnessFunction fitnessFunction = createFitnessFunction();
 			gaConfig.setFitnessFunction(fitnessFunction);
-			gaConfig.setSampleChromosome(this.createSampleChromosome());
+			
+			IChromosome sampleChromosome = createSampleChromosome(); 
+			gaConfig.setSampleChromosome(sampleChromosome);
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
 			return;
 		}
-		this.initPopulation();
+		
+		genotype = initPopulation();
+		
 		evolutionThread = new Thread(genotype);
 		final int numEvolutions = 1000;
+		
 		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT, new GeneticEventListener() {
 			public void geneticEventFired(GeneticEvent a_firedEvent) {
 				Genotype genotype = (Genotype) a_firedEvent.getSource();
 		        int evno = genotype.getConfiguration().getGenerationNr();
 		        System.out.println("Evolution:"+evno);
+		        
 		        if (evno % 10 == 0) {
 		          double bestFitness = genotype.getFittestChromosome().getFitnessValue();
 		          System.out.println(evolutionThread.getName() + ": Evolving generation " + evno
 		                             + ", best fitness: " + bestFitness);
 		        }
 		        if (evno > numEvolutions) {
-		          evolutionThread.stop();
+		        	evolutionThread = null;
 		        }
 		      /*  else {
 		          try {
@@ -155,7 +163,7 @@ public class OptimizationFacade {
 	 *
 	 */
 	public void stopOptimization(){
-		
+		evolutionThread = null;
 	}
 	
 	/**
@@ -170,25 +178,30 @@ public class OptimizationFacade {
 	 * 
 	 *
 	 */
-	private void createConfiguration() throws InvalidConfigurationException{
+	private Configuration createConfiguration() throws InvalidConfigurationException{
 		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
 		JFigIF config = JFig.getInstance(locator);
 		
-		gaConfig = new Configuration();
-		BestChromosomesSelector bestChromsSelector = new BestChromosomesSelector(gaConfig,1.0d);
-		gaConfig.addNaturalSelector(bestChromsSelector,true);
-		gaConfig.setRandomGenerator(new StockRandomGenerator());
-		gaConfig.setMinimumPopSizePercent(0);
-		gaConfig.setEventManager(new EventManager());
-		gaConfig.setFitnessEvaluator(new DefaultFitnessEvaluator());
-		gaConfig.setChromosomePool(new ChromosomePool());
-		gaConfig.setPreservFittestIndividual(true);
+		Configuration configuration = new Configuration();
+		BestChromosomesSelector bestChromsSelector = new BestChromosomesSelector(configuration,1.0d);
+		configuration.addNaturalSelector(bestChromsSelector,true);
+		configuration.setRandomGenerator(new StockRandomGenerator());
+		configuration.setMinimumPopSizePercent(0);
+		configuration.setEventManager(new EventManager());
+		configuration.setFitnessEvaluator(new DefaultFitnessEvaluator());
+		configuration.setChromosomePool(new ChromosomePool());
+		configuration.setPreservFittestIndividual(true);
 		int populationSize = config.getIntegerValue("GAParameters", "PopulationSize", "0");
 		System.out.println(populationSize);
-		gaConfig.setPopulationSize(populationSize);
-		gaConfig.addGeneticOperator(new GreedyCrossover(gaConfig));
+		configuration.setPopulationSize(populationSize);
+		
+		GreedyCrossover cross = new GreedyCrossover(configuration);
+		
+		configuration.addGeneticOperator(new GreedyCrossover(configuration));
 		int mutationRate = config.getIntegerValue("GAParameters", "MutationRate", "0");
-		gaConfig.addGeneticOperator(new SwappingMutationOperator(gaConfig,mutationRate));
+		configuration.addGeneticOperator(new SwappingMutationOperator(configuration,mutationRate));
+		
+		return configuration;
 	}
 	
 	/**
@@ -228,7 +241,7 @@ public class OptimizationFacade {
 	 * 
 	 *
 	 */
-	private void initPopulation(){		
+	private Genotype initPopulation(){		
 		
 		IChromosome sampleChromosome = gaConfig.getSampleChromosome();
 		
@@ -245,7 +258,7 @@ public class OptimizationFacade {
 					genes[j].setAllele(sampleGenes[j].getAllele());
 				}
 				shuffler.shuffle(genes);
-				chromosomes[i] = new Chromosome(gaConfig,genes);
+				chromosomes[i] = new Chromosome(getConfiguration(),genes);
 			}
 			
 			for (int i = 0; i < chromosomes.length; i++) {
@@ -256,11 +269,14 @@ public class OptimizationFacade {
 				}
 			}
 			
-			genotype = new Genotype(gaConfig, new Population(gaConfig,chromosomes));
+			Genotype geno = new Genotype(getConfiguration(), new Population(getConfiguration(),chromosomes));
+			
+			return geno;
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
-			return;
+			return null;
 		}
+		
 	}
 	
 	/**
