@@ -111,6 +111,7 @@ public class OptimizationFacade {
 		        }
 		        if (evno > numEvolutions) {
 		        	System.out.println(genotype.getFittestChromosome().toString());
+		        	System.out.println("OCURRIÓ LA ULTIMA EVOLUCIÓN");
 		        	evolutionThread = null;
 		        }
 		      /*  else {
