@@ -110,6 +110,7 @@ public class OptimizationFacade {
 		                             + ", best fitness: " + bestFitness);
 		        }
 		        if (evno > numEvolutions) {
+		        	System.out.println(genotype.getFittestChromosome().toString());
 		        	evolutionThread = null;
 		        }
 		      /*  else {
