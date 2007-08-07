@@ -1,5 +1,6 @@
 package org.gatt.constraint.io;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import org.gatt.constraint.ConstraintInfo;
@@ -12,7 +13,7 @@ import org.xml.sax.helpers.LocatorImpl;
 
 
 public class ConstraintRepositoryContentHandler extends DefaultHandler {	
-	private Vector<ConstraintInfo> constraints;	
+	private HashMap<String,ConstraintInfo> constraints;	
 	private ConstraintInfo cInfo;
 	private Locator locator;
 	private int currentTag;
@@ -47,7 +48,7 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 	}
 	
 	public void startDocument() throws SAXException {
-		constraints = new Vector<ConstraintInfo>();
+		constraints = new HashMap<String, ConstraintInfo>();
 		currentTag = TAG_UNDEFINED;
 	}
 
@@ -86,11 +87,12 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		switch(currentTag = obtainTag(localName)){
 			case TAG_CONSTRAINT:
-				constraints.add(cInfo);
+				constraints.put(cInfo.getId(), cInfo);
+				//constraints.add(cInfo);
 				break;
 		}
 	}
-	public Vector<ConstraintInfo> getConstraints(){
+	public HashMap<String, ConstraintInfo> getConstraints(){
 		return constraints;
 	}
 

@@ -13,27 +13,34 @@ import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
 
 public class ConstraintSourceGenerator {
 	private ConstraintInfo cInfo;
-	public static final String DEFAULT_OUTPUT_PACKAGE = "org.gatt.constraint.generated";
-	public static final String CONSTRAINT_PACKAGE = "org.gatt.constraint.*";
-	public static final String DOMAIN_PACKAGE = "org.gatt.domain.*";
+	public static final String CLASS_NAME_PREFIX = "Constraint_";
+	public static final String DEFAULT_OUTPUT_PACKAGE = "org.gatt.constraint.implemented";
+	public static final String CONSTRAINT_PACKAGE = "org.gatt.constraint";
+	public static final String DOMAIN_PACKAGE = "org.gatt.domain";
 	
 	private final String NL = System.getProperties().getProperty("line.separator");
 	
 	public ConstraintSourceGenerator(ConstraintInfo cInfo){
 		this.cInfo = cInfo;
 	}
-	public String generate(){
+	public static String getGeneratedClassName(ConstraintInfo cInfo){	
+		return CONSTRAINT_PACKAGE + "." + CLASS_NAME_PREFIX + cInfo.getId();
+	}
+	public static String getSimpleGeneratedClassName(ConstraintInfo cInfo){	
+		return CLASS_NAME_PREFIX + cInfo.getId();
+	}
+	public String getClassSourceCode(){
 		StringBuffer buf = new StringBuffer();
 		buf.append("package " + DEFAULT_OUTPUT_PACKAGE + ";" + NL + NL);
-		buf.append("import " + DOMAIN_PACKAGE + ";" + NL);
-		buf.append("import " + CONSTRAINT_PACKAGE + ";" + NL + NL );
-		buf.append("public class Constraint_" + cInfo.getId() + " implements Constraint{" + NL);
+		buf.append("import " + DOMAIN_PACKAGE + ".*;" + NL);
+		buf.append("import " + CONSTRAINT_PACKAGE + ".*;" + NL + NL );
+		buf.append("public class " + getSimpleGeneratedClassName(cInfo) + " implements Constraint{" + NL);
 		buf.append("\tpublic ConstraintValue evaluate(Session[] session){" + NL );
 		//buf.append("\t\tfor(int i = 0; i < session.length; i++){" + NL);
 		buf.append(cInfo.getStrategyCodeImplementation());
 		buf.append("\t}" + NL + "}");
 		return buf.toString();
-	}	
+	}
 	public static void main(String[] ar){
 		StringComparableOperand compOperand1 = new StringComparableOperand("chucho", "Value1", "cosa1");
 		StringComparableOperand compOperand2 = new StringComparableOperand("iValue2", "Value2", "cosa2");
@@ -45,6 +52,6 @@ public class ConstraintSourceGenerator {
 		cInfo.setId("myId");
 		cInfo.setStrategyCodeImplementation(conditional.getJavaString());
 		ConstraintSourceGenerator gen = new ConstraintSourceGenerator(cInfo);
-		System.out.println(gen.generate());
+		System.out.println(gen.getClassSourceCode());
 	}
 }
