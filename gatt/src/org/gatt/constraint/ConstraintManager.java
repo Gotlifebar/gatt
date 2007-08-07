@@ -1,9 +1,10 @@
 package org.gatt.constraint;
 
-import java.util.Collection;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.gatt.constraint.compiler.ConstraintCompiler;
 import org.gatt.constraint.compiler.generator.ConstraintSourceGenerator;
 import org.gatt.constraint.io.XMLConstraintRepository;
 
@@ -29,15 +30,27 @@ public class ConstraintManager {
 		return compiledConstraints.iterator();
 	}
 	
-	private void compileConstraints(){
+	private boolean compileConstraints(){
 		//Load all the constraints from the repository.
 		if( !repository.load() )
-			return;		
+			return false;		
 		Iterator<ConstraintInfo> definedConstraints = repository.getAllConstraints().iterator();
-		
-		//First check if it's already compiled.
-		
-		
+		ConstraintInfo cInfo;
+		ConstraintCompiler compiler = new ConstraintCompiler();
+		while( definedConstraints.hasNext() ){
+			cInfo = definedConstraints.next();
+			Constraint c = getCompiledConstraint(cInfo);
+			if( c == null ){
+				try {
+					if( !compiler.compileConstraint(cInfo) )
+						return false;
+				}catch(URISyntaxException e){
+					e.printStackTrace();
+				}
+			}
+			compiledConstraints.add(getCompiledConstraint(cInfo));
+		}
+		return true;
 	}
 	private Constraint getCompiledConstraint(ConstraintInfo cInfo){
 		String className = ConstraintSourceGenerator.getGeneratedClassName(cInfo);
