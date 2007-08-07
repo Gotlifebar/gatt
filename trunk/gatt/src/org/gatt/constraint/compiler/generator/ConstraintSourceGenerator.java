@@ -29,12 +29,11 @@ public class ConstraintSourceGenerator {
 		buf.append("import " + CONSTRAINT_PACKAGE + ";" + NL + NL );
 		buf.append("public class Constraint_" + cInfo.getId() + " implements Constraint{" + NL);
 		buf.append("\tpublic ConstraintValue evaluate(Session[] session){" + NL );
-		buf.append("\t\tfor(int i = 0; i < session.length; i++){" + NL);
+		//buf.append("\t\tfor(int i = 0; i < session.length; i++){" + NL);
 		buf.append(cInfo.getStrategyCodeImplementation());
 		buf.append("\t}" + NL + "}");
 		return buf.toString();
-	}
-	
+	}	
 	public static void main(String[] ar){
 		StringComparableOperand compOperand1 = new StringComparableOperand("chucho", "Value1", "cosa1");
 		StringComparableOperand compOperand2 = new StringComparableOperand("iValue2", "Value2", "cosa2");
