@@ -5,11 +5,11 @@ import java.util.Arrays;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
-import javax.tools.JavaCompilerTool;
+import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-import javax.tools.JavaCompilerTool.CompilationTask;
+import javax.tools.JavaCompiler.CompilationTask;
 
 import org.gatt.constraint.ConstraintInfo;
 import org.gatt.constraint.compiler.generator.ConstraintSourceGenerator;
@@ -23,11 +23,11 @@ public class ConstraintCompiler {
 	}
 	public boolean compileConstraint(ConstraintInfo cInfo) throws URISyntaxException{
 		//Get the compiler Tool
-		JavaCompilerTool compiler = ToolProvider.getSystemJavaCompilerTool();
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		//Construct a diagnostic Listener
 		DiagnosticListener<JavaFileObject> diagnosticsCollector = new ConstraintDiagnosticListener();
 		//Get a File Manager
-		StandardJavaFileManager fileManager  = compiler.getStandardFileManager(diagnosticsCollector);
+		StandardJavaFileManager fileManager  = compiler.getStandardFileManager(diagnosticsCollector, null, null);//compiler.getStandardFileManager(diagnosticsCollector);
 		//Generate the code for the class
 		JavaFileObject javaObjectFromString = getConstraintJavaImplementation(cInfo);
 		//Create a list of the files to compile
@@ -35,7 +35,7 @@ public class ConstraintCompiler {
 		//Create a compilation Task
 		CompilationTask task = compiler.getTask(null, fileManager, diagnosticsCollector, null, null, fileObjects);
 		//Execute the compilation task and return the result.
-		return task.getResult();		
+		return task.call();
 	}
 	
 	public ConstraintClassJavaImplementation getConstraintJavaImplementation(ConstraintInfo cInfo) throws URISyntaxException{
