@@ -18,16 +18,18 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 	private Locator locator;
 	private int currentTag;
 	
-	private static final int TAG_UNDEFINED = -1,							 
-							 TAG_CONSTRAINT = 0,
-							 TAG_DESCRIPTION = 1,							 
-							 TAG_IMPLEMENTATION = 2;
+	private static final int TAG_UNDEFINED = -1,
+							 TAG_CONSTRAINTS = 0,
+							 TAG_CONSTRAINT = 1,
+							 TAG_DESCRIPTION = 2,							 
+							 TAG_IMPLEMENTATION = 3;
 							 
 	
-	private  static String[] TAG_LABEL = {								
-								"Constraint",
-								"Description",								
-								"Implementation"								
+	private  static String[] TAG_LABEL = {
+								"constraints",
+								"constraint",
+								"cescription",								
+								"implementation"								
 							 };
 	
 	public ConstraintRepositoryContentHandler(){
@@ -37,7 +39,7 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 	
 	private static int obtainTag(String tag){
 		for(int i = 0; i < TAG_LABEL.length; i++)
-			if( TAG_LABEL[i].compareTo(tag) == 0 )
+			if( TAG_LABEL[i].compareToIgnoreCase(tag) == 0 )
 				return i;
 		return TAG_UNDEFINED;
 	}
