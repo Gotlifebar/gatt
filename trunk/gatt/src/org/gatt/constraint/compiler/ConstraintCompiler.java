@@ -40,8 +40,8 @@ public class ConstraintCompiler {
 	
 	public ConstraintClassJavaImplementation getConstraintJavaImplementation(ConstraintInfo cInfo) throws URISyntaxException{
 		//Generate the .java virtual file from the cInfo.
-		ConstraintSourceGenerator gen = new ConstraintSourceGenerator(cInfo);
-		return new ConstraintClassJavaImplementation(gen.getGeneratedClassName(), gen.getClassSourceCode());
+		ConstraintSourceGenerator gen = new ConstraintSourceGenerator(cInfo);		
+		return new ConstraintClassJavaImplementation(ConstraintSourceGenerator.getGeneratedClassName(cInfo), gen.getClassSourceCode());
 	}
 	
 	//This class is a listener of the problems.
