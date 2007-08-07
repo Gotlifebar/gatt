@@ -18,21 +18,16 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 	private Locator locator;
 	private int currentTag;
 	
-	private static final int TAG_UNDEFINED = -1,
-							 TAG_CONSTRAINTS = 0,
-							 TAG_CONSTRAINT = 1,
-							 TAG_DESCRIPTION = 2,
-							 TAG_SIGNIFICANCE = 3,
-							 TAG_IMPLEMENTATION = 4,
-							 TAG_NAME = 5;
+	private static final int TAG_UNDEFINED = -1,							 
+							 TAG_CONSTRAINT = 0,
+							 TAG_DESCRIPTION = 1,							 
+							 TAG_IMPLEMENTATION = 2;
+							 
 	
-	private  static String[] TAG_LABEL = {
-								"Constraints",
+	private  static String[] TAG_LABEL = {								
 								"Constraint",
-								"Description",
-								"Significance",
-								"Implementation",
-								"Name"
+								"Description",								
+								"Implementation"								
 							 };
 	
 	public ConstraintRepositoryContentHandler(){
@@ -57,6 +52,12 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 			case TAG_CONSTRAINT:
 				cInfo = new ConstraintInfo();
 				cInfo.setId(attributes.getValue("id"));
+				try{
+					cInfo.setSignificance(Double.parseDouble(attributes.getValue("significance")));
+				}catch(NumberFormatException nfe){
+					throw new SAXParseException("Not valid Significance value",locator,nfe);
+				}
+				cInfo.setName(attributes.getValue("significance"));
 				break;
 		}
 	}
@@ -66,20 +67,10 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 		switch(currentTag){
 			case TAG_DESCRIPTION:
 				cInfo.setDescription(str);
-				break;
-			case TAG_SIGNIFICANCE:
-				try{
-					cInfo.setSignificance(Double.parseDouble(str));
-				}catch(NumberFormatException nfe){
-					throw new SAXParseException("Not valid Significance value",locator,nfe);
-				}
-				break;
+				break;			
 			case TAG_IMPLEMENTATION:
 				cInfo.setStrategyCodeImplementation(str);
-				break;
-			case TAG_NAME:
-				cInfo.setName(str);
-				break;
+				break;			
 		}
 	}	
 
