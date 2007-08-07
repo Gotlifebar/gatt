@@ -2,7 +2,9 @@ package org.gatt.constraint.io;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.Collection;
+import java.util.HashMap;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -14,7 +16,7 @@ import org.xml.sax.SAXException;
 //Represents a processed XML File that contains one or more Constraints
 public class XMLConstraintRepository{
 	private File file;
-	private Vector<ConstraintInfo> constraints;
+	private HashMap<String, ConstraintInfo> constraints;
 	
 	public XMLConstraintRepository(String fileName){
 		this.file = new File(fileName);
@@ -42,15 +44,18 @@ public class XMLConstraintRepository{
 		return true;
 	}
 	
-	public ConstraintInfo getConstraintByIndex(int index){
-		return constraints.elementAt(index);
+	public Collection<ConstraintInfo> getAllConstraints(){
+		return constraints.values();
+//		constraints.
+//		return constraints.elementAt(index);
 	}
-	public ConstraintInfo getConstraintById(String id){
+	/*public ConstraintInfo getConstraintById(String id){
+		return constraints.get(id);
 		for(ConstraintInfo c : constraints)
 			if( c.getId().compareTo(id) == 0)
 				return c;
 		return null;
-	}
+	}*/
 	
 	public void setFileName(String fileName){
 		this.file = new File(fileName);
