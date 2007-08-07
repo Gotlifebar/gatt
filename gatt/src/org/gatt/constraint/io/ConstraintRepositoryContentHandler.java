@@ -28,7 +28,7 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 	private  static String[] TAG_LABEL = {
 								"constraints",
 								"constraint",
-								"cescription",								
+								"description",								
 								"implementation"								
 							 };
 	
