@@ -20,6 +20,8 @@ import javax.swing.JTree;
 import javax.swing.border.TitledBorder;
 
 import org.freixas.jwizard.JWizardPanel;
+import org.gatt.ui.wizards.commands.CompTypeAttributeSelectedAction;
+import org.gatt.ui.wizards.commands.CompTypeConstantSelectedAction;
 
 public class CreateComparationPanel extends JWizardPanel {
 
@@ -69,7 +71,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JScrollPane	
 	 */
-	private JScrollPane getScrollTreeLeft() {
+	public JScrollPane getScrollTreeLeft() {
 		if (scrollTreeLeft == null) {
 			scrollTreeLeft = new JScrollPane();
 			scrollTreeLeft.setViewportView(getTreeLeft());
@@ -82,7 +84,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JTree	
 	 */
-	private JTree getTreeLeft() {
+	public JTree getTreeLeft() {
 		if (treeLeft == null) {
 			treeLeft = new JTree();
 		}
@@ -94,7 +96,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JScrollPane	
 	 */
-	private JScrollPane getScrollTreeRight() {
+	public JScrollPane getScrollTreeRight() {
 		if (scrollTreeRight == null) {
 			scrollTreeRight = new JScrollPane();
 			scrollTreeRight.setViewportView(getTreeRight());
@@ -107,7 +109,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JTree	
 	 */
-	private JTree getTreeRight() {
+	public JTree getTreeRight() {
 		if (treeRight == null) {
 			treeRight = new JTree();
 		}
@@ -119,7 +121,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JComboBox	
 	 */
-	private JComboBox getComboOperator() {
+	public JComboBox getComboOperator() {
 		if (comboOperator == null) {
 			comboOperator = new JComboBox();
 			comboOperator.setPreferredSize(new Dimension(120, 25));
@@ -132,10 +134,11 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JRadioButton	
 	 */
-	private JRadioButton getRadioConstant() {
+	public JRadioButton getRadioConstant() {
 		if (radioConstant == null) {
 			radioConstant = new JRadioButton();
 			radioConstant.setText("Valor constante");
+			radioConstant.addActionListener(new CompTypeConstantSelectedAction(this));
 		}
 		return radioConstant;
 	}
@@ -145,10 +148,12 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JRadioButton	
 	 */
-	private JRadioButton getRadioAttribute() {
+	public JRadioButton getRadioAttribute() {
 		if (radioAttribute == null) {
 			radioAttribute = new JRadioButton();
 			radioAttribute.setText("Atributo");
+			radioAttribute.setSelected(true);
+			radioAttribute.addActionListener(new CompTypeAttributeSelectedAction(this));
 		}
 		return radioAttribute;
 	}
@@ -158,10 +163,11 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTextFreeDomainValue() {
+	public JTextField getTextFreeDomainValue() {
 		if (textFreeDomainValue == null) {
 			textFreeDomainValue = new JTextField();
 			textFreeDomainValue.setPreferredSize(new Dimension(150, 30));
+			textFreeDomainValue.setEnabled(false);
 		}
 		return textFreeDomainValue;
 	}
@@ -171,7 +177,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getPVarLeft() {
+	public JPanel getPVarLeft() {
 		if (pVarLeft == null) {
 			GridBagConstraints gridBagConstraints = new GridBagConstraints();
 			gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -192,7 +198,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getPVarsRight() {
+	public JPanel getPVarsRight() {
 		if (pVarsRight == null) {
 			GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
 			gridBagConstraints1.fill = GridBagConstraints.BOTH;
@@ -213,7 +219,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getPOperator() {
+	public JPanel getPOperator() {
 		if (pOperator == null) {
 			GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
 			gridBagConstraints2.fill = GridBagConstraints.VERTICAL;
@@ -234,7 +240,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getPCompType() {
+	public JPanel getPCompType() {
 		if (pCompType == null) {
 			GridLayout gridLayout1 = new GridLayout();
 			gridLayout1.setRows(2);
@@ -264,7 +270,7 @@ public class CreateComparationPanel extends JWizardPanel {
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getPConstantVal() {
+	public JPanel getPConstantVal() {
 		if (pConstantVal == null) {
 			GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
 			gridBagConstraints3.fill = GridBagConstraints.VERTICAL;
