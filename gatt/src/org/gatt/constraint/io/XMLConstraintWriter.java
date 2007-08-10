@@ -11,6 +11,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.gatt.constraint.ConstraintInfo;
+import org.gatt.util.GattConfigLocator;
+import org.igfay.jfig.JFig;
+import org.igfay.jfig.JFigException;
+import org.igfay.jfig.JFigIF;
+import org.igfay.jfig.JFigLocatorIF;
 import org.jdom.CDATA;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -31,11 +36,28 @@ public class XMLConstraintWriter {
 	
 	public static XMLConstraintWriter instance;
 	private XMLOutputter outp;
+	private File file;
 	
 	
 	private XMLConstraintWriter(){
+		
+		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
+		JFigIF config = JFig.getInstance(locator);
+		
 		outp = new XMLOutputter();
 		outp.setFormat(Format.getPrettyFormat());
+		
+		URI uri = null;
+		try{
+			String sFile = config.getValue("XMLWriterInfo", "FilePath");
+			uri = getClass().getResource(sFile).toURI();
+		}catch(URISyntaxException uriEx){
+			uriEx.printStackTrace();
+		}catch(JFigException jFigEx){
+			jFigEx.printStackTrace();
+		}
+		
+		file = new File(uri);
 	}
 	
 	public static XMLConstraintWriter getInstance(){
@@ -45,7 +67,7 @@ public class XMLConstraintWriter {
 		return instance;
 	}
 	
-	public void write(File file, ConstraintInfo cInfo){
+	public void write(ConstraintInfo cInfo){
 		SAXBuilder builder = new SAXBuilder(); 
 		Document doc = null;
 		try{
@@ -77,6 +99,7 @@ public class XMLConstraintWriter {
 		try{
 			fos = new FileOutputStream(file);
 			outp.output(doc, fos);
+			fos.close();
 		}catch(FileNotFoundException fEx){
 			fEx.printStackTrace();
 		}
@@ -85,7 +108,7 @@ public class XMLConstraintWriter {
 		}
 	}
 	
-	public void write(File file, List<ConstraintInfo> constraints){
+	public void write(List<ConstraintInfo> constraints){
 		SAXBuilder builder = new SAXBuilder(); 
 		Document doc = null;
 		try{
@@ -125,6 +148,61 @@ public class XMLConstraintWriter {
 		try{
 			fos = new FileOutputStream(file);
 			outp.output(doc, fos);
+			fos.close();
+		}catch(FileNotFoundException fEx){
+			fEx.printStackTrace();
+		}
+		catch(IOException ioEx){
+			ioEx.printStackTrace();
+		}
+	}
+	
+	public void updateConstraint(ConstraintInfo cInfo){
+		SAXBuilder builder = new SAXBuilder();
+		Document doc = null;
+		try{
+			doc = builder.build(file);
+		}catch(IOException ioEx){
+			ioEx.printStackTrace();
+		}
+		catch(JDOMException domEx){
+			domEx.printStackTrace();
+		}
+		
+		Element root = doc.getRootElement();
+		
+		List children = root.getChildren();
+		int index = 0;
+		Iterator i = children.iterator();
+		Element c = null;
+		while(i.hasNext()){
+			c = (Element)i.next();
+			if(c.getAttributeValue("id").equals(cInfo.getId()))
+				break;
+			index++;
+		}
+		
+		c.removeContent();
+		
+		c.setAttribute(ID_ATTR,cInfo.getId());
+		c.setAttribute(NAME_ATTR,cInfo.getName());
+		c.setAttribute(SIGNIFICANCE_ATTR,Double.toString(cInfo.getSignificance()));
+		
+		Element description = new Element(DESCRIPTION_ELEMENT);
+		description.setText(cInfo.getDescription());
+		
+		Element impl = new Element(IMPLEMENTATION_ELEMENT);
+		impl.addContent(new CDATA(cInfo.getStrategyCodeImplementation()));
+		c.addContent(description);
+		c.addContent(impl);
+		
+		children.set(index, c);
+		
+		FileOutputStream fos;
+		try{
+			fos = new FileOutputStream(file);
+			outp.output(doc, fos);
+			fos.close();
 		}catch(FileNotFoundException fEx){
 			fEx.printStackTrace();
 		}
@@ -135,32 +213,30 @@ public class XMLConstraintWriter {
 	
 	public static void main(String ar[]){
 		ConstraintInfo info = new ConstraintInfo();
-		info.setDescription("Mas bla bla bla ... de la tales 3");
+		info.setDescription("Mas bla bla bla ... de la tales 3 (QUE MIERDA)");
 		info.setId("0003");
-		info.setName("Test Constraint three");
+		info.setName("Restricción de prueba número 3");
 		info.setSignificance(0.8d);
-		info.setStrategyCodeImplementation("public class Some3{private Some2(){}}");
+		info.setStrategyCodeImplementation("public class Some3CARAJO{private Some3CARAJO(){}}");
 		
 		ConstraintInfo info2 = new ConstraintInfo();
 		info2.setDescription("Mas bla bla bla ... y que carajos");
 		info2.setId("0004");
 		info2.setName("Test Constraint four");
-		info2.setSignificance(0.8d);
-		info2.setStrategyCodeImplementation("public class Some4{protected Some4(){}}");
+		info2.setSignificance(0.1d);
+		info2.setStrategyCodeImplementation(
+					"public class Some4{" +
+					"protected Some4(){"+
+					"System.out.println(\"This is a test\")"+
+					"}}");
 		
 		ArrayList<ConstraintInfo> list = new ArrayList<ConstraintInfo>();
 		list.add(info);
 		list.add(info2);
 		
 		XMLConstraintWriter writer = XMLConstraintWriter.getInstance();
-		URI uri = null;
-		try{
-			uri = writer.getClass().getResource("/org/gatt/constraint/defined/ConstraintsDefinition.xml").toURI();
-		}catch(URISyntaxException uriEx){
-			uriEx.printStackTrace();
-		}
-		File file = new File(uri);
-		writer.write(file,list);
+		
+		writer.updateConstraint(info2);
 		
 		System.out.println("File written");
 		
