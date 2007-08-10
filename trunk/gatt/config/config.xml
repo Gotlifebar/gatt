@@ -10,4 +10,7 @@
 		<entry key="UserConnection" value="gatt"/>
 		<entry key="PasswordConnection" value="gatt"/>
 	</section>
+	<section name="XMLWriterInfo">
+		<entry key="FilePath" value="/org/gatt/constraint/defined/ConstraintsDefinition.xml"/>
+	</section>
 </configuration>
