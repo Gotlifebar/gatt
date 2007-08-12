@@ -30,6 +30,30 @@ public class ConstraintPreviewPanel extends JWizardPanel {
 	    setNextStep(-1);
 	}
 
+	protected void makingVisible(){
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		
+		// La fachada
+		if(wizard.getConstraintType() == ConstraintWizard.ConstraintType.SIMPLE){
+			this.setBackStep(1);
+		}else{
+			this.setBackStep(2);
+		}
+		
+		
+		super.makingVisible();
+	}
+	
+	protected void back(){
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		
+		if(wizard.isSameRound() && wizard.getCurrentRound() > 1){
+			wizard.setLastRound(wizard.getLastRound()-1);
+		}
+		
+		super.back();
+	}
+	
 	/**
 	 * This method initializes this
 	 * 

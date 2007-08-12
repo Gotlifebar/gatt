@@ -15,6 +15,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import org.freixas.jwizard.JWizardPanel;
+import org.gatt.ui.wizards.commands.AddANDComparisonAction;
+import org.gatt.ui.wizards.commands.AddORComparisonAction;
 
 public class CreateHandSidePanel extends JWizardPanel {
 
@@ -23,6 +25,8 @@ public class CreateHandSidePanel extends JWizardPanel {
 	private JButton buttonAddAndAttributeComparation = null;
 	private JButton buttonAddOrAttributeComparation = null;
 	private JPanel pConstraintPreview = null;
+	
+	
 	/**
 	 * This is the default constructor
 	 */
@@ -33,7 +37,27 @@ public class CreateHandSidePanel extends JWizardPanel {
 		setBackStep(1);
 	    setNextStep(3);
 	}
-
+	
+	public void doNext(){
+		next();
+	}
+	
+	protected void next(){
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		wizard.setLastRound(wizard.getLastRound()+1);
+		
+		if(wizard.isSameRound()){
+			setNextStep(3);
+		}else{
+			setNextStep(1);
+		}
+		super.next();
+	}
+	
+	protected void makingVisible(){
+		super.makingVisible();
+	}
+	
 	/**
 	 * This method initializes this
 	 * 
@@ -69,6 +93,7 @@ public class CreateHandSidePanel extends JWizardPanel {
 			buttonAddAndAttributeComparation.setText("Agregar comparación AND");
 			buttonAddAndAttributeComparation.setSize(new Dimension(201, 26));
 			buttonAddAndAttributeComparation.setLocation(new Point(176, 224));
+			buttonAddAndAttributeComparation.addActionListener(new AddANDComparisonAction(this));
 		}
 		return buttonAddAndAttributeComparation;
 	}
@@ -84,6 +109,7 @@ public class CreateHandSidePanel extends JWizardPanel {
 			buttonAddOrAttributeComparation.setText("Agregar comparación OR");
 			buttonAddOrAttributeComparation.setLocation(new Point(386, 224));
 			buttonAddOrAttributeComparation.setSize(new Dimension(201, 26));
+			buttonAddOrAttributeComparation.addActionListener(new AddORComparisonAction(this));
 		}
 		return buttonAddOrAttributeComparation;
 	}

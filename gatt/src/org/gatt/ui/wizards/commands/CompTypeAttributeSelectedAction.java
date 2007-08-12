@@ -6,18 +6,17 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JRadioButton;
 
-import org.gatt.ui.wizards.CreateComparationPanel;
+import org.gatt.ui.wizards.CreateComparisonPanel;
 
 public class CompTypeAttributeSelectedAction extends AbstractAction {
 	
-	private JComponent parent;
+	private CreateComparisonPanel panel;
 	
-	public CompTypeAttributeSelectedAction(JComponent parent){
-		this.parent = parent;
+	public CompTypeAttributeSelectedAction(CreateComparisonPanel panel){
+		this.panel = panel;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		CreateComparationPanel panel = (CreateComparationPanel)parent;
 		panel.getTreeRight().setEnabled(true);
 		panel.getTextFreeDomainValue().setEnabled(false);
 	}

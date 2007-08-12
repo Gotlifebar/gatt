@@ -12,6 +12,7 @@ import java.awt.Rectangle;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -20,10 +21,11 @@ import javax.swing.JTree;
 import javax.swing.border.TitledBorder;
 
 import org.freixas.jwizard.JWizardPanel;
+import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 import org.gatt.ui.wizards.commands.CompTypeAttributeSelectedAction;
 import org.gatt.ui.wizards.commands.CompTypeConstantSelectedAction;
 
-public class CreateComparationPanel extends JWizardPanel {
+public class CreateComparisonPanel extends JWizardPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JScrollPane scrollTreeLeft = null;
@@ -42,14 +44,74 @@ public class CreateComparationPanel extends JWizardPanel {
 	/**
 	 * This is the default constructor
 	 */
-	public CreateComparationPanel() {
+	public CreateComparisonPanel() {
 		super();
 		this.setStepTitle("Definir comparación");
 		initialize();
 		setBackStep(0);
 	    setNextStep(2);
 	}
-
+	
+	protected void next(){
+		boolean error = false;
+		String msg = "Atención:";
+		
+		if(this.getTreeLeft().getSelectionCount() == 0){
+			error = true;
+			msg += "\n" + "- Debe seleccionar una variable en la lista del lado izquierdo.";
+		}
+		
+		if(this.getComboOperator().getSelectedIndex() == 0){
+			error = true;
+			msg += "\n" + "- Debe seleccionar un operador.";
+		}
+		
+		if(this.getRadioConstant().isSelected() && this.getTextFreeDomainValue().getText().equals("")){
+			error = true;
+			msg += "\n" + "- Debe ingresar un valor constante.";
+		}
+		
+		if(this.getRadioAttribute().isSelected() && this.getTreeRight().getSelectionCount() == 0){
+			error = true;
+			msg += "\n" + "- Debe seleccionar un atributo en la lista del lado derecho.";
+		}
+		
+		if(error){
+			JOptionPane.showMessageDialog(
+					this,
+					msg,
+					"Error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		
+		
+		super.next();
+		return;
+	}
+	
+	protected void makingVisible(){
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		
+		// La fachada
+		if(wizard.getConstraintType() == ConstraintWizard.ConstraintType.SIMPLE){
+			this.setNextStep(3);
+		}else{
+			this.setNextStep(2);
+		}
+		
+		if(!wizard.isSameRound()){
+			this.setBackStep(-1);
+			resetView();
+		}
+		super.makingVisible();
+	}
+	
+	private void resetView(){
+		
+	}
+	
 	/**
 	 * This method initializes this
 	 * 
@@ -125,6 +187,13 @@ public class CreateComparationPanel extends JWizardPanel {
 		if (comboOperator == null) {
 			comboOperator = new JComboBox();
 			comboOperator.setPreferredSize(new Dimension(120, 25));
+			comboOperator.addItem(new String("[Seleccione una opción...]"));
+			comboOperator.addItem(DefaultComparisonOperator.EQUAL);
+			comboOperator.addItem(DefaultComparisonOperator.LESS_EQUAL_THAN);
+			comboOperator.addItem(DefaultComparisonOperator.MORE_EQUAL_THAN);
+			comboOperator.addItem(DefaultComparisonOperator.LESS_THAN);
+			comboOperator.addItem(DefaultComparisonOperator.MORE_THAN);
+			comboOperator.addItem(DefaultComparisonOperator.NOT_EQUAL);
 		}
 		return comboOperator;
 	}

@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -44,7 +45,72 @@ public class AddConstraintPanel extends JWizardPanel {
 		setBackStep(-1);
 	    setNextStep(1);
 	}
-
+	
+	protected void next(){
+		boolean error = false;
+		String msg = "Atención:";
+		if(getTfName().getText().equals("")){
+			error = true;
+			msg += "\n" + "- Debe ingresar un nombre para la restricción.";
+		}
+		
+		if(getComboConstraintTypes().getSelectedIndex() == 0){
+			error = true;
+			msg += "\n" + "- Debe seleccionar un tipo de restricción.";
+		}
+			
+		
+		if(error){
+			JOptionPane.showMessageDialog(
+						this, 
+						msg,
+						"Error",
+						JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		// Cambiar por la fachada
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		if(this.getComboConstraintTypes().getSelectedIndex() == 1){
+			wizard.setCType(ConstraintWizard.ConstraintType.CONDITIONAL);
+		}else{
+			wizard.setCType(ConstraintWizard.ConstraintType.SIMPLE);
+		}
+		
+		wizard.getConstraintProducer().setConstraintName(getTfName().getText());
+		wizard.getConstraintProducer().setConstraintDescription(getTsDescription().getText());
+		
+		if(getRbVeryLow().isSelected())
+			wizard.getConstraintProducer().setConstraintSignificance(0.19d);
+		if(getRbLow().isSelected())
+			wizard.getConstraintProducer().setConstraintSignificance(0.39d);
+		if(getRbMedium().isSelected())
+			wizard.getConstraintProducer().setConstraintSignificance(0.59d);
+		if(getRbHigh().isSelected())
+			wizard.getConstraintProducer().setConstraintSignificance(0.79d);
+		if(getRbVeryHigh().isSelected())
+			wizard.getConstraintProducer().setConstraintSignificance(0.99d);
+		
+		super.next();
+		return;
+		
+	}
+	
+	protected void makingVisible(){
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		if(!wizard.isSameRound() && wizard.getCurrentRound() != 1){
+			resetView();
+		}
+		super.makingVisible();
+	}
+	
+	private void resetView(){
+		this.getComboConstraintTypes().setSelectedIndex(0);
+		this.getRbMedium().setSelected(true);
+		this.getTfName().setText("");
+		this.getTsDescription().setText("");
+	}
+	
 	/**
 	 * This method initializes this
 	 * 
@@ -89,6 +155,9 @@ public class AddConstraintPanel extends JWizardPanel {
 		if (comboConstraintTypes == null) {
 			comboConstraintTypes = new JComboBox();
 			comboConstraintTypes.setBounds(new Rectangle(178, 154, 410, 32));
+			comboConstraintTypes.addItem(new String("[Seleccione un opción...]"));
+			comboConstraintTypes.addItem(new String("Restricción de tipo Si ... Entonces"));
+			comboConstraintTypes.addItem(new String("Restricción simple"));
 		}
 		return comboConstraintTypes;
 	}
@@ -159,6 +228,7 @@ public class AddConstraintPanel extends JWizardPanel {
 	private JRadioButton getRbMedium() {
 		if (rbMedium == null) {
 			rbMedium = new JRadioButton();
+			rbMedium.setSelected(true);
 			rbMedium.setText("Media");
 		}
 		return rbMedium;
