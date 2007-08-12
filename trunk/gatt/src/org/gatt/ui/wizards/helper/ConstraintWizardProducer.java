@@ -51,4 +51,8 @@ public class ConstraintWizardProducer {
 		constraint = facade.addORComparison(constraint, comparison);
 	}
 	
+	public String getConstraintPreview(){
+		return constraint.getDisplayName();
+	}
+	
 }
