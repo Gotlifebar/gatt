@@ -5,18 +5,17 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 
-import org.gatt.ui.wizards.CreateComparationPanel;
+import org.gatt.ui.wizards.CreateComparisonPanel;
 
 public class CompTypeConstantSelectedAction extends AbstractAction {
 	
-	private JComponent parent;
+	private CreateComparisonPanel panel;
 	
-	public CompTypeConstantSelectedAction(JComponent parent){
-		this.parent = parent;
+	public CompTypeConstantSelectedAction(CreateComparisonPanel panel){
+		this.panel = panel;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		CreateComparationPanel panel = (CreateComparationPanel)parent;
 		panel.getTreeRight().setEnabled(false);
 		panel.getTextFreeDomainValue().setEnabled(true);
 		
