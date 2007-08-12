@@ -6,7 +6,7 @@ public class ConstBooleanOperand extends BooleanOperand {
 	public static ConstBooleanOperand FALSE = new ConstBooleanOperand("false", "False", "falso");	
 	
 	private String javaString, name, readableName;
-	private ConstBooleanOperand(String javaString, String name, String readable){
+	private ConstBooleanOperand(String javaString, String name, String readable){		
 		this.javaString = javaString;
 		this.name = name;
 		this.readableName = readable;

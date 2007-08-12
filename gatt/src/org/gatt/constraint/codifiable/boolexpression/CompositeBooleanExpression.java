@@ -5,7 +5,7 @@ public class CompositeBooleanExpression extends BooleanOperand {
 	private BooleanOperator operator;
 	
 	public CompositeBooleanExpression(BooleanOperator operator, BooleanOperand left, BooleanOperand right ){
-		this.operator = operator;
+		this.operator = operator;		
 		this.left = left;
 		this.right = right;
 	}
