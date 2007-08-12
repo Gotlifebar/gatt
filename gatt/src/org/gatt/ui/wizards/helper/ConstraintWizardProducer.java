@@ -55,4 +55,8 @@ public class ConstraintWizardProducer {
 		return constraint.getDisplayName();
 	}
 	
+	public String getConstraintCode(){
+		return constraint.getJavaString();
+	}
+	
 }
