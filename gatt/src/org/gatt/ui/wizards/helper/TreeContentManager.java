@@ -33,8 +33,8 @@ public class TreeContentManager {
 		return fs;
 	}
 	
-	public DefaultMutableTreeNode generateAttributesTree(Class c){
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode(c.getSimpleName(), true);
+	public FieldTreeNode generateAttributesTree(Class c){
+		FieldTreeNode root = new FieldTreeNode(c.getSimpleName(), true);		
 		//System.out.println("Generating for " + c.getSimpleName());
 		//Extract fields and arrange them.
 		Field[] fields = getAndArrange(c.getDeclaredFields());
@@ -44,12 +44,13 @@ public class TreeContentManager {
 			if(generateFor(f.getType()))
 				root.add(generateAttributesTree(f));
 			else
-				root.add(new DefaultMutableTreeNode(f));		
+				root.add(new FieldTreeNode(f));
+			
 		}
 		return root;
 	}
-	private DefaultMutableTreeNode generateAttributesTree(Field field){		
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode(field, true);	
+	private FieldTreeNode generateAttributesTree(Field field){		
+		FieldTreeNode root = new FieldTreeNode(field, true);	
 		//System.out.println("Generating for " + field.getName());
 		//Extract fields and arrange them.
 		Field[] fields = getAndArrange(field.getType().getDeclaredFields());
@@ -58,10 +59,24 @@ public class TreeContentManager {
 			if(generateFor(f.getType()))
 				root.add(generateAttributesTree(f));
 			else
-				root.add(new DefaultMutableTreeNode(f));
+				root.add(new FieldTreeNode(f));
+		
 		return root;
 	}
 	
+	public String getFieldNameFromNode(TreeNode node){
+		String name = node.toString();
+		TreeNode n = node.getParent();
+		while( n != null ){
+			name = n.toString() + "." + name;
+			n = n.getParent();
+		}
+		return name;
+	}
+	
+	public static void main(String[] ar){
+		
+	}
 	
 	/*public static int depth = -1;
 	
@@ -70,7 +85,7 @@ public class TreeContentManager {
 			System.out.print("\t");
 	}*/
 	
-	/*public static void printNodeContent(DefaultMutableTreeNode node){
+	/*public static void printNodeContent(FieldTreeNode node){
 		printPad();
 		if(node.getUserObject() instanceof Field){
 			Field f = (Field)node.getUserObject();
@@ -81,12 +96,12 @@ public class TreeContentManager {
 			
 	}
 	
-	public static void printTreeNode(DefaultMutableTreeNode root){
+	public static void printTreeNode(FieldTreeNode root){
 		depth++;
 		printNodeContent(root);
 		if(!root.isLeaf())		
 			for(int i = 0; i < root.getChildCount(); i++)
-				printTreeNode((DefaultMutableTreeNode)root.getChildAt(i));		
+				printTreeNode((FieldTreeNode)root.getChildAt(i));		
 		depth--;
 	}
 	
