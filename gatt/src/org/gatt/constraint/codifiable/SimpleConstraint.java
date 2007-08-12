@@ -1,6 +1,12 @@
 package org.gatt.constraint.codifiable;
 
+import org.gatt.constraint.codifiable.boolexpression.BooleanOperand;
+import org.gatt.constraint.codifiable.boolexpression.BooleanOperator;
+import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
 import org.gatt.constraint.codifiable.boolexpression.CompositeBooleanExpression;
+import org.gatt.constraint.codifiable.boolexpression.ConstBooleanOperand;
+import org.gatt.constraint.codifiable.boolexpression.DefaultComparison;
+import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 
 
 //Constraint type if !Constraint then return penalty
@@ -50,11 +56,11 @@ public class SimpleConstraint implements CodifiableDisplayableObject {
 		return buffer.toString();
 	}
 	public static void main(String[] ar){
-	/*	ComparableOperand compOperand1 = new ComparableOperand("chucho", "Value1", "cosa1");
-		ComparableOperand compOperand2 = new ComparableOperand("iValue2", "Value2", "cosa2");
-		Comparison co = new Comparison(DefaultComparisonOperator.LESS_EQUAL_THAN, compOperand1, compOperand2);
+		ComparableOperand compOperand1 = new BooleanOperand("chucho", "Value1", "cosa1");
+		ComparableOperand compOperand2 = new BooleanOperand("iValue2", "Value2", "cosa2");
+		DefaultComparison co = new DefaultComparison(DefaultComparisonOperator.LESS_EQUAL_THAN, compOperand1, compOperand2);
 		CompositeBooleanExpression cbe = new CompositeBooleanExpression(BooleanOperator.AND, ConstBooleanOperand.TRUE, co);		
 		SimpleConstraint conditional = new SimpleConstraint(cbe, CodifiableConstraintValue.ONE);
-		System.out.println(conditional.getJavaString());*/
+		System.out.println(conditional.getJavaString());
 	}
 }
