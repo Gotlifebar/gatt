@@ -12,17 +12,12 @@ import org.gatt.constraint.io.XMLConstraintRepository;
 public class ConstraintManager {
 	
 	private XMLConstraintRepository repository;
-	private String xmlConstraintFileName;
+	private String xmlConstraintFilePath;
 	private Vector<Constraint> compiledConstraints;
 	
 	public ConstraintManager(){
-		repository = new XMLConstraintRepository(xmlConstraintFileName);
-	}
-	
-	public boolean compileConstraint(String id){
-		
-		return true;
-	}
+		repository = new XMLConstraintRepository(xmlConstraintFilePath);
+	}	
 	
 	public Iterator<Constraint> getCompiledConstraints(){
 		if( compiledConstraints == null )
@@ -34,7 +29,7 @@ public class ConstraintManager {
 		//Load all the constraints from the repository.
 		if( !repository.load() )
 			return false;		
-		Iterator<ConstraintInfo> definedConstraints = repository.getAllConstraints().iterator();
+		Iterator<ConstraintInfo> definedConstraints = repository.getAllConstraints().iterator();		
 		ConstraintInfo cInfo;
 		ConstraintCompiler compiler = new ConstraintCompiler();
 		while( definedConstraints.hasNext() ){
@@ -62,26 +57,7 @@ public class ConstraintManager {
 		}
 		return c;		
 	}
-	public void setXmlConstraintFileName(String xmlConstraintFileName) {
-		this.xmlConstraintFileName = xmlConstraintFileName;
+	public void setXmlConstraintFilePath(String xmlConstraintFilePath) {
+		this.xmlConstraintFilePath = xmlConstraintFilePath;
 	}
 }
-/*
-
-package test;
-import java.net.URI;
-
-class JavaObjectFromString extends SimpleJavaFileObject{
-    private String contents = null;
-    
-	public JavaObjectFromString(String className, String contents) throws Exception{
-    	super(new URI(className), Kind.SOURCE);
-		this.contents = contents;
-    }
-    
-	public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException {
-    		return contents;
-    }
-}
-
-*/
