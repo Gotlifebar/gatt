@@ -24,6 +24,7 @@ import org.freixas.jwizard.JWizardPanel;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 import org.gatt.ui.wizards.commands.CompTypeAttributeSelectedAction;
 import org.gatt.ui.wizards.commands.CompTypeConstantSelectedAction;
+import org.gatt.ui.wizards.commands.TreeLeftSelectionAction;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
 public class CreateComparisonPanel extends JWizardPanel {
@@ -155,6 +156,7 @@ public class CreateComparisonPanel extends JWizardPanel {
 		if (treeLeft == null) {
 			TreeContentManager manager = new TreeContentManager();
 			treeLeft = new JTree(manager.generateAttributesTree(org.gatt.domain.Session.class));
+			treeLeft.addTreeSelectionListener(new TreeLeftSelectionAction(this));
 		}
 		return treeLeft;
 	}
