@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.lang.reflect.Field;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -21,10 +22,17 @@ import javax.swing.JTree;
 import javax.swing.border.TitledBorder;
 
 import org.freixas.jwizard.JWizardPanel;
+import org.gatt.constraint.codifiable.ConstraintCodifiableFacade;
+import org.gatt.constraint.codifiable.Operand;
+import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
+import org.gatt.constraint.codifiable.stringexpression.StringComparableOperand;
+import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
 import org.gatt.ui.wizards.commands.CompTypeAttributeSelectedAction;
 import org.gatt.ui.wizards.commands.CompTypeConstantSelectedAction;
 import org.gatt.ui.wizards.commands.TreeLeftSelectionAction;
+import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
+import org.gatt.ui.wizards.helper.FieldTreeNode;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
 public class CreateComparisonPanel extends JWizardPanel {
@@ -87,9 +95,40 @@ public class CreateComparisonPanel extends JWizardPanel {
 			return;
 		}
 		
-		if(getRadioConstant().isSelected()){ //String comparison
+		ConstraintWizardProducer constraintProducer = new ConstraintWizardProducer();
+		FieldTreeNode treeNodeLeft = (FieldTreeNode)this.getTreeLeft().getSelectionPath().getLastPathComponent();
+		FieldTreeNode treeNodeRight = (FieldTreeNode)this.getTreeRight().getSelectionPath().getLastPathComponent();
+		if(!(treeNodeLeft.isLeaf() && treeNodeRight.isLeaf())){
+			msg += "\n" + "- Debe seleccionar un nodo hoja en ambas listas.";
+			JOptionPane.showMessageDialog(
+					this,
+					msg,
+					"Error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		TreeContentManager treeManager = new TreeContentManager();
+		
+		Field leftField = (Field)treeNodeLeft.getUserObject();
+		Field rightField = (Field)treeNodeRight.getUserObject();
+		
+		ConstraintCodifiableFacade facade = new ConstraintCodifiableFacade(); 
+		
+		if(rightField.getType() == String.class){ //String comparison
+			StringComparisonOperator operator = (StringComparisonOperator)this.getComboOperator().getSelectedItem();
+			Operand operand1 = facade.createOperand(
+											treeManager.getFieldJavaStringFromNode(treeNodeLeft),
+											treeNodeLeft.toString(),
+											treeNodeLeft.toString(),
+											String.class);
+			StringComparableOperand operand2 = new StringComparableOperand(
+											treeManager.getFieldJavaStringFromNode(treeNodeRight),
+											treeNodeRight.toString(),
+											treeNodeRight.toString());
 			
 		}else{
+			DefaultComparisonOperator operator = (DefaultComparisonOperator)this.getComboOperator().getSelectedItem();
 			
 		}
 		
