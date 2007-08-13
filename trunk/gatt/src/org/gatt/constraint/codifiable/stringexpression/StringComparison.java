@@ -20,6 +20,8 @@ public class StringComparison extends BooleanOperand {
 	}
 
 	public String getJavaString() {
+		if( operator == StringComparisonOperator.NOT_EQUAL )
+			return "!(" + left.getJavaString() + operator.getJavaString() + "( " + right.getJavaString() + ") )";
 		return "(" + left.getJavaString() + operator.getJavaString() + "( " + right.getJavaString() + ") )";
 	}
 	public String getReadableName(){
