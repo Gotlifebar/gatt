@@ -1,9 +1,8 @@
 package org.gatt.ui.wizards.helper;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 public class TreeContentManager {
@@ -15,6 +14,18 @@ public class TreeContentManager {
 		if(c.getName().contains("java.lang"))
 			return false;
 		return true;
+	}
+	
+	private void addNodeTo(FieldTreeNode root, Field f, Class filter){		
+		if( Modifier.isStatic(f.getModifiers()) )
+			return;		
+		if( filter != null && f.getType() != filter)
+			return;
+		root.add(new FieldTreeNode(f));
+	}
+	
+	private void addNodeTo(FieldTreeNode root, FieldTreeNode node){
+		root.add(node);
 	}
 	
 	private Field[] getAndArrange(Field[] fields){
@@ -31,9 +42,13 @@ public class TreeContentManager {
 			latter--;
 		}
 		return fs;
-	}
+	}	
 	
 	public FieldTreeNode generateAttributesTree(Class c){
+		return this.generateAttributesTree(c, null);
+	}
+	
+	public FieldTreeNode generateAttributesTree(Class c, Class filter){
 		FieldTreeNode root = new FieldTreeNode(c.getSimpleName(), true);		
 		//System.out.println("Generating for " + c.getSimpleName());
 		//Extract fields and arrange them.
@@ -42,14 +57,16 @@ public class TreeContentManager {
 		//	System.out.println("Trying with: " + f.getName());
 			//if the field is not a primitive type
 			if(generateFor(f.getType()))
-				root.add(generateAttributesTree(f));
+				addNodeTo(root, generateAttributesTree(f, filter));
+				//root.add(generateAttributesTree(f));
 			else
-				root.add(new FieldTreeNode(f));
+				addNodeTo(root, f, filter);
+				//root.add(new FieldTreeNode(f));
 			
 		}
 		return root;
 	}
-	private FieldTreeNode generateAttributesTree(Field field){		
+	private FieldTreeNode generateAttributesTree(Field field, Class filter){		
 		FieldTreeNode root = new FieldTreeNode(field, true);	
 		//System.out.println("Generating for " + field.getName());
 		//Extract fields and arrange them.
@@ -57,9 +74,11 @@ public class TreeContentManager {
 		for(Field f : fields)
 			//if the field is not a primitive type
 			if(generateFor(f.getType()))
-				root.add(generateAttributesTree(f));
+				addNodeTo(root, generateAttributesTree(f, filter));
+				//root.add(generateAttributesTree(f));
 			else
-				root.add(new FieldTreeNode(f));
+				addNodeTo(root, f, filter);
+				//root.add(new FieldTreeNode(f));
 		
 		return root;
 	}

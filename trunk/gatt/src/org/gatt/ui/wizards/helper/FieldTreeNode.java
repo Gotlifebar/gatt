@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class FieldTreeNode extends DefaultMutableTreeNode {
+	
 	public FieldTreeNode(Object f){
 		super(f);
 	}
