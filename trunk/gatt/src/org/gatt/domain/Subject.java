@@ -7,8 +7,8 @@ public class Subject extends DomainObject {
 	private String name;
 	private int theoricalHours;
 	private int practicalHours;
-	private int program;
-	private int semester;
+	//private int program;
+	//private int semester;
 	
 	public Subject(){
 		super();
@@ -54,7 +54,7 @@ public class Subject extends DomainObject {
 		this.practicalHours = practicalHours;
 	}
 
-	public int getProgram() {
+	/*public int getProgram() {
 		return program;
 	}
 
@@ -68,7 +68,7 @@ public class Subject extends DomainObject {
 
 	public void setSemester(int semester) {
 		this.semester = semester;
-	}
+	}*/
 
 	
 }
