@@ -83,13 +83,22 @@ public class TreeContentManager {
 		return root;
 	}
 	
-	public String getFieldNameFromNode(TreeNode node){
-		String name = node.toString();
+	private String createGetter(String fieldName){
+		StringBuffer buf = new StringBuffer("get");
+		buf.append(fieldName);
+		buf.setCharAt(3,Character.toUpperCase(fieldName.charAt(0)));
+		buf.append("()");
+		return buf.toString();
+	}
+	
+	public String getFieldJavaStringFromNode(TreeNode node){
+		String name = createGetter(node.toString());
 		TreeNode n = node.getParent();
 		while( n != null ){
-			name = n.toString() + "." + name;
+			name = createGetter(n.toString()) + "." + name;
 			n = n.getParent();
 		}
+		name = "session[i]." + name;
 		return name;
 	}
 	
