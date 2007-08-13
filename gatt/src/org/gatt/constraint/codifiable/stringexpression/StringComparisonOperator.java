@@ -12,6 +12,8 @@ public class StringComparisonOperator implements Operator{
 	
 	public static StringComparisonOperator EQUALS = 
 		new StringComparisonOperator(".equals", "EQUALS", "IGUAL A " );
+	public static StringComparisonOperator NOT_EQUAL = 
+		new StringComparisonOperator(".equals", "NOT_EQUAL", "DIFERENTE DE ");
 	
 	
 	private StringComparisonOperator(String javaString, String displayName, String readableName ) {				
