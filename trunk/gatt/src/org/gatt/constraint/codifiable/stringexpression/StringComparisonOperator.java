@@ -30,4 +30,7 @@ public class StringComparisonOperator implements Operator{
 	public String getReadableName(){
 		return readableName;
 	}
+	public String toString(){
+		return readableName;
+	}
 }
