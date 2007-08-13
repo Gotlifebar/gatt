@@ -24,6 +24,7 @@ import org.freixas.jwizard.JWizardPanel;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 import org.gatt.ui.wizards.commands.CompTypeAttributeSelectedAction;
 import org.gatt.ui.wizards.commands.CompTypeConstantSelectedAction;
+import org.gatt.ui.wizards.helper.TreeContentManager;
 
 public class CreateComparisonPanel extends JWizardPanel {
 
@@ -85,7 +86,11 @@ public class CreateComparisonPanel extends JWizardPanel {
 			return;
 		}
 		
-		
+		if(getRadioConstant().isSelected()){ //String comparison
+			
+		}else{
+			
+		}
 		
 		super.next();
 		return;
@@ -148,7 +153,8 @@ public class CreateComparisonPanel extends JWizardPanel {
 	 */
 	public JTree getTreeLeft() {
 		if (treeLeft == null) {
-			treeLeft = new JTree();
+			TreeContentManager manager = new TreeContentManager();
+			treeLeft = new JTree(manager.generateAttributesTree(org.gatt.domain.Session.class));
 		}
 		return treeLeft;
 	}
@@ -173,7 +179,8 @@ public class CreateComparisonPanel extends JWizardPanel {
 	 */
 	public JTree getTreeRight() {
 		if (treeRight == null) {
-			treeRight = new JTree();
+			TreeContentManager manager = new TreeContentManager();
+			treeRight = new JTree(manager.generateAttributesTree(org.gatt.domain.Session.class));
 		}
 		return treeRight;
 	}
