@@ -12,6 +12,8 @@ public class FieldTreeNode extends DefaultMutableTreeNode {
 		super(f, b);
 	}	
 	public String toString(){
+		if( super.getUserObject() instanceof String)
+			return (String)super.getUserObject();
 		return ((Field)super.getUserObject()).getName();
 	}
 }
