@@ -1,19 +1,19 @@
 package org.gatt.domain;
 
 public class Teacher extends DomainObject {
-	private String cedula;
+	
+	private String registerNumber;
 	private String name;
 	private String lastName;
 	
 	public Teacher(){
 		super();
 	}
-	
-	public String getCedula() {
-		return cedula;
+	public String getRegisterNumber() {
+		return registerNumber;
 	}
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
+	public void setRegisterNumber(String registerNumber) {
+		this.registerNumber = registerNumber;
 	}
 	public String getName() {
 		return name;
