@@ -20,6 +20,11 @@ public class ConstraintCodifiableFacade {
 	public StringComparison createStringComparison(StringComparisonOperator op, StringComparableOperand op1, StringComparableOperand op2){
 		return new StringComparison(op, op1, op2);
 	}
+	public Operand createOperand(String javaString, String name, String readableName, Class type){
+		if( type == String.class)
+			return new StringComparableOperand(javaString, name, readableName);
+		return new BooleanOperand(javaString, name, readableName);		
+	}
 	public BooleanOperand addANDComparison(BooleanOperand operand, BooleanOperand comparison){
 		return (new CompositeBooleanExpression(BooleanOperator.AND, operand, comparison));		
 	}
