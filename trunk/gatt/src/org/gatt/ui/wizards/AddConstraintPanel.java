@@ -72,11 +72,11 @@ public class AddConstraintPanel extends JWizardPanel {
 		// Cambiar por la fachada
 		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
 		if(this.getComboConstraintTypes().getSelectedIndex() == 1){
-			wizard.setCType(ConstraintWizard.ConstraintType.CONDITIONAL);
+			wizard.setCType(ConstraintWizard.ConstraintType.CONDITIONAL);			
 		}else{
 			wizard.setCType(ConstraintWizard.ConstraintType.SIMPLE);
 		}
-		
+		wizard.getConstraintProducer().setConstraintType(this.getComboConstraintTypes().getSelectedIndex());
 		wizard.getConstraintProducer().setConstraintName(getTfName().getText());
 		wizard.getConstraintProducer().setConstraintDescription(getTsDescription().getText());
 		

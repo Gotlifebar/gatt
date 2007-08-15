@@ -11,6 +11,11 @@ import org.gatt.constraint.codifiable.stringexpression.StringComparison;
 import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
 
 public class ConstraintCodifiableFacade {
+	
+	public static final int CONDITIONAL_CONSTRAINT = 1,
+							SIMPLE_CONSTRAINT = 2;
+							
+	
 	public ConstraintCodifiableFacade(){
 		
 	}
@@ -30,5 +35,17 @@ public class ConstraintCodifiableFacade {
 	}
 	public BooleanOperand addORComparison(BooleanOperand operand, BooleanOperand comparison){
 		return (new CompositeBooleanExpression(BooleanOperator.OR, operand, comparison));		
+	}
+	public CodifiableDisplayableObject createConstraint(int type, CodifiableConstraintValue penalty, BooleanOperand ... params){
+		CodifiableDisplayableObject constraint = null;
+		switch(type){
+			case SIMPLE_CONSTRAINT:
+				constraint = new SimpleConstraint(params[0], penalty);
+				break;
+			case CONDITIONAL_CONSTRAINT:
+				constraint = new ConditionalConstraint(params[0], params[1], penalty);
+				break;
+		}
+		return constraint;
 	}
 }

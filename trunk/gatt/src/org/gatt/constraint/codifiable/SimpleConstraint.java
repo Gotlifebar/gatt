@@ -14,9 +14,9 @@ import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 //then the penality must be returned.
 public class SimpleConstraint implements CodifiableDisplayableObject {
 	private CodifiableConstraintValue penality;
-	private CompositeBooleanExpression cbe;
+	private BooleanOperand cbe;
 	
-	public SimpleConstraint(CompositeBooleanExpression condition, CodifiableConstraintValue penality){
+	public SimpleConstraint(BooleanOperand condition, CodifiableConstraintValue penality){
 		this.penality = penality;
 		cbe = condition;
 	}

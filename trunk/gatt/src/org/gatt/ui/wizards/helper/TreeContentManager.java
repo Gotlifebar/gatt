@@ -94,7 +94,7 @@ public class TreeContentManager {
 	public String getFieldJavaStringFromNode(TreeNode node){
 		String name = createGetter(node.toString());
 		TreeNode n = node.getParent();
-		while( n != null ){
+		while( n.getParent() != null ){
 			name = createGetter(n.toString()) + "." + name;
 			n = n.getParent();
 		}
