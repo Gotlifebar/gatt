@@ -24,10 +24,9 @@ import javax.swing.border.TitledBorder;
 import org.freixas.jwizard.JWizardPanel;
 import org.gatt.constraint.codifiable.ConstraintCodifiableFacade;
 import org.gatt.constraint.codifiable.Operand;
+import org.gatt.constraint.codifiable.Operator;
 import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
-import org.gatt.constraint.codifiable.stringexpression.StringComparableOperand;
-import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
 import org.gatt.ui.wizards.commands.CompTypeAttributeSelectedAction;
 import org.gatt.ui.wizards.commands.CompTypeConstantSelectedAction;
 import org.gatt.ui.wizards.commands.TreeLeftSelectionAction;
@@ -95,10 +94,14 @@ public class CreateComparisonPanel extends JWizardPanel {
 			return;
 		}
 		
-		ConstraintWizardProducer constraintProducer = new ConstraintWizardProducer();
+		//It has to be a singleton, because it's shared throught all the panels of the wizard
+		//ConstraintWizardProducer constraintProducer = ConstraintWizardProducer.getInstance();
+		ConstraintWizardProducer constraintProducer = ((ConstraintWizard)getWizardParent()).getConstraintProducer();
+		
 		FieldTreeNode treeNodeLeft = (FieldTreeNode)this.getTreeLeft().getSelectionPath().getLastPathComponent();
-		FieldTreeNode treeNodeRight = (FieldTreeNode)this.getTreeRight().getSelectionPath().getLastPathComponent();
-		if(!(treeNodeLeft.isLeaf() && treeNodeRight.isLeaf())){
+		//if( radioConstant.isSelected() ){
+		//FieldTreeNode treeNodeRight = (FieldTreeNode)this.getTreeRight().getSelectionPath().getLastPathComponent();
+		/*if(!(treeNodeLeft.isLeaf() && treeNodeRight.isLeaf())){
 			msg += "\n" + "- Debe seleccionar un nodo hoja en ambas listas.";
 			JOptionPane.showMessageDialog(
 					this,
@@ -106,32 +109,46 @@ public class CreateComparisonPanel extends JWizardPanel {
 					"Error",
 					JOptionPane.ERROR_MESSAGE);
 			return;
-		}
+		}*/
 		
 		TreeContentManager treeManager = new TreeContentManager();
-		
-		Field leftField = (Field)treeNodeLeft.getUserObject();
-		Field rightField = (Field)treeNodeRight.getUserObject();
-		
 		ConstraintCodifiableFacade facade = new ConstraintCodifiableFacade(); 
 		
-		if(rightField.getType() == String.class){ //String comparison
-			StringComparisonOperator operator = (StringComparisonOperator)this.getComboOperator().getSelectedItem();
-			Operand operand1 = facade.createOperand(
-											treeManager.getFieldJavaStringFromNode(treeNodeLeft),
-											treeNodeLeft.toString(),
-											treeNodeLeft.toString(),
-											String.class);
-			StringComparableOperand operand2 = new StringComparableOperand(
-											treeManager.getFieldJavaStringFromNode(treeNodeRight),
-											treeNodeRight.toString(),
-											treeNodeRight.toString());
-			
-		}else{
-			DefaultComparisonOperator operator = (DefaultComparisonOperator)this.getComboOperator().getSelectedItem();
-			
-		}
+		Field leftField = (Field)treeNodeLeft.getUserObject();
 		
+		//Create Left Operand, is always the same.
+		ComparableOperand operand1 = facade.createOperand(
+				treeManager.getFieldJavaStringFromNode(treeNodeLeft),
+				treeNodeLeft.toString(),
+				treeNodeLeft.toString(),
+				leftField.getType());
+		
+		//Field rightField = (Field)treeNodeRight.getUserObject();		
+		Operator operator = (Operator)this.getComboOperator().getSelectedItem();		
+		//Create Right Operand, depends on various things
+		ComparableOperand operand2 = null;
+		if( radioAttribute.isSelected() ){	
+			FieldTreeNode treeNodeRight = (FieldTreeNode)this.getTreeRight().getSelectionPath().getLastPathComponent();
+			operand2 = facade.createOperand(
+						treeManager.getFieldJavaStringFromNode(treeNodeRight),
+						treeNodeRight.toString(),
+						treeNodeRight.toString(),
+						leftField.getType());
+		}else{
+			String javaString = "";
+			if(leftField.getType() == String.class )
+				javaString ="\"" + getTextFreeDomainValue().getText() + "\"";
+			else
+				javaString = getTextFreeDomainValue().getText() ;
+			operand2 = facade.createOperand(
+					javaString,
+					getTextFreeDomainValue().getText(),
+					getTextFreeDomainValue().getText(),
+					leftField.getType());
+		}
+		//TODO: Aquí se supone que se crea la constraint con los operandos y operadores que habían definidos.		
+		constraintProducer.setComparison(operator, operand1, operand2, leftField.getType());
+		System.out.println(constraintProducer.getConstraintCode());
 		super.next();
 		return;
 	}
