@@ -34,6 +34,11 @@ public class ConstraintWizardProducer {
 		constraintType = type;
 	}
 	
+	public int getConstraintType(){
+		return constraintType;
+	}
+	
+	
 	public void setCurrentExpression(int expression){
 		current = expression;
 		/*switch(expression){
@@ -45,6 +50,9 @@ public class ConstraintWizardProducer {
 		}*/
 	}
 	
+	public int getCurrentExpression(){
+		return current;
+	}
 	
 	public void setConstraintDescription(String description) {
 		cInfo.setDescription(description);
@@ -71,22 +79,37 @@ public class ConstraintWizardProducer {
 		expressions[current] = facade.createStringComparison(op, op1, op2);
 	}
 	
-	public void setComparison(Operator op, ComparableOperand op1, ComparableOperand op2, Class type){
+	private BooleanOperand createComparison(Operator op, ComparableOperand op1, ComparableOperand op2, Class type){
 		if( type == String.class )			
+			return facade.createStringComparison((StringComparisonOperator)op, (StringComparableOperand)op1, (StringComparableOperand)op2);
+		else			
+			return facade.createDefaultComparison((DefaultComparisonOperator)op, op1, op2);
+	}
+	
+	public void setComparison(Operator op, ComparableOperand op1, ComparableOperand op2, Class type){
+		expressions[current] = createComparison(op, op1, op2, type);
+		/*if( type == String.class )			
 			expressions[current] = facade.createStringComparison((StringComparisonOperator)op, (StringComparableOperand)op1, (StringComparableOperand)op2);
 		else			
-			expressions[current] = facade.createDefaultComparison((DefaultComparisonOperator)op, op1, op2);			
+			expressions[current] = facade.createDefaultComparison((DefaultComparisonOperator)op, op1, op2);*/			
 	}
 	
-	public void addANDComparison(BooleanOperand comparison){
-		//constraint = new CompositeBooleanExpression(BooleanOperator.AND, constraint, comparison);		
-		expressions[current] = facade.addANDComparison(expressions[current], comparison);
+	public void addANDComparison(Operator op, ComparableOperand op1, ComparableOperand op2, Class type){
+		expressions[current] = facade.addANDComparison(expressions[current], createComparison(op, op1, op2, type));
+		//expressions[current] = facade.addANDComparison(expressions[current], comparison);
 	}
-	public void addORComparison(BooleanOperand comparison){
+	/*public void addANDComparison(BooleanOperand comparison){
+		//constraint = new CompositeBooleanExpression(BooleanOperator.AND, constraint, comparison);
+		expressions[current] = facade.addANDComparison(expressions[current], comparison);
+	}*/
+	/*public void addORComparison(BooleanOperand comparison){
 		//constraint = new CompositeBooleanExpression(BooleanOperator.OR, constraint, comparison);		
 		expressions[current] = facade.addORComparison(expressions[current], comparison);
+	}*/
+	public void addORComparison(Operator op, ComparableOperand op1, ComparableOperand op2, Class type){
+		expressions[current] = facade.addORComparison(expressions[current], createComparison(op, op1, op2, type));
+		//expressions[current] = facade.addORComparison(expressions[current], comparison);
 	}
-	
 	
 	public String getConstraintPreview(){		
 		return facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getDisplayName();
