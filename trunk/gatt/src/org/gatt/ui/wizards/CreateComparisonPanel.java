@@ -23,10 +23,10 @@ import javax.swing.border.TitledBorder;
 
 import org.freixas.jwizard.JWizardPanel;
 import org.gatt.constraint.codifiable.ConstraintCodifiableFacade;
-import org.gatt.constraint.codifiable.Operand;
 import org.gatt.constraint.codifiable.Operator;
 import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
+import org.gatt.ui.wizards.ConstraintWizard.ComplementType;
 import org.gatt.ui.wizards.commands.CompTypeAttributeSelectedAction;
 import org.gatt.ui.wizards.commands.CompTypeConstantSelectedAction;
 import org.gatt.ui.wizards.commands.TreeLeftSelectionAction;
@@ -146,11 +146,24 @@ public class CreateComparisonPanel extends JWizardPanel {
 					getTextFreeDomainValue().getText(),
 					leftField.getType());
 		}
-		//TODO: Aquí se supone que se crea la constraint con los operandos y operadores que habían definidos.		
-		constraintProducer.setComparison(operator, operand1, operand2, leftField.getType());
-		System.out.println(constraintProducer.getConstraintCode());
-		super.next();
-		return;
+		//TODO: Aquí se supone que se crea la constraint con los operandos y operadores que habían definidos.
+		ComplementType cType =((ConstraintWizard)getWizardParent()).getComplementType(); 
+		((ConstraintWizard)getWizardParent()).setComplementType(null);
+		if( cType == null )
+			constraintProducer.setComparison(operator, operand1, operand2, leftField.getType());
+		else{
+			switch(cType){
+				case OR:
+					constraintProducer.addORComparison(operator, operand1, operand2, leftField.getType());
+					break;
+				case AND:
+					constraintProducer.addANDComparison(operator, operand1, operand2, leftField.getType());
+					break;
+			}
+		}
+		//System.out.println(constraintProducer.getConstraintCode());
+		setNextStep(((ConstraintWizard)getWizardParent()).getNextPanel());
+		super.next();		
 	}
 	
 	protected void makingVisible(){

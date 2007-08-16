@@ -90,7 +90,8 @@ public class AddConstraintPanel extends JWizardPanel {
 			wizard.getConstraintProducer().setConstraintSignificance(0.79d);
 		if(getRbVeryHigh().isSelected())
 			wizard.getConstraintProducer().setConstraintSignificance(0.99d);
-		
+
+		this.setNextStep(wizard.getNextPanel());
 		super.next();
 		return;
 		

@@ -10,23 +10,37 @@ import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 
 public class ConstraintWizard extends JWizardDialog {
 	
-	public enum ComparisonType {AND, OR}
-	public enum ConstraintType {SIMPLE, CONDITIONAL}
+	public enum ComplementType {AND, OR}
+	public enum ConstraintType {CONDITIONAL, SIMPLE}
+	
+	
 	
 	private int currentRound;
 	private int lastRound;
-	private ComparisonType comparisonType;
+	private ComplementType complementType;
 	private ConstraintType constraintType;
 	
 	private ConstraintWizardProducer constraintProducer;
 	
+	public static final int DEFINING_OPERATION = 0,
+							COMPLEMENTING_OPERATION = 1;
+	
+	private static final int ADD_CONSTRAINT_PANEL = 0,
+							 CREATE_COMPARISON_PANEL = 1,
+							 CREATE_HAND_SIDE_PANEL = 2,
+							 CONSTRAINT_PREVIEW_PANEL = 3;
+	
+	private int currentOperation;
+	
+	
+	
 	public ConstraintWizard(){
 		
 		setModal(true);
-		
+		currentOperation = DEFINING_OPERATION;
 		currentRound = 1;
 		lastRound = 0;
-		
+		complementType = null;
 		constraintProducer = new ConstraintWizardProducer();
 		
 		this.setTitle("Asistente para la definición de restricciones");
@@ -46,6 +60,7 @@ public class ConstraintWizard extends JWizardDialog {
 	}
 	
 	
+	
 		
 	public ConstraintType getConstraintType() {
 		return constraintType;
@@ -59,12 +74,12 @@ public class ConstraintWizard extends JWizardDialog {
 		return constraintProducer;
 	}
 
-	public ComparisonType getComparisonType() {
-		return comparisonType;
+	public ComplementType getComplementType() {
+		return complementType;
 	}
 
-	public void setComparisonType(ComparisonType comparisonType) {
-		this.comparisonType = comparisonType;
+	public void setComplementType(ComplementType comparisonType) {
+		this.complementType = comparisonType;
 	}
 
 	public int getCurrentRound() {
@@ -106,4 +121,55 @@ public class ConstraintWizard extends JWizardDialog {
 	    new ConstraintWizard();
 	    System.exit(0);
 	}
+
+	public int getCurrentOperation() {
+		return currentOperation;
+	}
+	
+	public void setCurrentOperation(int currentOperation) {
+		this.currentOperation = currentOperation;
+	}
+	
+	public int getNextPanel(){
+		int next = -1;		
+		switch(this.getCurrentStep()){
+			case ADD_CONSTRAINT_PANEL:
+				currentOperation = DEFINING_OPERATION;
+				constraintProducer.setCurrentExpression(ConstraintWizardProducer.CONDITION_EXPRESSION);
+				next = CREATE_COMPARISON_PANEL;
+				break;
+			case CREATE_COMPARISON_PANEL:
+				//currentOperation = DEFINING_OPERATION;
+				next = CREATE_HAND_SIDE_PANEL;
+				break;
+			case CREATE_HAND_SIDE_PANEL:
+				if( currentOperation == COMPLEMENTING_OPERATION ){
+					currentOperation = DEFINING_OPERATION;
+					next = CREATE_COMPARISON_PANEL;
+					break;
+				}
+				if( constraintProducer.getConstraintType() == (ConstraintType.SIMPLE.ordinal() + 1)){
+					next = CONSTRAINT_PREVIEW_PANEL;
+					break;
+				}
+				switch(constraintProducer.getCurrentExpression()){
+					case ConstraintWizardProducer.CONDITION_EXPRESSION:
+						constraintProducer.setCurrentExpression(ConstraintWizardProducer.CONSEQUENCE_EXPRESSION);
+						currentOperation = DEFINING_OPERATION;
+						next = CREATE_COMPARISON_PANEL;
+						break;
+					case ConstraintWizardProducer.CONSEQUENCE_EXPRESSION:
+						next = CONSTRAINT_PREVIEW_PANEL;
+						System.out.println(constraintProducer.getConstraintCode());
+						break;
+				}
+				break;
+			case CONSTRAINT_PREVIEW_PANEL:
+				//TODO: o_O !?
+				System.out.println(constraintProducer.getConstraintCode());
+				break;	
+		}
+		return next;
+	}
+	
 }

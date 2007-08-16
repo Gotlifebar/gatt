@@ -35,22 +35,26 @@ public class CreateHandSidePanel extends JWizardPanel {
 		this.setStepTitle("Crear restricción compuesta");
 		initialize();
 		setBackStep(1);
-	    setNextStep(3);
+	    setNextStep(3);	    
 	}
 	
 	public void doNext(){
+		
 		next();
 	}
 	
 	protected void next(){
 		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
-		wizard.setLastRound(wizard.getLastRound()+1);
+		/*wizard.setLastRound(wizard.getLastRound()+1);
 		
 		if(wizard.isSameRound()){
 			setNextStep(3);
 		}else{
 			setNextStep(1);
-		}
+		}*/
+		//int speed = wizard.getNextPanel();
+		//System.out.println("Loling ..." + speed );
+		setNextStep(wizard.getNextPanel());
 		super.next();
 	}
 	

@@ -18,7 +18,9 @@ public class AddORComparisonAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		ConstraintWizard wizard = (ConstraintWizard)panel.getWizardParent();
 		wizard.setCurrentRound(wizard.getCurrentRound() + 1);
-		wizard.setComparisonType(ConstraintWizard.ComparisonType.OR);
+		wizard.setComplementType(ConstraintWizard.ComplementType.OR);
+		System.out.println("voy a complementar con or");
+		wizard.setCurrentOperation(ConstraintWizard.COMPLEMENTING_OPERATION);
 		panel.doNext();
 	}
 

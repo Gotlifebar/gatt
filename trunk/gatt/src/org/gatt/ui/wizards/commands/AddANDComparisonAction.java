@@ -18,8 +18,10 @@ public class AddANDComparisonAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		ConstraintWizard wizard = (ConstraintWizard)panel.getWizardParent();
 		wizard.setCurrentRound(wizard.getCurrentRound() + 1);
-		wizard.setComparisonType(ConstraintWizard.ComparisonType.AND);
-		panel.doNext();
+		wizard.setComplementType(ConstraintWizard.ComplementType.AND);
+		System.out.println("voy a complementar con and");
+		wizard.setCurrentOperation(ConstraintWizard.COMPLEMENTING_OPERATION);
+		panel.doNext();		
 	}
 
 }
