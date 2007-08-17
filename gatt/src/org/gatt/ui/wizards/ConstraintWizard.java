@@ -149,6 +149,7 @@ public class ConstraintWizard extends JWizardDialog {
 					break;
 				}
 				if( constraintProducer.getConstraintType() == (ConstraintType.SIMPLE.ordinal() + 1)){
+					System.out.println(constraintProducer.getConstraintCode());
 					next = CONSTRAINT_PREVIEW_PANEL;
 					break;
 				}
