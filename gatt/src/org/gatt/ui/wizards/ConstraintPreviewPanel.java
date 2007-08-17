@@ -26,7 +26,7 @@ public class ConstraintPreviewPanel extends JWizardPanel {
 		super();
 		this.setStepTitle("Finalizar creación de restricción");
 		initialize();
-		setBackStep(2);
+		setBackStep(-1);
 	    setNextStep(-1);
 	}
 
@@ -34,11 +34,11 @@ public class ConstraintPreviewPanel extends JWizardPanel {
 		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
 		
 		// La fachada
-		if(wizard.getConstraintType() == ConstraintWizard.ConstraintType.SIMPLE){
+		/*if(wizard.getConstraintType() == ConstraintWizard.ConstraintType.SIMPLE){
 			this.setBackStep(1);
 		}else{
 			this.setBackStep(2);
-		}
+		}*/
 		
 		
 		super.makingVisible();

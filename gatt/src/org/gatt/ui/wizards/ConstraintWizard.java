@@ -55,6 +55,8 @@ public class ConstraintWizard extends JWizardDialog {
 		
 		this.disableCancelAtEnd();
 		
+		
+		
 		pack();
 		setVisible(true);
 	}
