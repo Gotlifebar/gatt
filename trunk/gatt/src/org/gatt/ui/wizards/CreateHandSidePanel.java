@@ -34,7 +34,7 @@ public class CreateHandSidePanel extends JWizardPanel {
 		super();
 		this.setStepTitle("Crear restricción compuesta");
 		initialize();
-		setBackStep(1);
+		setBackStep(-1);
 	    setNextStep(3);	    
 	}
 	
