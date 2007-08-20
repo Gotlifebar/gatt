@@ -1,8 +1,8 @@
 package org.gatt.optimization.util;
 
-public class ImpShuffler implements Shuffler {
-
-	public void shuffle(final Object[] arr) {
+public class ImpShuffler implements Shuffler{
+	
+	public void shuffle(Object[] arr) {
 		int n = arr.length;
 		int rPos = 0;
 		Object tmp;
@@ -12,7 +12,7 @@ public class ImpShuffler implements Shuffler {
 			tmp = arr[rPos];
 			arr[rPos] = arr[n];
 			arr[n] = tmp;
-		}
+		}		
 	}
-
+	
 }
