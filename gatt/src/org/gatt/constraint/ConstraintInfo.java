@@ -1,8 +1,6 @@
 package org.gatt.constraint;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.util.Vector;
 
 public class ConstraintInfo {
 	
@@ -11,6 +9,8 @@ public class ConstraintInfo {
 	private String description;
 	private double significance;
 	private String strategyCodeImplementation;	
+	//private Vector<Character> usedVars;
+	
 	
 	public static String CONSTRAINT_CLASS_PREFIX = "Constraint_";
 
@@ -59,5 +59,5 @@ public class ConstraintInfo {
 
 	public void setName(String name) {
 		this.name = name;
-	}
+	}	
 }
