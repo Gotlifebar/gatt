@@ -7,21 +7,35 @@ import java.util.Vector;
 import org.gatt.constraint.compiler.ConstraintCompiler;
 import org.gatt.constraint.compiler.generator.ConstraintSourceGenerator;
 import org.gatt.constraint.io.XMLConstraintRepository;
+import org.gatt.util.GattConfigLocator;
+import org.igfay.jfig.JFig;
+import org.igfay.jfig.JFigException;
+import org.igfay.jfig.JFigIF;
+import org.igfay.jfig.JFigLocatorIF;
 
 
 public class ConstraintManager {
 	
 	private XMLConstraintRepository repository;
-	private String xmlConstraintFilePath;
+	//private String xmlConstraintFilePath;
 	private Vector<Constraint> compiledConstraints;
 	
 	public ConstraintManager(){
-		repository = new XMLConstraintRepository(xmlConstraintFilePath);
+		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
+		JFigIF config = JFig.getInstance(locator);
+		String xmlConstraintFilePath = null;
+		try{
+			xmlConstraintFilePath = config.getValue("XMLWriterInfo", "FilePath");
+		}catch(JFigException jFigEx){
+			jFigEx.printStackTrace();
+		}		
+		repository = new XMLConstraintRepository(xmlConstraintFilePath);		
 	}	
 	
 	public Iterator<Constraint> getCompiledConstraints(){
 		if( compiledConstraints == null )
-			compileConstraints();
+			if( !compileConstraints() )
+				return null;
 		return compiledConstraints.iterator();
 	}
 	
@@ -32,8 +46,11 @@ public class ConstraintManager {
 		Iterator<ConstraintInfo> definedConstraints = repository.getAllConstraints().iterator();		
 		ConstraintInfo cInfo;
 		ConstraintCompiler compiler = new ConstraintCompiler();
+		compiledConstraints = new Vector<Constraint>();
 		while( definedConstraints.hasNext() ){
+			
 			cInfo = definedConstraints.next();
+			System.out.println("Compiling: " + cInfo.getName());
 			Constraint c = getCompiledConstraint(cInfo);
 			if( c == null ){
 				try {
@@ -55,9 +72,9 @@ public class ConstraintManager {
 		}catch(Exception e){
 			return null;
 		}
-		return c;		
+		return c;
 	}
-	public void setXmlConstraintFilePath(String xmlConstraintFilePath) {
+/*	public void setXmlConstraintFilePath(String xmlConstraintFilePath) {
 		this.xmlConstraintFilePath = xmlConstraintFilePath;
-	}
+	}*/
 }
