@@ -29,7 +29,10 @@ public class ConstraintCompiler {
 		//Get a File Manager
 		StandardJavaFileManager fileManager  = compiler.getStandardFileManager(diagnosticsCollector, null, null);//compiler.getStandardFileManager(diagnosticsCollector);
 		//Generate the code for the class
-		JavaFileObject javaObjectFromString = getConstraintJavaImplementation(cInfo);
+		JavaFileObject javaObjectFromString = getConstraintJavaImplementation(cInfo);		
+		
+		
+		
 		//Create a list of the files to compile
 		Iterable<? extends JavaFileObject> fileObjects = Arrays.asList(javaObjectFromString);
 		//Create a compilation Task
@@ -40,7 +43,8 @@ public class ConstraintCompiler {
 	
 	public ConstraintClassJavaImplementation getConstraintJavaImplementation(ConstraintInfo cInfo) throws URISyntaxException{
 		//Generate the .java virtual file from the cInfo.
-		ConstraintSourceGenerator gen = new ConstraintSourceGenerator(cInfo);		
+		ConstraintSourceGenerator gen = new ConstraintSourceGenerator(cInfo);
+		System.out.println(gen.getClassSourceCode());
 		return new ConstraintClassJavaImplementation(ConstraintSourceGenerator.getGeneratedClassName(cInfo), gen.getClassSourceCode());
 	}
 	
