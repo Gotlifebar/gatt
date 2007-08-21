@@ -1,5 +1,7 @@
 package org.gatt.ui.wizards.helper;
 
+import java.util.Vector;
+
 import org.gatt.constraint.ConstraintInfo;
 import org.gatt.constraint.codifiable.CodifiableConstraintValue;
 import org.gatt.constraint.codifiable.ConstraintCodifiableFacade;
@@ -9,9 +11,14 @@ import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 import org.gatt.constraint.codifiable.stringexpression.StringComparableOperand;
 import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
+import org.gatt.constraint.compiler.generator.ConstraintSourceGenerator;
 
 public class ConstraintWizardProducer {
+	private Vector<Character> usedVars;
 	private ConstraintInfo cInfo;
+	
+	
+	
 	//private BooleanOperand constraint;
 	private int constraintType;
 	//private BooleanOperand _condition, _consequence;
@@ -28,6 +35,8 @@ public class ConstraintWizardProducer {
 		facade = new ConstraintCodifiableFacade();
 		current = CONDITION_EXPRESSION;
 		expressions = new BooleanOperand[2];
+		usedVars = new Vector<Character>();
+		cInfo.setId(String.valueOf(System.currentTimeMillis()));
 	}
 	
 	public void setConstraintType(int type){
@@ -115,8 +124,22 @@ public class ConstraintWizardProducer {
 		return facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getDisplayName();
 	}
 	
-	public String getConstraintCode(){
-		return facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getJavaString();
+	public ConstraintInfo getProducedConstraint(){		
+		String strategy = ConstraintSourceGenerator.generateStrategySourceCode(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getJavaString(), usedVars);		
+		cInfo.setStrategyCodeImplementation(strategy);
+		return cInfo;
 	}
 	
+	public String getConstraintCode(){
+		//
+		return ConstraintSourceGenerator.generateStrategySourceCode(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getJavaString(), usedVars);
+	}
+	public void addUsedVar(char c){
+		if( usedVars.contains(c))
+			return;
+		usedVars.add(c);
+	}
+	/*public Vector<Character> getUsedVars(){
+		return usedVars;
+	}*/
 }

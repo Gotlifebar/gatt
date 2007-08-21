@@ -91,14 +91,14 @@ public class TreeContentManager {
 		return buf.toString();
 	}
 	
-	public String getFieldJavaStringFromNode(TreeNode node){
+	public String getFieldJavaStringFromNode(TreeNode node, char var){
 		String name = createGetter(node.toString());
 		TreeNode n = node.getParent();
 		while( n.getParent() != null ){
 			name = createGetter(n.toString()) + "." + name;
 			n = n.getParent();
 		}
-		name = "session[i]." + name;
+		name = "session[" + String.valueOf(var) + "]." + name;
 		return name;
 	}
 	
