@@ -1,7 +1,8 @@
 package org.gatt.constraint.compiler.generator;
 
+import java.util.Vector;
+
 import org.gatt.constraint.ConstraintInfo;
-import org.gatt.constraint.ConstraintValue;
 import org.gatt.constraint.codifiable.CodifiableConstraintValue;
 import org.gatt.constraint.codifiable.ConditionalConstraint;
 import org.gatt.constraint.codifiable.boolexpression.BooleanOperator;
@@ -18,7 +19,7 @@ public class ConstraintSourceGenerator {
 	public static final String CONSTRAINT_PACKAGE = "org.gatt.constraint";
 	public static final String DOMAIN_PACKAGE = "org.gatt.domain";
 	
-	private final String NL = System.getProperties().getProperty("line.separator");
+	private static final String NL = System.getProperties().getProperty("line.separator");
 	
 	public ConstraintSourceGenerator(ConstraintInfo cInfo){
 		this.cInfo = cInfo;
@@ -36,9 +37,21 @@ public class ConstraintSourceGenerator {
 		buf.append("import " + CONSTRAINT_PACKAGE + ".*;" + NL + NL );
 		buf.append("public class " + getSimpleGeneratedClassName(cInfo) + " implements Constraint{" + NL);
 		buf.append("\tpublic ConstraintValue evaluate(Session[] session){" + NL );
-		//buf.append("\t\tfor(int i = 0; i < session.length; i++){" + NL);
 		buf.append(cInfo.getStrategyCodeImplementation());
-		buf.append("\t}" + NL + "}");
+		//buf.append(getStrategySourceCode());
+		buf.append(NL + "}");
+		return buf.toString();
+	}
+	public static String generateStrategySourceCode(String constraint, Vector<Character> usedVars){
+		StringBuffer buf = new StringBuffer();
+		for(char c : usedVars){
+			buf.append("\t\tfor(int " +  c + " = 0; " +  c  + " < session.length; " + c + "++){" + NL);
+		}
+		buf.append(constraint);		
+		for(char c : usedVars){
+			buf.append("\t\t}" + NL);
+		}
+		buf.append("\t return " + CodifiableConstraintValue.ZERO.getJavaString() +";" + NL +"\t}");
 		return buf.toString();
 	}
 	public static void main(String[] ar){
