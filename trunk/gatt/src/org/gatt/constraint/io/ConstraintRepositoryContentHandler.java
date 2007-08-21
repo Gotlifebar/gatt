@@ -49,9 +49,9 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 		currentTag = TAG_UNDEFINED;
 	}
 
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		switch(currentTag = obtainTag(localName)){
-			case TAG_CONSTRAINT:
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {		
+		switch(currentTag = obtainTag(qName)){
+			case TAG_CONSTRAINT:				
 				cInfo = new ConstraintInfo();
 				cInfo.setId(attributes.getValue("id"));
 				try{
@@ -59,26 +59,28 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 				}catch(NumberFormatException nfe){
 					throw new SAXParseException("Not valid Significance value",locator,nfe);
 				}
-				cInfo.setName(attributes.getValue("significance"));
+				cInfo.setName(attributes.getValue("name"));
 				break;
 		}
 	}
 	
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		String str = new String(ch, start, length);
+		String str = new String(ch, start, length);		
 		switch(currentTag){
 			case TAG_DESCRIPTION:
 				cInfo.setDescription(str);
 				break;			
 			case TAG_IMPLEMENTATION:
 				cInfo.setStrategyCodeImplementation(str);
+				System.out.println("IMPL: " + str);
 				break;			
 		}
 	}	
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		switch(currentTag = obtainTag(localName)){
+		currentTag = TAG_UNDEFINED;
+		switch( obtainTag(qName)){
 			case TAG_CONSTRAINT:
 				constraints.put(cInfo.getId(), cInfo);
 				//constraints.add(cInfo);

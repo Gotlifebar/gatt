@@ -227,7 +227,7 @@ public class OptimizationFacade {
 			
 			for (int i = 0; i < genes.length; i++) {
 				genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfGroups-1);
-				genes[i].setAllele(new Integer(rand.nextRandom()));
+				genes[i].setAllele(rand.nextRandom());
 			}
 			
 			IChromosome sample = new Chromosome(getConfiguration(),genes);

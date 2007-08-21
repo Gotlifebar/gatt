@@ -28,9 +28,10 @@ public class XMLConstraintRepository{
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			//factory.setValidating(true); //This is for validate the xml structure with a DTD
 			SAXParser parser = factory.newSAXParser();
-			ConstraintRepositoryContentHandler crch = new ConstraintRepositoryContentHandler(); 
+			ConstraintRepositoryContentHandler crch = new ConstraintRepositoryContentHandler();
+			
 			parser.parse(file, crch);
-			constraints = crch.getConstraints();
+			constraints = crch.getConstraints();			
 		}catch (ParserConfigurationException e){
 			System.err.println(e.toString());
 			return false;
