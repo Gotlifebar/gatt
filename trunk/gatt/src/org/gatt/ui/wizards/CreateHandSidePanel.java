@@ -35,7 +35,7 @@ public class CreateHandSidePanel extends JWizardPanel {
 		this.setStepTitle("Crear restricción compuesta");
 		initialize();
 		setBackStep(-1);
-	    setNextStep(3);	    
+	    setNextStep(3);	 
 	}
 	
 	public void doNext(){
@@ -59,7 +59,11 @@ public class CreateHandSidePanel extends JWizardPanel {
 	}
 	
 	protected void makingVisible(){
-		super.makingVisible();
+		 // Asignarle al label la previsualización de la restriccion
+	    ConstraintWizard wiz = (ConstraintWizard)this.getWizardParent();
+	    labelActualHandSide.setText(wiz.getConstraintProducer().getConstraintPreview());
+	    
+	    super.makingVisible();
 	}
 	
 	/**

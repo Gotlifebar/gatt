@@ -31,16 +31,9 @@ public class ConstraintPreviewPanel extends JWizardPanel {
 	}
 
 	protected void makingVisible(){
-		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
-		
-		// La fachada
-		/*if(wizard.getConstraintType() == ConstraintWizard.ConstraintType.SIMPLE){
-			this.setBackStep(1);
-		}else{
-			this.setBackStep(2);
-		}*/
-		
-		
+		 // Asignarle al label la previsualización de la restriccion
+	    ConstraintWizard wiz = (ConstraintWizard)this.getWizardParent();
+	    labelConstraint.setText(wiz.getConstraintProducer().getConstraintPreview());
 		super.makingVisible();
 	}
 	
