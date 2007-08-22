@@ -50,6 +50,8 @@ public class CreateComparisonPanel extends JWizardPanel {
 	private JPanel pOperator = null;
 	private JPanel pCompType = null;
 	private JPanel pConstantVal = null;
+	private static final char LEFT_SIDE_VAR = 'i',
+							  RIGHT_SIDE_VAR = 'j';
 	/**
 	 * This is the default constructor
 	 */
@@ -57,7 +59,7 @@ public class CreateComparisonPanel extends JWizardPanel {
 		super();
 		this.setStepTitle("Definir comparación");
 		initialize();
-		setBackStep(-1);
+		setBackStep(0);
 	    setNextStep(2);
 	}
 	
@@ -117,8 +119,9 @@ public class CreateComparisonPanel extends JWizardPanel {
 		Field leftField = (Field)treeNodeLeft.getUserObject();
 		
 		//Create Left Operand, is always the same.
+		constraintProducer.addUsedVar(LEFT_SIDE_VAR);
 		ComparableOperand operand1 = facade.createOperand(
-				treeManager.getFieldJavaStringFromNode(treeNodeLeft),
+				treeManager.getFieldJavaStringFromNode(treeNodeLeft, LEFT_SIDE_VAR),
 				treeNodeLeft.toString(),
 				treeNodeLeft.toString(),
 				leftField.getType());
@@ -129,8 +132,9 @@ public class CreateComparisonPanel extends JWizardPanel {
 		ComparableOperand operand2 = null;
 		if( radioAttribute.isSelected() ){	
 			FieldTreeNode treeNodeRight = (FieldTreeNode)this.getTreeRight().getSelectionPath().getLastPathComponent();
+			constraintProducer.addUsedVar(RIGHT_SIDE_VAR);
 			operand2 = facade.createOperand(
-						treeManager.getFieldJavaStringFromNode(treeNodeRight),
+						treeManager.getFieldJavaStringFromNode(treeNodeRight, RIGHT_SIDE_VAR),
 						treeNodeRight.toString(),
 						treeNodeRight.toString(),
 						leftField.getType());
@@ -140,6 +144,7 @@ public class CreateComparisonPanel extends JWizardPanel {
 				javaString ="\"" + getTextFreeDomainValue().getText() + "\"";
 			else
 				javaString = getTextFreeDomainValue().getText() ;
+			//TODO: Make javaString validation....
 			operand2 = facade.createOperand(
 					javaString,
 					getTextFreeDomainValue().getText(),
