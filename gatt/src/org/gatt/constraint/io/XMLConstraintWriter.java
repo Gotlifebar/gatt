@@ -47,21 +47,21 @@ public class XMLConstraintWriter {
 		outp = new XMLOutputter();
 		outp.setFormat(Format.getPrettyFormat());
 		
-		//URI uri = null;
-		String sFile = null;
+		URI uri = null;
+		//String sFile = null;
 		try{
-			sFile = config.getValue("XMLWriterInfo", "FilePath");
-			//String sFile = config.getValue("XMLWriterInfo", "FilePath");
-		//	System.out.println(sFile);
-		//	uri = getClass().getResource(sFile).toURI();
-		//}catch(URISyntaxException uriEx){
-		//	uriEx.printStackTrace();
+			//sFile = config.getValue("XMLWriterInfo", "FilePath");
+			String sFile = config.getValue("XMLWriterInfo", "FilePath");
+			//System.out.println(sFile);
+			uri = getClass().getResource(sFile).toURI();
+		}catch(URISyntaxException uriEx){
+			uriEx.printStackTrace();
 		}catch(JFigException jFigEx){
 			jFigEx.printStackTrace();
 		}
 		
-		//file = new File(uri);
-		file = new File(sFile);
+		file = new File(uri);
+		//file = new File(sFile);
 	}
 	
 	public static XMLConstraintWriter getInstance(){
@@ -161,6 +161,45 @@ public class XMLConstraintWriter {
 		}
 	}
 	
+	public void deleteConstraint(String id){
+		SAXBuilder builder = new SAXBuilder();
+		Document doc = null;
+		try{
+			doc = builder.build(file);
+		}catch(IOException ioEx){
+			ioEx.printStackTrace();
+		}
+		catch(JDOMException domEx){
+			domEx.printStackTrace();
+		}
+		
+		Element root = doc.getRootElement();
+		
+		List children = root.getChildren();
+		int index = 0;
+		Iterator i = children.iterator();
+		Element c = null;
+		while(i.hasNext()){
+			c = (Element)i.next();
+			if(c.getAttributeValue("id").equals(id))
+				break;
+			index++;
+		}
+		root.removeContent(c);
+		
+		FileOutputStream fos;
+		try{
+			fos = new FileOutputStream(file);
+			outp.output(doc, fos);
+			fos.close();
+		}catch(FileNotFoundException fEx){
+			fEx.printStackTrace();
+		}
+		catch(IOException ioEx){
+			ioEx.printStackTrace();
+		}
+	}
+	
 	public void updateConstraint(ConstraintInfo cInfo){
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
@@ -240,7 +279,7 @@ public class XMLConstraintWriter {
 		
 		XMLConstraintWriter writer = XMLConstraintWriter.getInstance();
 		
-		writer.updateConstraint(info2);
+		writer.deleteConstraint("0003");
 		
 		System.out.println("File written");
 		

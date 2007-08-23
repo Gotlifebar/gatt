@@ -23,6 +23,11 @@ public class XMLConstraintRepository{
 		constraints = null;
     }
 	
+	public XMLConstraintRepository(File file){
+		this.file = file;
+		constraints = null;
+	}
+	
 	public boolean load(){
 		try{
 			SAXParserFactory factory = SAXParserFactory.newInstance();
