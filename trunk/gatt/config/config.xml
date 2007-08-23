@@ -13,4 +13,28 @@
 	<section name="XMLWriterInfo">
 		<entry key="FilePath" value="/org/gatt/constraint/defined/ConstraintsDefinition.xml"/>
 	</section>
+	<section name="TreeKeys">
+		<entry key="Session" value="Sesión"/>
+		<entry key="room" value="Aula"/>
+		<entry key="maxChairs" value="Sillas máximas"/>
+		<entry key="currentChairs" value="Sillas actuales"/>
+		<entry key="type" value="Tipo"/>
+		<entry key="space" value="Número"/>
+		<entry key="hour" value="Hora"/>
+		<entry key="time" value="Tiempo"/>
+		<entry key="representation" value="Representación"/>
+		<entry key="group" value="Grupo"/>
+		<entry key="number" value="Número"/>
+		<entry key="maxCapacity" value="Capacidad máxima"/>
+		<entry key="teacher" value="Profesor"/>
+		<entry key="lastName" value="Apellido"/>
+		<entry key="name" value="Nombre"/>
+		<entry key="registerNumber" value="Cédula"/>
+		<entry key="subject" value="Materia"/>
+		<entry key="theoricalHours" value="Horas teóricas"/>
+		<entry key="practicalHours" value="Horas prácticas"/>
+		<entry key="name" value="Nombre"/>
+		<entry key="letterCode" value="Código de letras"/>
+		<entry key="code" value="Código"/>
+	</section>
 </configuration>
