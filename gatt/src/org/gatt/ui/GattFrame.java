@@ -294,7 +294,7 @@ public class GattFrame extends JFrame {
 		if (miManageConstraint == null) {
 			miManageConstraint = new JMenuItem();
 			miManageConstraint.setText("Administrar restricciones...");
-			miManageConstraint.addActionListener(new ManageConstraintsAction());
+			miManageConstraint.addActionListener(new ManageConstraintsAction(this));
 		}
 		return miManageConstraint;
 	}
