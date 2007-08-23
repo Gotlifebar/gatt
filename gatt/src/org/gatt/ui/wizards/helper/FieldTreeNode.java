@@ -12,19 +12,25 @@ import org.igfay.jfig.JFigLocatorIF;
 
 public class FieldTreeNode extends DefaultMutableTreeNode {
 	
+	private static JFigIF config;
+	static{
+		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
+		config = JFig.getInstance(locator);
+	}
 	public FieldTreeNode(Object f){
 		super(f);
 	}
 	public FieldTreeNode(Object f, boolean b){
 		super(f, b);
-	}	
-	public String toString(){
+	}
+	public String getJavaName(){
+		if( super.getUserObject() instanceof String)
+			return (String)super.getUserObject();		
+		return ((Field)super.getUserObject()).getName();		
+	}
+	public String toString(){	
 		
-		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
-		JFigIF config = JFig.getInstance(locator);
-		
-		String key = "", value = "";
-		
+		String key = "", value = "";		
 		if( super.getUserObject() instanceof String){
 			key = (String)super.getUserObject(); 
 		}else{

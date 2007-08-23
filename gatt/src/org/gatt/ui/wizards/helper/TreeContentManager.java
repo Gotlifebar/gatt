@@ -91,12 +91,12 @@ public class TreeContentManager {
 		return buf.toString();
 	}
 	
-	public String getFieldJavaStringFromNode(TreeNode node, char var){
-		String name = createGetter(node.toString());
-		TreeNode n = node.getParent();
+	public String getFieldJavaStringFromNode(FieldTreeNode node, char var){
+		String name = createGetter(node.getJavaName());
+		FieldTreeNode n = (FieldTreeNode)node.getParent();
 		while( n.getParent() != null ){
-			name = createGetter(n.toString()) + "." + name;
-			n = n.getParent();
+			name = createGetter(n.getJavaName()) + "." + name;
+			n = (FieldTreeNode)n.getParent();
 		}
 		name = "session[" + String.valueOf(var) + "]." + name;
 		return name;
