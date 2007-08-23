@@ -4,6 +4,12 @@ import java.lang.reflect.Field;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.gatt.util.GattConfigLocator;
+import org.igfay.jfig.JFig;
+import org.igfay.jfig.JFigException;
+import org.igfay.jfig.JFigIF;
+import org.igfay.jfig.JFigLocatorIF;
+
 public class FieldTreeNode extends DefaultMutableTreeNode {
 	
 	public FieldTreeNode(Object f){
@@ -13,8 +19,24 @@ public class FieldTreeNode extends DefaultMutableTreeNode {
 		super(f, b);
 	}	
 	public String toString(){
-		if( super.getUserObject() instanceof String)
-			return (String)super.getUserObject();
-		return ((Field)super.getUserObject()).getName();
+		
+		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
+		JFigIF config = JFig.getInstance(locator);
+		
+		String key = "", value = "";
+		
+		if( super.getUserObject() instanceof String){
+			key = (String)super.getUserObject(); 
+		}else{
+			key = ((Field)super.getUserObject()).getName();
+		}
+		
+		try{
+			value = config.getValue("TreeKeys", key);
+		}catch(JFigException jFigEx){
+			jFigEx.printStackTrace();
+		}
+		return value;
+		
 	}
 }
