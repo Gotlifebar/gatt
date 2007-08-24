@@ -25,8 +25,8 @@ public class ConstraintSourceGenerator {
 		this.cInfo = cInfo;
 	}
 	public static String getGeneratedClassName(ConstraintInfo cInfo){	
-		return CONSTRAINT_PACKAGE + "." + CLASS_NAME_PREFIX + cInfo.getId();
-	}
+		return DEFAULT_OUTPUT_PACKAGE + "." + CLASS_NAME_PREFIX + cInfo.getId();
+	}	
 	public static String getSimpleGeneratedClassName(ConstraintInfo cInfo){	
 		return CLASS_NAME_PREFIX + cInfo.getId();
 	}
@@ -35,7 +35,8 @@ public class ConstraintSourceGenerator {
 		buf.append("package " + DEFAULT_OUTPUT_PACKAGE + ";" + NL + NL);
 		buf.append("import " + DOMAIN_PACKAGE + ".*;" + NL);
 		buf.append("import " + CONSTRAINT_PACKAGE + ".*;" + NL + NL );
-		buf.append("public class " + getSimpleGeneratedClassName(cInfo) + " implements Constraint{" + NL);
+		buf.append("class " + getSimpleGeneratedClassName(cInfo) + " implements Constraint{" + NL);
+		buf.append("public " + getSimpleGeneratedClassName(cInfo) + "(){}");
 		buf.append("\tpublic ConstraintValue evaluate(Session[] session){" + NL );
 		buf.append(cInfo.getStrategyCodeImplementation());
 		//buf.append(getStrategySourceCode());

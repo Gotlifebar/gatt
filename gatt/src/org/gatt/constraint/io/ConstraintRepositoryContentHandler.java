@@ -72,7 +72,7 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 				break;			
 			case TAG_IMPLEMENTATION:
 				cInfo.setStrategyCodeImplementation(str);
-				System.out.println("IMPL: " + str);
+				//System.out.println("IMPL: " + str);
 				break;			
 		}
 	}	

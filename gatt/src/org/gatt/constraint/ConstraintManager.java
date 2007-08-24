@@ -1,5 +1,7 @@
 package org.gatt.constraint;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Vector;
@@ -7,6 +9,7 @@ import java.util.Vector;
 import org.gatt.constraint.compiler.ConstraintCompiler;
 import org.gatt.constraint.compiler.generator.ConstraintSourceGenerator;
 import org.gatt.constraint.io.XMLConstraintRepository;
+import org.gatt.domain.Session;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
 import org.igfay.jfig.JFigException;
@@ -32,11 +35,11 @@ public class ConstraintManager {
 		repository = new XMLConstraintRepository(xmlConstraintFilePath);		
 	}	
 	
-	public Iterator<Constraint> getCompiledConstraints(){
+	public Vector<Constraint> getCompiledConstraints(){
 		if( compiledConstraints == null )
 			if( !compileConstraints() )
 				return null;
-		return compiledConstraints.iterator();
+		return compiledConstraints;
 	}
 	
 	private boolean compileConstraints(){
@@ -50,10 +53,11 @@ public class ConstraintManager {
 		while( definedConstraints.hasNext() ){
 			
 			cInfo = definedConstraints.next();
-			System.out.println("Compiling: " + cInfo.getName());
+//System.out.println("Compiling: " + cInfo.getName());
 			Constraint c = getCompiledConstraint(cInfo);
 			if( c == null ){
 				try {
+					
 					if( !compiler.compileConstraint(cInfo) )
 						return false;
 				}catch(URISyntaxException e){
@@ -68,8 +72,12 @@ public class ConstraintManager {
 		String className = ConstraintSourceGenerator.getGeneratedClassName(cInfo);
 		Constraint c = null;
 		try{
-			c = (Constraint)Class.forName(className).newInstance();			
+			//Class cl = ;
+			Constructor ctr = Class.forName(className).getConstructor(null);
+			ctr.setAccessible(true);
+			c = (Constraint)ctr.newInstance(null);						
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 		return c;
