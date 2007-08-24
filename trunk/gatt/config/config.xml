@@ -37,4 +37,7 @@
 		<entry key="letterCode" value="Código de letras"/>
 		<entry key="code" value="Código"/>
 	</section>
+	<section name="ConstraintsCompilerOptions">
+		<entry key="OutputDir" value="bin"/>
+	</section>
 </configuration>
