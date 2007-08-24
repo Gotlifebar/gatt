@@ -6,12 +6,15 @@ import java.net.URISyntaxException;
 
 import javax.tools.SimpleJavaFileObject;
 
-public class ConstraintClassJavaImplementation extends SimpleJavaFileObject {
+import org.gatt.constraint.ConstraintInfo;
+import org.gatt.constraint.compiler.generator.ConstraintSourceGenerator;
+
+public class ConstraintClassJavaImplementation extends SimpleJavaFileObject {	
 	
 	private String content;
 	
-	public ConstraintClassJavaImplementation(String className, String content) throws URISyntaxException{
-		super(new URI(className), Kind.SOURCE);
+	public ConstraintClassJavaImplementation(ConstraintInfo cInfo, String content) throws URISyntaxException{
+		super(new URI(ConstraintSourceGenerator.getGeneratedClassName(cInfo)), Kind.SOURCE);
 		this.content = content;		
     }
 	

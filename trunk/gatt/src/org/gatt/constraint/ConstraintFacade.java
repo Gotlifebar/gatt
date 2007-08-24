@@ -1,6 +1,6 @@
 package org.gatt.constraint;
 
-import java.util.Iterator;
+import java.util.Vector;
 
 public class ConstraintFacade {
 	private ConstraintManager manager;
@@ -13,15 +13,22 @@ public class ConstraintFacade {
 		manager.setXmlConstraintFilePath(filePath);
 	}*/
 	
-	public Iterator<Constraint> getCompiledConstraints(){
+	public Vector<Constraint> getCompiledConstraints(){
 		return manager.getCompiledConstraints();
 	}
 	public static void main(String[] ar){
 		ConstraintFacade f = new ConstraintFacade();
-		Iterator<Constraint> it = f.getCompiledConstraints();
-		if( it == null )
+		Iterable<Constraint> it = f.getCompiledConstraints();
+		for(Constraint c : it){
+			if( c == null ){
+				System.out.println("DAMN :(");
+				continue;
+			}
+			c.evaluate(null);
+		}
+		/*if( it == null )
 			System.out.println("DAMN :(");
 		else
-			System.out.println("Lol");
+			System.out.println("Lol");*/
 	}
 }
