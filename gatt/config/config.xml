@@ -11,7 +11,7 @@
 		<entry key="PasswordConnection" value="gatt"/>
 	</section>
 	<section name="XMLWriterInfo">
-		<entry key="FilePath" value="/org/gatt/constraint/defined/ConstraintsDefinition.xml"/>
+		<entry key="FilePath" value="bin/org/gatt/constraint/defined/ConstraintsDefinition.xml"/>
 	</section>
 	<section name="TreeKeys">
 		<entry key="Session" value="Sesión"/>
@@ -37,7 +37,7 @@
 		<entry key="letterCode" value="Código de letras"/>
 		<entry key="code" value="Código"/>
 	</section>
-	<section name="ConstraintsCompilerOptions">
+	<section name="ConstraintCompilerOptions">
 		<entry key="OutputDir" value="bin"/>
 	</section>
 </configuration>
