@@ -77,7 +77,7 @@ public class ConstraintManager {
 			ctr.setAccessible(true);
 			c = (Constraint)ctr.newInstance(null);						
 		}catch(Exception e){
-			e.printStackTrace();
+		//	e.printStackTrace();
 			return null;
 		}
 		return c;
