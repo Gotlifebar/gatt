@@ -4,4 +4,5 @@ import org.gatt.domain.Session;
 
 public interface Constraint {
 	public ConstraintValue evaluate(Session[] sessions);
+	public double getSignificance();
 }
