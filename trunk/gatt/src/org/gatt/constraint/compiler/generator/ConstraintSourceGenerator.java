@@ -36,7 +36,8 @@ public class ConstraintSourceGenerator {
 		buf.append("import " + DOMAIN_PACKAGE + ".*;" + NL);
 		buf.append("import " + CONSTRAINT_PACKAGE + ".*;" + NL + NL );
 		buf.append("class " + getSimpleGeneratedClassName(cInfo) + " implements Constraint{" + NL);
-		buf.append("public " + getSimpleGeneratedClassName(cInfo) + "(){}");
+		buf.append("\tpublic " + getSimpleGeneratedClassName(cInfo) + "(){}");
+		buf.append("\tpublic double getSignificance(){" + NL + "\t\treturn " + cInfo.getSignificance() + ";" + NL + "\t}"); 
 		buf.append("\tpublic ConstraintValue evaluate(Session[] session){" + NL );
 		buf.append(cInfo.getStrategyCodeImplementation());
 		//buf.append(getStrategySourceCode());

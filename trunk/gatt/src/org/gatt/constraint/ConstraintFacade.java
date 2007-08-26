@@ -25,6 +25,7 @@ public class ConstraintFacade {
 				continue;
 			}
 			c.evaluate(null);
+			System.out.println("Lol: " + c.getSignificance());
 		}
 		/*if( it == null )
 			System.out.println("DAMN :(");
