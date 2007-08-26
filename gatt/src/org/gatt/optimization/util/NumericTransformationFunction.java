@@ -1,22 +1,25 @@
 package org.gatt.optimization.util;
 
 public class NumericTransformationFunction {
-	private int countSessions, countRooms;
 	
-	public NumericTransformationFunction(int countSessions, int countRooms){
-		this.countSessions = countSessions;
+	private int countRooms, countHours;
+	
+	public NumericTransformationFunction(int countGroups, int countRooms, int countHours) {
 		this.countRooms = countRooms;
+		this.countHours = countHours;
+	}
+	public int getIndexFor(int idRoom, int idHour){		
+		return idRoom + idHour * countRooms;
+	}
+	public int getRoomIdFrom(int index){
+		return index % countRooms;  
+	}
+	public int getHourIdFrom(int index){
+		return index / countRooms;
+	}
+	public int getTotalIndex(){
+		return countRooms * countHours;
 	}
 	
-	public int transformIndex(int idSession, int idRoom){		
-		return idSession + idRoom * countSessions;
-	}
-	public int obtainSessionIdFrom(int value){
-		int sessionId = value % countSessions;
-		return sessionId;
-	}
-	public int obtainRoomIdFrom(int value){
-		int roomId = value / countSessions;
-		return roomId;
-	}
+	
 }
