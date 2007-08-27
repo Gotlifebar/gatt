@@ -13,7 +13,9 @@ public class DomainObjectFactoryFacade {
 			instance = new DomainObjectFactoryFacade();
 		return instance;
 	}
+	
 	private DomainObjectFactoryFacade(){
+		//TODO: These values should be loaded from a config file
 		cache = new HashMapRepository();
 		useCache = true;
 	}	
