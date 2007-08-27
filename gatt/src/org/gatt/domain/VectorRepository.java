@@ -8,7 +8,7 @@ public class VectorRepository extends Repository{
 		memory = new Vector<DomainObject>();
 	}
 	
-	public DomainObject searchInMemory(int id, Class type){
+	public DomainObject getObjectById(int id, Class type){
 		//1. Search in the repository for the id-type,
 		for(DomainObject dob: memory)
 			if( (dob.getId() == id) && (dob.getClass() == type) )
@@ -17,7 +17,7 @@ public class VectorRepository extends Repository{
 		return null;
 	}
 	
-	protected DomainObject addObject(DomainObject dob){		
+	public DomainObject addObject(DomainObject dob){		
 		memory.add(dob);
 		return dob;
 	}
