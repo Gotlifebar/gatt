@@ -1,5 +1,6 @@
 package org.gatt.optimization.ttga;
 
+import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.optimization.util.ImpShuffler;
 import org.gatt.optimization.util.Shuffler;
 import org.gatt.optimization.util.UniqueRandomNumberGenerator;
@@ -18,7 +19,6 @@ import org.jgap.InvalidConfigurationException;
 import org.jgap.Population;
 import org.jgap.event.EventManager;
 import org.jgap.event.GeneticEvent;
-import org.jgap.event.GeneticEventListener;
 import org.jgap.impl.BestChromosomesSelector;
 import org.jgap.impl.ChromosomePool;
 import org.jgap.impl.GreedyCrossover;
@@ -173,7 +173,9 @@ public class OptimizationFacade {
 	 * @return
 	 */
 	private FitnessFunction createFitnessFunction(){
-		return new OrderFitnessFunction();
+		//return new OrderFitnessFunction();
+		DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
+		return new TTFitnessFunction(doff.getRoomsCount(), doff.getHoursCount());
 	}
 	
 	/**
