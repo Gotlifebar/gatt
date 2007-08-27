@@ -105,6 +105,17 @@ public class DomainObjectFactoryFacade {
 		}
 		return s;
 	}
+	public Subject getSubjectByCode(int id){
+		if( !useCache )
+			return factory.getSubjectDAO().findSubjectByCode(id);
+		
+		Subject s = (Subject)cache.getObjectById(id, Subject.class);
+		if( s == null ){
+			s = factory.getSubjectDAO().findSubjectByCode(id);
+			cache.addObject(s);
+		}
+		return s;
+	}
 	public int getSubjectsCount(){
 		return factory.getSubjectDAO().countSubjects();
 	}
