@@ -43,7 +43,7 @@ public class XMLConstraintWriter {
 		
 		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
 		JFigIF config = JFig.getInstance(locator);
-		
+
 		outp = new XMLOutputter();
 		outp.setFormat(Format.getPrettyFormat());
 		
