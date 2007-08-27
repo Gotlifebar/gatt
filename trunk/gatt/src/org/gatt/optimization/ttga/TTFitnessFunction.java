@@ -41,6 +41,9 @@ public class TTFitnessFunction extends FitnessFunction {
 		Gene[] gene = individual.getGenes();
 		Session[] sessions = new Session[gene.length];		
 		for(int i = 0; i < gene.length; i++){
+			if( (Integer)gene[i].getAllele() <= 0 )//It's a blank space, there's not need to process it
+				continue;
+				
 			sessions[i] = new Session();
 			//the GET's of the DomainObjectFactoryFacade can be improved by
 			//using a memory cache, that can be in the DAO's or in the Facade itself.
