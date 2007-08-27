@@ -68,6 +68,13 @@ public class OptimizationFacade {
 	 * A protected constructor. (It's part of the singleton pattern)
 	 */
 	protected OptimizationFacade(){
+		DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
+		try{
+			doff.setDAOFactoryClass("org.gatt.domain.factories.mysqldaofactory.MySqlDAOFactory");
+		}catch(Exception e){
+			e.printStackTrace();
+			return;
+		}
 	}
 	
 	/**
