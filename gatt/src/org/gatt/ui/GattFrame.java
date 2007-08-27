@@ -102,6 +102,8 @@ public class GattFrame extends JFrame {
 	public GattFrame() {
 		super();
 		initialize();
+		disablePauseCommands();
+		disableStopCommands();
 	}
 
 	/**
@@ -121,7 +123,37 @@ public class GattFrame extends JFrame {
 			}
 		});
 	}
-
+	
+	public void disableOptimizationCommands(){
+		getBOptimize().setEnabled(false);
+		getMiOptimize().setEnabled(false);
+	}
+	
+	public void enableOptimizationCommands(){
+		getBOptimize().setEnabled(true);
+		getMiOptimize().setEnabled(true);
+	}
+	
+	public void disablePauseCommands(){
+		getBPause().setEnabled(false);
+		getMiPause().setEnabled(false);
+	}
+	
+	public void enablePauseCommands(){
+		getBPause().setEnabled(true);
+		getMiPause().setEnabled(true);
+	}
+	
+	public void disableStopCommands(){
+		getBStop().setEnabled(false);
+		getMiStop().setEnabled(false);
+	}
+	
+	public void enableStopCommands(){
+		getBStop().setEnabled(true);
+		getMiStop().setEnabled(true);
+	}
+	
 	/**
 	 * This method initializes cpContainer
 	 * 
@@ -236,7 +268,7 @@ public class GattFrame extends JFrame {
 			miOptimize = new JMenuItem();
 			miOptimize.setText("Optimizar");
 			miOptimize.setIcon(new ImageIcon(getClass().getResource("/resources/Play.png")));
-			miOptimize.addActionListener(new OptimizeAction());
+			miOptimize.addActionListener(new OptimizeAction(this));
 		}
 		return miOptimize;
 	}
@@ -265,7 +297,7 @@ public class GattFrame extends JFrame {
 			miPause = new JMenuItem();
 			miPause.setText("Pausar optimización");
 			miPause.setIcon(new ImageIcon(getClass().getResource("/resources/Pause.png")));
-			miPause.addActionListener(new PauseAction());
+			miPause.addActionListener(new PauseAction(this));
 		}
 		return miPause;
 	}
@@ -280,7 +312,7 @@ public class GattFrame extends JFrame {
 			miStop = new JMenuItem();
 			miStop.setText("Detener optimización");
 			miStop.setIcon(new ImageIcon(getClass().getResource("/resources/Stop.png")));
-			miStop.addActionListener(new StopAction());
+			miStop.addActionListener(new StopAction(this));
 		}
 		return miStop;
 	}
@@ -444,7 +476,7 @@ public class GattFrame extends JFrame {
 			bOptimize = new JButton();
 			bOptimize.setText("Optimizar");
 			bOptimize.setIcon(new ImageIcon(getClass().getResource("/resources/Play.png")));
-			bOptimize.addActionListener(new OptimizeAction());
+			bOptimize.addActionListener(new OptimizeAction(this));
 		}
 		return bOptimize;
 	}
@@ -459,7 +491,7 @@ public class GattFrame extends JFrame {
 			bPause = new JButton();
 			bPause.setText("Pausar");
 			bPause.setIcon(new ImageIcon(getClass().getResource("/resources/Pause.png")));
-			bPause.addActionListener(new PauseAction());
+			bPause.addActionListener(new PauseAction(this));
 		}
 		return bPause;
 	}
@@ -474,7 +506,7 @@ public class GattFrame extends JFrame {
 			bStop = new JButton();
 			bStop.setText("Detener");
 			bStop.setIcon(new ImageIcon(getClass().getResource("/resources/Stop.png")));
-			bStop.addActionListener(new StopAction());
+			bStop.addActionListener(new StopAction(this));
 		}
 		return bStop;
 	}
