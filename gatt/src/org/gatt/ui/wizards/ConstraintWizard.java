@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import org.freixas.jwizard.JWizardDialog;
 import org.gatt.constraint.ConstraintInfo;
+import org.gatt.constraint.io.XMLConstraintWriter;
 import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 
 public class ConstraintWizard extends JWizardDialog {
@@ -132,6 +133,10 @@ public class ConstraintWizard extends JWizardDialog {
 		this.currentOperation = currentOperation;
 	}
 	
+	public ConstraintInfo getProducedConstraint(){
+		return constraintProducer.getProducedConstraint();
+	}
+	
 	public int getNextPanel(){
 		int next = -1;		
 		switch(this.getCurrentStep()){
@@ -153,6 +158,8 @@ public class ConstraintWizard extends JWizardDialog {
 				if( constraintProducer.getConstraintType() == (ConstraintType.SIMPLE.ordinal() + 1)){
 					System.out.println(constraintProducer.getConstraintCode());
 					next = CONSTRAINT_PREVIEW_PANEL;
+					XMLConstraintWriter writer = XMLConstraintWriter.getInstance();						
+					writer.write(constraintProducer.getProducedConstraint());
 					break;
 				}
 				switch(constraintProducer.getCurrentExpression()){
@@ -164,12 +171,14 @@ public class ConstraintWizard extends JWizardDialog {
 					case ConstraintWizardProducer.CONSEQUENCE_EXPRESSION:
 						next = CONSTRAINT_PREVIEW_PANEL;
 						System.out.println(constraintProducer.getConstraintCode());
+						XMLConstraintWriter writer = XMLConstraintWriter.getInstance();						
+						writer.write(constraintProducer.getProducedConstraint());
 						break;
 				}
 				break;
 			case CONSTRAINT_PREVIEW_PANEL:
 				//TODO: o_O !?
-				System.out.println(constraintProducer.getConstraintCode());
+				//System.out.println(constraintProducer.getConstraintCode());
 				break;	
 		}
 		return next;
