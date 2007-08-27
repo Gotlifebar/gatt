@@ -8,6 +8,7 @@ public class Hour extends DomainObject {
 	
 	public Hour(){
 		super();
+
 	}	
 	public int getTime() {
 		return time;

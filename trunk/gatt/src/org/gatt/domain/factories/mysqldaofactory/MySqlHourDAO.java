@@ -1,19 +1,52 @@
 package org.gatt.domain.factories.mysqldaofactory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import org.gatt.domain.Group;
 import org.gatt.domain.Hour;
 import org.gatt.domain.factories.HourDAO;
-import java.sql.*;
 
 public class MySqlHourDAO implements HourDAO {
 
 	public int countHours() {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection c = MySqlDAOFactory.getConnection();		
+		try{			
+			PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) AS total FROM hours");			
+			ResultSet r = ps.executeQuery();			
+			if( !r.next() )
+				return -1;
+			return r.getInt("total");			
+		}catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 	public Hour findHour(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection c = MySqlDAOFactory.getConnection();
+		Hour h = null;
+		try{			
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM hours WHERE id = ?");
+			ps.setInt(1, id);
+			ResultSet r = ps.executeQuery();
+			//extract the elements from the ResultSet and create the object
+			//If not found
+			if( !r.next() )
+				return null;
+			//Was found... create
+			h = new Hour();
+			h.setDay(r.getInt("day"));
+			h.setTime(r.getInt("time"));
+			h.setRepresentation(r.getString("representation"));
+			// what about subject and teacher ?
+			ps.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return h;
 	}
 
 }

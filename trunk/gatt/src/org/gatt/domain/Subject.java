@@ -2,7 +2,7 @@ package org.gatt.domain;
 
 public class Subject extends DomainObject {
 	
-	private String code;
+	private int code;
 	private String letterCode;
 	private String name;
 	private int theoricalHours;
@@ -14,11 +14,11 @@ public class Subject extends DomainObject {
 		super();
 	}
 
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 

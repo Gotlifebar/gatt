@@ -4,10 +4,11 @@ import org.gatt.domain.Subject;
 import org.gatt.domain.factories.SubjectDAO;
 import java.sql.*;
 public class MySqlSubjectDAO implements SubjectDAO {
+	
 	public int countSubjects() {
 		Connection c = MySqlDAOFactory.getConnection();		
 		try{			
-			PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) AS total FROM tbl_Subject");			
+			PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) AS total FROM subjects");			
 			ResultSet r = ps.executeQuery();			
 			if( !r.next() )
 				return -1;
@@ -22,7 +23,7 @@ public class MySqlSubjectDAO implements SubjectDAO {
 		Connection c = MySqlDAOFactory.getConnection();
 		Subject s = null;
 		try{			
-			PreparedStatement ps = c.prepareStatement("SELECT * FROM tbl_Subject WHERE id = ?");
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM subjects WHERE id = ?");
 			ps.setInt(1, id);
 			ResultSet r = ps.executeQuery();
 			//extract the elements from the ResultSet and create the object
@@ -31,10 +32,11 @@ public class MySqlSubjectDAO implements SubjectDAO {
 				return null;
 			//Was found... create
 			s = new Subject();
-			s.setCode(r.getString("code"));
+			s.setCode(r.getInt("code"));
 			s.setName(r.getString("name"));
-			//s.setProgram(r.getInt("program"));
-			//s.setSemester(r.getInt("semester"));
+			s.setLetterCode(r.getString("letterCode"));
+			s.setTheoricalHours(r.getInt("theoricalHours"));
+			s.setPracticalHours(r.getInt("practicalHours"));
 			ps.close();
 		}catch(Exception e){
 			e.printStackTrace();
