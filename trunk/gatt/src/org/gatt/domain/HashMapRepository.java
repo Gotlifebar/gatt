@@ -10,14 +10,14 @@ public class HashMapRepository extends Repository {
 	}
 	
 	@Override
-	protected DomainObject addObject(DomainObject dob) {
+	public DomainObject addObject(DomainObject dob) {
 		String key = dob.getClass().getSimpleName() + dob.getId();
 		hash.put(key, dob);
 		return dob;
 	}
 
 	@Override
-	public DomainObject searchInMemory(int id, Class type) {		
+	public DomainObject getObjectById(int id, Class type) {		
 		return hash.get(type.getSimpleName() + id);
 	}
 

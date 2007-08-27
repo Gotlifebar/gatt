@@ -2,6 +2,8 @@ package org.gatt.domain.factories;
 import org.gatt.domain.*;
 
 public class DomainObjectFactoryFacade {
+	private Repository cache;
+	private boolean useCache;
 	
 	//Singleton Implementation
 	private static DomainObjectFactoryFacade instance = null;
@@ -12,7 +14,8 @@ public class DomainObjectFactoryFacade {
 		return instance;
 	}
 	private DomainObjectFactoryFacade(){
-		
+		cache = new HashMapRepository();
+		useCache = true;
 	}	
 	public void setDAOFactoryClass(String daoFactoryClass) 
 		throws ClassNotFoundException, IllegalAccessException, InstantiationException {
@@ -20,43 +23,99 @@ public class DomainObjectFactoryFacade {
 	}
 	
 	public Group getGroup(int id){
-		return factory.getGroupDAO().findGroup(id);
+		if( !useCache )
+			return factory.getGroupDAO().findGroup(id);
+		
+		Group g = (Group)cache.getObjectById(id, Group.class); 
+		if( g == null ){
+			g = factory.getGroupDAO().findGroup(id);
+			cache.addObject(g);
+		}
+		return g; 
 	}
 	public int getGroupsCount(){
 		return factory.getGroupDAO().countGroups();
 	}
 	public Hour getHour(int id){
-		return factory.getHourDAO().findHour(id);
+		if( !useCache )
+			return factory.getHourDAO().findHour(id);
+		
+		Hour h = (Hour)cache.getObjectById(id, Hour.class);
+		if( h == null ){
+			h = factory.getHourDAO().findHour(id);
+			cache.addObject(h);
+		}
+		return h;
 	}
 	public int getHoursCount(){
 		return factory.getHourDAO().countHours();
 	}
 	public MediaType getMediaType(int id){
-		return factory.getMediaTypeDAO().findMediaType(id);
+		if( !useCache )
+			return factory.getMediaTypeDAO().findMediaType(id);
+		
+		MediaType m = (MediaType)cache.getObjectById(id, MediaType.class);
+		if( m == null ){
+			m = factory.getMediaTypeDAO().findMediaType(id);
+			cache.addObject(m);
+		}
+		return m;
 	}
 	public int getMediaTypesCount(){
 		return factory.getMediaTypeDAO().countMediaTypes();
 	}
 	public Room getRoom(int id){
-		return factory.getRoomDAO().findRoom(id);
+		if( !useCache )
+			return factory.getRoomDAO().findRoom(id);
+		
+		Room r = (Room)cache.getObjectById(id, Room.class);
+		if( r == null ){
+			r = factory.getRoomDAO().findRoom(id);
+			cache.addObject(r);
+		}
+		return r;
 	}
 	public int getRoomsCount(){
 		return factory.getRoomDAO().countRooms();
 	}
 	public Session getSession(int id){
-		return factory.getSessionDAO().findSession(id);
+		if( !useCache )
+			return factory.getSessionDAO().findSession(id);
+		
+		Session s = (Session)cache.getObjectById(id, Session.class);
+		if( s == null ){
+			s = factory.getSessionDAO().findSession(id);
+			cache.addObject(s);
+		}
+		return s;
 	}
 	public int getSessionsCount(){
 		return factory.getSessionDAO().countSessions();
 	}
 	public Subject getSubject(int id){
-		return factory.getSubjectDAO().findSubject(id);
+		if( !useCache )
+			return factory.getSubjectDAO().findSubject(id);
+		
+		Subject s = (Subject)cache.getObjectById(id, Subject.class);
+		if( s == null ){
+			s = factory.getSubjectDAO().findSubject(id);
+			cache.addObject(s);
+		}
+		return s;
 	}
 	public int getSubjectsCount(){
 		return factory.getSubjectDAO().countSubjects();
 	}
 	public Teacher getTeacher(int id){
-		return factory.getTeacherDAO().findTeacher(id);
+		if( !useCache )
+			return factory.getTeacherDAO().findTeacher(id);
+		
+		Teacher t = (Teacher)cache.getObjectById(id, Teacher.class);
+		if( t == null ){
+			t = factory.getTeacherDAO().findTeacher(id);
+			cache.addObject(t);
+		}
+		return t;		
 	}
 	public int getTeachersCount(){
 		return factory.getTeacherDAO().countTeachers();
