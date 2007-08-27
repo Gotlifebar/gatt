@@ -1,6 +1,5 @@
 package org.gatt.optimization.ttga;
 
-import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.optimization.util.ImpShuffler;
 import org.gatt.optimization.util.Shuffler;
 import org.gatt.optimization.util.UniqueRandomNumberGenerator;
@@ -29,35 +28,44 @@ import org.jgap.impl.SwappingMutationOperator;
 
 
 /**
- * 
- * @author Andrés
- *
+ * The facade for the optimization component.
  */
 public class OptimizationFacade {
 	
 	/**
-	 * 
+	 * An enumeration that represents the possible states of the optimization process
+	 */
+	public enum OptimizationState {RUNNING, PAUSED, FINISHED}
+	
+	/**
+	 * The configuration object for the timetabling genetic algorithm
 	 */
 	private Configuration gaConfig;
 	
 	/**
-	 * 
+	 * This objects represents the entire population for the algorithm
 	 */
 	private Genotype genotype;
 	
 	/**
-	 * 
+	 * The evolution thread the genetic algorithm uses, so it can run forever, until some
+	 * event stops it.
 	 */
-	private volatile Thread evolutionThread;
+	private Thread evolutionThread;
 	
 	/**
-	 * 
+	 * The instance of this class. (It's part of the singleton pattern)
 	 */
 	private static OptimizationFacade instance; 
 	
 	/**
-	 * 
-	 *
+	 * Keeps track of the states of the optimization
+	 */
+	private OptimizationState optimizationState;
+	
+	
+	/**
+	 * A protected constructor. (It's part of the singleton pattern)
 	 */
 	protected OptimizationFacade(){
 	}
@@ -69,8 +77,16 @@ public class OptimizationFacade {
 	public static OptimizationFacade getInstance(){
 		if(instance == null)
 			instance = new OptimizationFacade();
-		
+	
 		return instance;
+	}
+	
+	public OptimizationState getOptimizationState(){
+		return optimizationState;
+	}
+	
+	public void setOptimizationState(OptimizationState newState){
+		optimizationState = newState;
 	}
 	
 	/**
@@ -79,6 +95,8 @@ public class OptimizationFacade {
 	 */
 	public void optimize(){
 		System.out.println("Initializating...");
+		
+		setOptimizationState(OptimizationState.RUNNING);
 		
 		try {
 			gaConfig = createConfiguration();
@@ -94,36 +112,9 @@ public class OptimizationFacade {
 		}
 		
 		genotype = initPopulation();
-		
 		evolutionThread = new Thread(genotype);
-		final int numEvolutions = 1000;
-		
-		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT, new GeneticEventListener() {
-			public void geneticEventFired(GeneticEvent a_firedEvent) {
-				Genotype genotype = (Genotype) a_firedEvent.getSource();
-		        int evno = genotype.getConfiguration().getGenerationNr();
-		        System.out.println("Evolution:"+evno);
-		        
-		        if (evno % 10 == 0) {
-		          double bestFitness = genotype.getFittestChromosome().getFitnessValue();
-		          System.out.println(evolutionThread.getName() + ": Evolving generation " + evno
-		                             + ", best fitness: " + bestFitness);
-		        }
-		        if (evno > numEvolutions) {
-		        	System.out.println(genotype.getFittestChromosome().toString());
-		        	System.out.println("OCURRIÓ LA ULTIMA EVOLUCIÓN");
-		        	evolutionThread = null;
-		        }
-		      /*  else {
-		          try {
-		            evolutionThread.sleep( (j + 1) * 3);
-		          } catch (InterruptedException iex) {
-		            iex.printStackTrace();
-		            System.exit(1);
-		          }
-		        }*/
-		      }
-		    });
+		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT,
+												new TimeTablingEvolutionListener(evolutionThread));
 		evolutionThread.start();
 	}
 	
@@ -144,20 +135,25 @@ public class OptimizationFacade {
 		return null;
 	}
 	
-	/**
-	 * 
-	 *
-	 */
-	public synchronized void pauseOptimization(){
-		
+	public void printBestSolution(){
+		System.out.println(genotype.getFittestChromosome().toString());
 	}
 	
 	/**
 	 * 
 	 *
 	 */
-	public synchronized void resumeOptimization(){
-		
+	public void pauseOptimization(){
+		setOptimizationState(OptimizationState.PAUSED);
+	}
+	
+	/**
+	 * 
+	 *
+	 */
+	public void resumeOptimization(){
+		setOptimizationState(OptimizationState.RUNNING);
+		evolutionThread.resume();
 	}
 	
 	/**
@@ -165,7 +161,11 @@ public class OptimizationFacade {
 	 *
 	 */
 	public void stopOptimization(){
-		evolutionThread = null;
+		setOptimizationState(OptimizationState.FINISHED);
+		evolutionThread.stop();
+		printBestSolution();
+		
+		Configuration.reset();
 	}
 	
 	/**
@@ -288,7 +288,7 @@ public class OptimizationFacade {
 	private void saveSolution(){
 		
 	}
-
+	
 	public Configuration getConfiguration() {
 		return gaConfig;
 	}
