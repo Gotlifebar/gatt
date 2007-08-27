@@ -4,6 +4,10 @@ import java.util.*;
 public class VectorRepository extends Repository{
 	private Vector<DomainObject> memory;
 	
+	public VectorRepository(){
+		memory = new Vector<DomainObject>();
+	}
+	
 	public DomainObject searchInMemory(int id, Class type){
 		//1. Search in the repository for the id-type,
 		for(DomainObject dob: memory)
