@@ -2,17 +2,17 @@ package org.gatt.domain;
 
 public class Teacher extends DomainObject {
 	
-	private String registerNumber;
+	private int registerNumber;
 	private String name;
 	private String lastName;
 	
 	public Teacher(){
 		super();
 	}
-	public String getRegisterNumber() {
+	public int getRegisterNumber() {
 		return registerNumber;
 	}
-	public void setRegisterNumber(String registerNumber) {
+	public void setRegisterNumber(int registerNumber) {
 		this.registerNumber = registerNumber;
 	}
 	public String getName() {
