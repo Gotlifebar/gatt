@@ -1,9 +1,12 @@
 package org.gatt.domain.factories.mysqldaofactory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import org.gatt.domain.Group;
-import org.gatt.domain.Subject;
+import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.domain.factories.GroupDAO;
-import java.sql.*;
 
 public class MySqlGroupDAO implements GroupDAO {
 
@@ -16,12 +19,20 @@ public class MySqlGroupDAO implements GroupDAO {
 			ResultSet r = ps.executeQuery();
 			//extract the elements from the ResultSet and create the object
 			//If not found
-			if( !r.next() )
+			if( !r.next() ){
+				System.out.println("No lo encontró al grupo: " + id);
 				return null;
+			}
+			
+			DomainObjectFactoryFacade facade = DomainObjectFactoryFacade.getInstance(); 
+			
 			//Was found... create
 			g = new Group();
 			g.setMaxCapacity(r.getInt("maxCapacity"));
 			g.setNumber(r.getInt("number"));
+			g.setId(r.getInt("id"));
+			g.setSubject(facade.getSubject(r.getInt("subject")));
+			g.setTeacher(facade.getTeacher(r.getInt("teacher")));
 			// what about subject and teacher ?
 			ps.close();
 		}catch(Exception e){

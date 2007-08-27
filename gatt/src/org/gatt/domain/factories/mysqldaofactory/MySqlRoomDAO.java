@@ -33,6 +33,7 @@ public class MySqlRoomDAO implements RoomDAO {
 				return null;
 			//Was found... create
 			room = new Room();
+			room.setId(r.getInt("id"));
 			room.setCurrentChairs(r.getInt("currentChairs"));
 			room.setMaxChairs(r.getInt("maxChairs"));
 			room.setSpace(r.getString("space"));
