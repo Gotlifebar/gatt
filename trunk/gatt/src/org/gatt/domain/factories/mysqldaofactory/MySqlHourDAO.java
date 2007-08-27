@@ -33,10 +33,13 @@ public class MySqlHourDAO implements HourDAO {
 			ResultSet r = ps.executeQuery();
 			//extract the elements from the ResultSet and create the object
 			//If not found
-			if( !r.next() )
+			if( !r.next() ){
+				System.out.println("No lo encontro: " + id);
 				return null;
+			}
 			//Was found... create
 			h = new Hour();
+			h.setId(r.getInt("id"));
 			h.setDay(r.getInt("day"));
 			h.setTime(r.getInt("time"));
 			h.setRepresentation(r.getString("representation"));
