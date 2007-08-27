@@ -213,13 +213,16 @@ public class OptimizationFacade {
 	 * @return
 	 */
 	private IChromosome createSampleChromosome(){
-		//DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
+		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
 		
-		int numberOfRooms = 2;//dofFacade.getRoomsCount();
-		int numberOfSessions = 5;//dofFacade.getSessionsCount();
-		int numberOfGroups = 8;//dofFacade.getGroupsCount();
+		/*int numberOfRooms = 2;//dofFacade.getRoomsCount();
+		int numberOfHours = 5;//dofFacade.getHoursCount();
+		int numberOfGroups = 8;//dofFacade.getGroupsCount();*/
+		int numberOfRooms = dofFacade.getRoomsCount();
+		int numberOfHours = dofFacade.getHoursCount();
+		int numberOfGroups = dofFacade.getGroupsCount();
 		
-		int genesArraySize = numberOfRooms*numberOfSessions;
+		int genesArraySize = numberOfRooms*numberOfHours;
 		
 		int lowBound = numberOfGroups - genesArraySize;
 		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
