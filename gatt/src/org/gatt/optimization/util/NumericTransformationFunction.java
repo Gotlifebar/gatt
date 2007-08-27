@@ -4,7 +4,7 @@ public class NumericTransformationFunction {
 	
 	private int countRooms, countHours;
 	
-	public NumericTransformationFunction(int countGroups, int countRooms, int countHours) {
+	public NumericTransformationFunction(int countRooms, int countHours) {
 		this.countRooms = countRooms;
 		this.countHours = countHours;
 	}
