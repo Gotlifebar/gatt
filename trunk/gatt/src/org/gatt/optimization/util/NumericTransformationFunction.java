@@ -8,14 +8,16 @@ public class NumericTransformationFunction {
 		this.countRooms = countRooms;
 		this.countHours = countHours;
 	}
-	public int getIndexFor(int idRoom, int idHour){		
+	public int getIndexFor(int idRoom, int idHour){
+		idRoom--;
+		idHour--;
 		return idRoom + idHour * countRooms;
 	}
-	public int getRoomIdFrom(int index){
-		return index % countRooms;  
+	public int getRoomIdFrom(int index){		
+		return index % countRooms + 1 ;  	
 	}
-	public int getHourIdFrom(int index){
-		return index / countRooms;
+	public int getHourIdFrom(int index){		
+		return index / countRooms + 1;
 	}
 	public int getTotalIndex(){
 		return countRooms * countHours;
