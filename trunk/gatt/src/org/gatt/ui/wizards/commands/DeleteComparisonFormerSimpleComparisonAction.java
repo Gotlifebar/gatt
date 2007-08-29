@@ -6,14 +6,14 @@ import javax.swing.AbstractAction;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-import org.gatt.ui.wizards.CreateConditionalComparisonPanel;
+import org.gatt.ui.wizards.CreateSimpleComparisonPanel;
 
-public class DeleteComparisonFormerAction extends AbstractAction {
+public class DeleteComparisonFormerSimpleComparisonAction extends AbstractAction {
 
 	
-	private CreateConditionalComparisonPanel panel;
+	private CreateSimpleComparisonPanel panel;
 	
-	public DeleteComparisonFormerAction(CreateConditionalComparisonPanel panel){
+	public DeleteComparisonFormerSimpleComparisonAction(CreateSimpleComparisonPanel panel){
 		this.panel = panel;
 	}
 	
