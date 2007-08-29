@@ -27,8 +27,8 @@ public class ConstraintWizard extends JWizardDialog {
 							COMPLEMENTING_OPERATION = 1;
 	
 	private static final int ADD_CONSTRAINT_PANEL = 0,
-							 CREATE_COMPARISON_PANEL = 1,
-							 CREATE_HAND_SIDE_PANEL = 2,
+							 CREATE_SIMPLE_COMPARISON_PANEL = 1,
+							 CREATE_CONDITIONAL_COMPARISON_PANEL = 2,
 							 CONSTRAINT_PREVIEW_PANEL = 3;
 	
 	private int currentOperation;
@@ -50,14 +50,12 @@ public class ConstraintWizard extends JWizardDialog {
 		
 		// Create each step
 		addWizardPanel(new AddConstraintPanel());
-	    addWizardPanel(new CreateComparisonPanel());
-	    addWizardPanel(new CreateHandSidePanel());
+	    addWizardPanel(new CreateSimpleComparisonPanel());
+	    addWizardPanel(new CreateConditionalComparisonPanel());
 	    addWizardPanel(new ConstraintPreviewPanel());
 		
 		this.disableCancelAtEnd();
-		
-		
-		
+				
 		pack();
 		setVisible(true);
 	}
@@ -143,13 +141,21 @@ public class ConstraintWizard extends JWizardDialog {
 			case ADD_CONSTRAINT_PANEL:
 				currentOperation = DEFINING_OPERATION;
 				constraintProducer.setCurrentExpression(ConstraintWizardProducer.CONDITION_EXPRESSION);
-				next = CREATE_COMPARISON_PANEL;
+				if(constraintType == ConstraintType.SIMPLE)
+					next = CREATE_SIMPLE_COMPARISON_PANEL;
+				else
+					next = CREATE_CONDITIONAL_COMPARISON_PANEL;
 				break;
-			case CREATE_COMPARISON_PANEL:
+			case CREATE_SIMPLE_COMPARISON_PANEL:
 				//currentOperation = DEFINING_OPERATION;
-				next = CREATE_HAND_SIDE_PANEL;
+				next = CONSTRAINT_PREVIEW_PANEL;
+				saveConstraint();
 				break;
-			case CREATE_HAND_SIDE_PANEL:
+			case CREATE_CONDITIONAL_COMPARISON_PANEL:
+				next = CONSTRAINT_PREVIEW_PANEL;
+				saveConstraint();
+				break;
+			/*case CREATE_HAND_SIDE_PANEL:
 				if( currentOperation == COMPLEMENTING_OPERATION ){
 					currentOperation = DEFINING_OPERATION;
 					next = CREATE_COMPARISON_PANEL;
@@ -175,13 +181,18 @@ public class ConstraintWizard extends JWizardDialog {
 						writer.write(constraintProducer.getProducedConstraint());
 						break;
 				}
-				break;
+				break;*/
 			case CONSTRAINT_PREVIEW_PANEL:
 				//TODO: o_O !?
 				//System.out.println(constraintProducer.getConstraintCode());
 				break;	
 		}
 		return next;
+	}
+	
+	private void saveConstraint(){
+		XMLConstraintWriter writer = XMLConstraintWriter.getInstance();
+		writer.write(constraintProducer.getProducedConstraint());
 	}
 	
 }

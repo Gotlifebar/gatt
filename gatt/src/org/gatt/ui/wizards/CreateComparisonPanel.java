@@ -57,7 +57,7 @@ public class CreateComparisonPanel extends JWizardPanel {
 	 */
 	public CreateComparisonPanel() {
 		super();
-		this.setStepTitle("Definir comparación");
+		this.setStepTitle("Definir comparación simple");
 		initialize();
 		setBackStep(0);
 	    setNextStep(2);

@@ -98,10 +98,13 @@ public class AddConstraintPanel extends JWizardPanel {
 	}
 	
 	protected void makingVisible(){
-		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		/*ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
 		if(!wizard.isSameRound() && wizard.getCurrentRound() != 1){
 			resetView();
-		}
+		}*/
+		this.getWizardParent().setPreferredSize(new Dimension(620,445));
+		this.getWizardParent().repaint();
+		super.makingVisible();
 		super.makingVisible();
 	}
 	
