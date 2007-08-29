@@ -10,19 +10,19 @@ import javax.swing.JOptionPane;
 import org.gatt.constraint.codifiable.ConstraintCodifiableFacade;
 import org.gatt.constraint.codifiable.Operator;
 import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
-import org.gatt.ui.wizards.CreateConditionalComparisonPanel;
+import org.gatt.ui.wizards.CreateSimpleComparisonPanel;
 import org.gatt.ui.wizards.ConstraintWizard.ComplementType;
 import org.gatt.ui.wizards.helper.FieldTreeNode;
 import org.gatt.ui.wizards.helper.ListConstraintRepresentation;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
-public class AddComparisonFormerAction extends AbstractAction {
+public class AddComparisonFormerSimpleComparisonAction extends AbstractAction {
 	
-	private CreateConditionalComparisonPanel panel;
+	private CreateSimpleComparisonPanel panel;
 	
 	private static final char LEFT_SIDE_VAR = 'i',RIGHT_SIDE_VAR = 'j';
 	
-	public AddComparisonFormerAction(CreateConditionalComparisonPanel panel){
+	public AddComparisonFormerSimpleComparisonAction(CreateSimpleComparisonPanel panel){
 		this.panel = panel;
 	}
 	

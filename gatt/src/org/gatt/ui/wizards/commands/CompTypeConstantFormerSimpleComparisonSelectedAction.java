@@ -4,13 +4,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import org.gatt.ui.wizards.CreateConditionalComparisonPanel;
+import org.gatt.ui.wizards.CreateSimpleComparisonPanel;
 
-public class CompTypeConstantFormerSelectedAction extends AbstractAction {
+public class CompTypeConstantFormerSimpleComparisonSelectedAction extends AbstractAction {
 
-	private CreateConditionalComparisonPanel panel;
+	private CreateSimpleComparisonPanel panel;
 	
-	public CompTypeConstantFormerSelectedAction(CreateConditionalComparisonPanel panel){
+	public CompTypeConstantFormerSimpleComparisonSelectedAction(CreateSimpleComparisonPanel panel){
 		this.panel = panel;
 	}
 	

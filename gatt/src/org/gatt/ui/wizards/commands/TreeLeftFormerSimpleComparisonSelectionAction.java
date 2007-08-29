@@ -10,19 +10,20 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
-import org.gatt.ui.wizards.CreateConditionalComparisonPanel;
+import org.gatt.ui.wizards.CreateSimpleComparisonPanel;
 import org.gatt.ui.wizards.helper.FieldTreeNode;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
-public class TreeLeftLatterSelectionAction implements TreeSelectionListener {
+public class TreeLeftFormerSimpleComparisonSelectionAction implements TreeSelectionListener {
 
-	private CreateConditionalComparisonPanel panel;
+	private CreateSimpleComparisonPanel panel;
 	
-	public TreeLeftLatterSelectionAction(CreateConditionalComparisonPanel panel){
+	public TreeLeftFormerSimpleComparisonSelectionAction(CreateSimpleComparisonPanel panel){
 		this.panel = panel;
 	}
 	
 	public void valueChanged(TreeSelectionEvent e) {
+		
 		JTree tree = (JTree)e.getSource();
 		FieldTreeNode treeNode = (FieldTreeNode)tree.getSelectionPath().getLastPathComponent();
 		if(!treeNode.isLeaf()){
@@ -32,8 +33,8 @@ public class TreeLeftLatterSelectionAction implements TreeSelectionListener {
 		
 		TreeContentManager manager = new TreeContentManager();
 		
-		panel.getTreeRight1().setModel(new DefaultTreeModel(manager.generateAttributesTree(org.gatt.domain.Session.class, field.getType())));
-		JComboBox cbOp = panel.getCbOperators1();
+		panel.getTreeRight().setModel(new DefaultTreeModel(manager.generateAttributesTree(org.gatt.domain.Session.class, field.getType())));
+		JComboBox cbOp = panel.getCbOperators(); 
 		
 		
 		cbOp.removeAllItems();

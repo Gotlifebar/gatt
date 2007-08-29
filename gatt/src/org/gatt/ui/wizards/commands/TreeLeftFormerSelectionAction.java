@@ -10,19 +10,20 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
-import org.gatt.ui.wizards.CreateIfThenComparisonPanel;
+import org.gatt.ui.wizards.CreateConditionalComparisonPanel;
 import org.gatt.ui.wizards.helper.FieldTreeNode;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
 public class TreeLeftFormerSelectionAction implements TreeSelectionListener {
 
-	private CreateIfThenComparisonPanel panel;
+	private CreateConditionalComparisonPanel panel;
 	
-	public TreeLeftFormerSelectionAction(CreateIfThenComparisonPanel panel){
+	public TreeLeftFormerSelectionAction(CreateConditionalComparisonPanel panel){
 		this.panel = panel;
 	}
 	
 	public void valueChanged(TreeSelectionEvent e) {
+		
 		JTree tree = (JTree)e.getSource();
 		FieldTreeNode treeNode = (FieldTreeNode)tree.getSelectionPath().getLastPathComponent();
 		if(!treeNode.isLeaf()){
