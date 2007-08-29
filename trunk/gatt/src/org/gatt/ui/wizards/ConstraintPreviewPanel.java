@@ -2,6 +2,7 @@ package org.gatt.ui.wizards;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
 
@@ -34,6 +35,8 @@ public class ConstraintPreviewPanel extends JWizardPanel {
 		 // Asignarle al label la previsualización de la restriccion
 	    ConstraintWizard wiz = (ConstraintWizard)this.getWizardParent();
 	    labelConstraint.setText(wiz.getConstraintProducer().getConstraintPreview());
+	    this.getWizardParent().setPreferredSize(new Dimension(620,445));
+		this.getWizardParent().repaint();
 		super.makingVisible();
 	}
 	
