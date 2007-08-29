@@ -1,7 +1,6 @@
 package org.gatt.domain;
 
 public class Hour extends DomainObject {
-	private int id;
 	private int time;
 	private int day;
 	private String representation;
@@ -27,11 +26,5 @@ public class Hour extends DomainObject {
 	}
 	public void setDay(int day) {
 		this.day = day;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 }
