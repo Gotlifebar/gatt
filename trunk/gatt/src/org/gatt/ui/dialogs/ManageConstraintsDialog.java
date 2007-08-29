@@ -62,18 +62,18 @@ public class ManageConstraintsDialog extends JDialog {
 		
 		String xmlConstraintFilePath = null;
 		
-		URI uri = null;
+		//URI uri = null;
 		
 		try{
 			xmlConstraintFilePath = config.getValue("XMLWriterInfo", "FilePath");
-			uri = getClass().getResource(xmlConstraintFilePath).toURI();
+			//uri = getClass().getResource(xmlConstraintFilePath).toURI();
 		}catch(JFigException jFigEx){
 			jFigEx.printStackTrace();
-		}catch(URISyntaxException uriEx){
+		}/*catch(URISyntaxException uriEx){
 			uriEx.printStackTrace();
-		}
+		}*/
 		
-		XMLConstraintRepository repository = new XMLConstraintRepository(new File(uri));
+		XMLConstraintRepository repository = new XMLConstraintRepository(new File(xmlConstraintFilePath));
 		
 		if(!repository.load()){
 			try{
