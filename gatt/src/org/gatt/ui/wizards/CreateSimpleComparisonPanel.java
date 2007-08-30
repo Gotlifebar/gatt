@@ -147,7 +147,7 @@ public class CreateSimpleComparisonPanel extends JWizardPanel{
 	}
 	
 	protected void makingVisible(){
-		this.getWizardParent().setPreferredSize(new Dimension(620,445));
+		this.getWizardParent().setPreferredSize(new Dimension(620,470));
 		this.getWizardParent().repaint();
 		super.makingVisible();
 	}
@@ -193,7 +193,7 @@ public class CreateSimpleComparisonPanel extends JWizardPanel{
 			pFormer = new JPanel();
 			pFormer.setLayout(null);
 			pFormer.setBounds(new Rectangle(12, 14, 576, 330));
-			pFormer.setBorder(BorderFactory.createTitledBorder(null, "Antecedente", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
+			pFormer.setBorder(BorderFactory.createTitledBorder(null, "Definición de la restricción", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
 			pFormer.add(getSpLeft(), null);
 			pFormer.add(lbLeft, null);
 			pFormer.add(getCbOperators(), null);
