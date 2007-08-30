@@ -34,6 +34,8 @@ public class ConstraintWizard extends JWizardDialog {
 	private int currentOperation;
 	
 	
+	private boolean canceled = false;
+	
 	
 	public ConstraintWizard(){
 		
@@ -61,7 +63,9 @@ public class ConstraintWizard extends JWizardDialog {
 	}
 	
 	
-	
+	public boolean isCanceled(){
+		return canceled;
+	}
 		
 	public ConstraintType getConstraintType() {
 		return constraintType;
@@ -112,6 +116,7 @@ public class ConstraintWizard extends JWizardDialog {
 			    JOptionPane.OK_CANCEL_OPTION);
 
 		if (response == JOptionPane.OK_OPTION) {
+			canceled = true;
 		 	super.cancel();
 		}
 	}

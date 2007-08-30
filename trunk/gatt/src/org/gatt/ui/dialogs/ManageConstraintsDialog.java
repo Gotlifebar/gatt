@@ -9,8 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
@@ -28,6 +26,7 @@ import org.gatt.constraint.ConstraintInfo;
 import org.gatt.constraint.io.XMLConstraintRepository;
 import org.gatt.constraint.io.XMLConstraintWriter;
 import org.gatt.ui.dialogs.commands.DeleteConstraintAction;
+import org.gatt.ui.dialogs.commands.DetailConstraintAction;
 import org.gatt.ui.dialogs.commands.NewConstraintAction;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
@@ -44,6 +43,7 @@ public class ManageConstraintsDialog extends JDialog {
 	private JPanel panelConstraints = null;
 	private JButton bNew = null;
 	private JButton bDelete = null;
+	private JButton bDetail = null;
 
 	/**
 	 * @param owner
@@ -145,6 +145,7 @@ public class ManageConstraintsDialog extends JDialog {
 			jContentPane.add(getPanelConstraints(), null);
 			jContentPane.add(getBNew(), null);
 			jContentPane.add(getBDelete(), null);
+			jContentPane.add(getBDetail(), null);
 		}
 		return jContentPane;
 	}
@@ -202,9 +203,9 @@ public class ManageConstraintsDialog extends JDialog {
 	private JButton getBNew() {
 		if (bNew == null) {
 			bNew = new JButton();
-			bNew.setText("Nueva restricción");
-			bNew.setSize(new Dimension(142, 26));
-			bNew.setLocation(new Point(251, 250));
+			bNew.setText("Nueva");
+			bNew.setSize(new Dimension(71, 26));
+			bNew.setLocation(new Point(299, 251));
 			bNew.addActionListener(new NewConstraintAction(this));
 		}
 		return bNew;
@@ -218,9 +219,9 @@ public class ManageConstraintsDialog extends JDialog {
 	private JButton getBDelete() {
 		if (bDelete == null) {
 			bDelete = new JButton();
-			bDelete.setText("Eliminar restricción");
-			bDelete.setLocation(new Point(404, 250));
-			bDelete.setSize(new Dimension(152, 26));
+			bDelete.setText("Eliminar");
+			bDelete.setLocation(new Point(472, 251));
+			bDelete.setSize(new Dimension(85, 26));
 			bDelete.addActionListener(new DeleteConstraintAction(this));
 		}
 		return bDelete;
@@ -238,6 +239,21 @@ public class ManageConstraintsDialog extends JDialog {
 			return false;
 		}
 		
+	}
+
+	/**
+	 * This method initializes bDetail	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBDetail() {
+		if (bDetail == null) {
+			bDetail = new JButton();
+			bDetail.setBounds(new Rectangle(380, 251, 80, 26));
+			bDetail.setText("Detallar");
+			bDetail.addActionListener(new DetailConstraintAction(this));
+		}
+		return bDetail;
 	}
 	
 }  //  @jve:decl-index=0:visual-constraint="10,10"
