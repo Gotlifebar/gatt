@@ -105,7 +105,11 @@ public class GattFrame extends JFrame {
 		disablePauseCommands();
 		disableStopCommands();
 	}
-
+	
+	public void setStatusMessage(String msg){
+		
+	}
+	
 	/**
 	 * This method initializes this
 	 * 
