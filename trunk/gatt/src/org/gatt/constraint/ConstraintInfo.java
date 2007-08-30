@@ -9,6 +9,7 @@ public class ConstraintInfo {
 	private String description;
 	private double significance;
 	private String strategyCodeImplementation;	
+	private String definition;
 	//private Vector<Character> usedVars;
 	
 	
@@ -59,5 +60,13 @@ public class ConstraintInfo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDefinition() {
+		return definition;
+	}
+
+	public void setDefinition(String definition) {
+		this.definition = definition;
 	}	
 }

@@ -22,14 +22,16 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 							 TAG_CONSTRAINTS = 0,
 							 TAG_CONSTRAINT = 1,
 							 TAG_DESCRIPTION = 2,							 
-							 TAG_IMPLEMENTATION = 3;
+							 TAG_IMPLEMENTATION = 3,
+							 TAG_DEFINITION = 4;
 							 
 	
 	private  static String[] TAG_LABEL = {
 								"constraints",
 								"constraint",
 								"description",								
-								"implementation"								
+								"implementation",
+								"definition"
 							 };
 	
 	public ConstraintRepositoryContentHandler(){
@@ -73,7 +75,10 @@ public class ConstraintRepositoryContentHandler extends DefaultHandler {
 			case TAG_IMPLEMENTATION:
 				cInfo.setStrategyCodeImplementation(str);
 				//System.out.println("IMPL: " + str);
-				break;			
+				break;
+			case TAG_DEFINITION:
+				cInfo.setDefinition(str);
+				break;
 		}
 	}	
 
