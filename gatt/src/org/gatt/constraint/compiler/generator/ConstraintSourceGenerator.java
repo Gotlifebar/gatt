@@ -48,6 +48,7 @@ public class ConstraintSourceGenerator {
 		StringBuffer buf = new StringBuffer();
 		for(char c : usedVars){
 			buf.append("\t\tfor(int " +  c + " = 0; " +  c  + " < session.length; " + c + "++){" + NL);
+			buf.append("\t\t\tif(session[" + c + "] == null) continue;");
 		}
 		buf.append(constraint);		
 		for(char c : usedVars){
