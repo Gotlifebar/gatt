@@ -18,6 +18,9 @@ public class NewConstraintAction extends AbstractAction {
 
 	public void actionPerformed(ActionEvent e) {
 		ConstraintWizard wizard = new ConstraintWizard();
+		if(wizard.isCanceled())
+			return;
+		
 		ConstraintInfo constraint = wizard.getConstraintProducer().getProducedConstraint();
 		
 		dialog.addConstraint(constraint);
