@@ -58,13 +58,9 @@ public class XMLConstraintRepository{
 //		constraints.
 //		return constraints.elementAt(index);
 	}
-	/*public ConstraintInfo getConstraintById(String id){
+	public ConstraintInfo getConstraintById(String id){
 		return constraints.get(id);
-		for(ConstraintInfo c : constraints)
-			if( c.getId().compareTo(id) == 0)
-				return c;
-		return null;
-	}*/
+	}
 	
 	public void setFileName(String fileName){
 		this.file = new File(fileName);
