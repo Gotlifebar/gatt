@@ -47,10 +47,10 @@ public class ListConstraintRepresentation {
 		if(cType != null){
 			switch(cType){
 				case OR:
-					representation += " (OR)";
+					representation = "(OR) " + representation;
 					break;
 				case AND:
-					representation += " (AND)";
+					representation = "(AND) " + representation;
 					break;
 			}		
 		}
