@@ -78,8 +78,8 @@ public class OptimizationFacade {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the instance of this Optimization facade. It's part of the singleton pattern
+	 * @return The only instance of this class
 	 */
 	public static OptimizationFacade getInstance(){
 		if(instance == null)
@@ -88,17 +88,24 @@ public class OptimizationFacade {
 		return instance;
 	}
 	
+	/**
+	 * Gives the current state of the optimization process
+	 * @return A value of the enumeration OptimizationState
+	 */
 	public OptimizationState getOptimizationState(){
 		return optimizationState;
 	}
 	
+	/**
+	 * Sets the current state of the optimization process
+	 * @param newState The new state for the optimization process.
+	 */
 	public void setOptimizationState(OptimizationState newState){
 		optimizationState = newState;
 	}
 	
 	/**
-	 * 
-	 *
+	 * Initializes the optimization process
 	 */
 	public void optimize(){
 		System.out.println("Initializating...");
@@ -126,37 +133,35 @@ public class OptimizationFacade {
 	}
 	
 	/**
-	 * 
-	 *
+	 * Starts the optimization process from a previously obtained solution
 	 */
 	public void optimizeFromPreviousSolution(){
 		
 	}
 	
 	/**
-	 * 
-	 * @param numberOfSolutions
-	 * @return
+	 * Gives the best solutions so far, which have been found by the optimization process
+	 * @param numberOfSolutions An integer representing the number of solutions
+	 * @return An array of Chromosome object
 	 */
 	public Chromosome[] getBestSolutions(int numberOfSolutions){
 		return null;
 	}
 	
+	// TODO: Delete this method
 	public void printBestSolution(){
 		System.out.println(genotype.getFittestChromosome().toString());
 	}
 	
 	/**
-	 * 
-	 *
+	 * Pauses the optimization process
 	 */
 	public void pauseOptimization(){
 		setOptimizationState(OptimizationState.PAUSED);
 	}
 	
 	/**
-	 * 
-	 *
+	 * This method resumes an optimization process that was paused.
 	 */
 	public void resumeOptimization(){
 		setOptimizationState(OptimizationState.RUNNING);
@@ -164,8 +169,7 @@ public class OptimizationFacade {
 	}
 	
 	/**
-	 * 
-	 *
+	 * Stops the optimization process.
 	 */
 	public void stopOptimization(){
 		setOptimizationState(OptimizationState.FINISHED);
@@ -176,8 +180,9 @@ public class OptimizationFacade {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Creates the fitness function for the genetic algorithm used in the
+	 * optimization process.
+	 * @return An object of the class FitnessFunction
 	 */
 	private FitnessFunction createFitnessFunction(){
 		//return new OrderFitnessFunction();
@@ -186,8 +191,10 @@ public class OptimizationFacade {
 	}
 	
 	/**
-	 * 
-	 *
+	 * Creates the configuration object for the genetic algorithm
+	 * @return An object of the class Configuration
+	 * @throws InvalidConfigurationException If there are some problem with the
+	 * configuration parameters
 	 */
 	private Configuration createConfiguration() throws InvalidConfigurationException{
 		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
@@ -216,8 +223,9 @@ public class OptimizationFacade {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Creates a sample chromosome which is used as a basis for creating the entire
+	 * population of the genetic algorithm.
+	 * @return An object whose type is IChromosome
 	 */
 	private IChromosome createSampleChromosome(){
 		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
@@ -252,8 +260,8 @@ public class OptimizationFacade {
 	}
 	
 	/**
-	 * 
-	 *
+	 * Initiates the population for the genetic algorithm
+	 * @return An object of the class Genotype
 	 */
 	private Genotype initPopulation(){		
 		
@@ -294,16 +302,21 @@ public class OptimizationFacade {
 	}
 	
 	/**
-	 * 
-	 *
+	 * Saves the current population of the algorithm
 	 */
 	private void saveSolution(){
 		
 	}
 	
+	/**
+	 * Gives the configuration of the genetic algorithm
+	 * @return An object of the class Configuration
+	 */
 	public Configuration getConfiguration() {
 		return gaConfig;
 	}
+	
+	// TODO: Delete this method
 	public static void main(String ar[]){
 		OptimizationFacade of = OptimizationFacade.getInstance();
 		//of.createConfiguration();
