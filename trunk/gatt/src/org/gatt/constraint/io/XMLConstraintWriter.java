@@ -29,6 +29,7 @@ public class XMLConstraintWriter {
 	protected final String CONSTRAINT_ELEMENT = "constraint";
 	protected final String DESCRIPTION_ELEMENT = "description";
 	protected final String IMPLEMENTATION_ELEMENT = "implementation";
+	protected final String DEFINITION_ELEMENT = "definition";
 	protected final String ID_ATTR = "id";
 	protected final String NAME_ATTR = "name";
 	protected final String SIGNIFICANCE_ATTR = "significance";
@@ -91,10 +92,14 @@ public class XMLConstraintWriter {
 		Element description = new Element(DESCRIPTION_ELEMENT);
 		description.setText(cInfo.getDescription());
 		
+		Element definition = new Element(DEFINITION_ELEMENT);
+		definition.setText(cInfo.getDefinition());
+		
 		Element impl = new Element(IMPLEMENTATION_ELEMENT);
 		impl.addContent(new CDATA(cInfo.getStrategyCodeImplementation()));
 		
 		constraint.addContent(description);
+		constraint.addContent(definition);
 		constraint.addContent(impl);
 		
 		doc.getRootElement().addContent(constraint);
@@ -137,10 +142,14 @@ public class XMLConstraintWriter {
 			Element description = new Element(DESCRIPTION_ELEMENT);
 			description.setText(cInfo.getDescription());
 			
+			Element definition = new Element(DEFINITION_ELEMENT);
+			definition.setText(cInfo.getDefinition());
+			
 			Element impl = new Element(IMPLEMENTATION_ELEMENT);
 			impl.addContent(new CDATA(cInfo.getStrategyCodeImplementation()));
 			
 			constraint.addContent(description);
+			constraint.addContent(definition);
 			constraint.addContent(impl);
 			
 			cs.add(constraint);
@@ -234,9 +243,13 @@ public class XMLConstraintWriter {
 		Element description = new Element(DESCRIPTION_ELEMENT);
 		description.setText(cInfo.getDescription());
 		
+		Element definition = new Element(DEFINITION_ELEMENT);
+		definition.setText(cInfo.getDefinition());
+		
 		Element impl = new Element(IMPLEMENTATION_ELEMENT);
 		impl.addContent(new CDATA(cInfo.getStrategyCodeImplementation()));
 		c.addContent(description);
+		c.addContent(definition);
 		c.addContent(impl);
 		
 		children.set(index, c);
