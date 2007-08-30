@@ -9,15 +9,15 @@ public class NumericTransformationFunction {
 		this.countHours = countHours;
 	}
 	public int getIndexFor(int idRoom, int idHour){
-		idRoom--;
-		idHour--;
+	//	idRoom--;
+	//	idHour--;
 		return idRoom + idHour * countRooms;
 	}
 	public int getRoomIdFrom(int index){		
-		return index % countRooms + 1 ;  	
+		return index % countRooms ;  	
 	}
 	public int getHourIdFrom(int index){		
-		return index / countRooms + 1;
+		return index / countRooms;
 	}
 	public int getTotalIndex(){
 		return countRooms * countHours;
