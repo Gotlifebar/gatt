@@ -31,7 +31,7 @@ public class MySqlGroupDAO implements GroupDAO {
 			g.setMaxCapacity(r.getInt("maxCapacity"));
 			g.setNumber(r.getInt("number"));
 			g.setId(r.getInt("id"));
-			g.setSubject(facade.getSubject(r.getInt("subject")));
+			g.setSubject(facade.getSubjectByCode(r.getInt("subject")));
 			g.setTeacher(facade.getTeacher(r.getInt("teacher")));
 			// what about subject and teacher ?
 			ps.close();
