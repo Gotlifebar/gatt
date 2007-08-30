@@ -1,6 +1,7 @@
 package org.gatt.domain;
 
 public class Hour extends DomainObject {
+
 	private int time;
 	private int day;
 	private String representation;
