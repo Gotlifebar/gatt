@@ -275,13 +275,13 @@ public class OptimizationFacade {
 				chromosomes[i] = new Chromosome(getConfiguration(),genes);
 			}
 			
-			for (int i = 0; i < chromosomes.length; i++) {
+			/*for (int i = 0; i < chromosomes.length; i++) {
 				Gene[] genes = chromosomes[i].getGenes();
 				System.out.print("\nChromosome "+(i+1)+": ");
 				for (int j = 0; j < genes.length; j++) {
 					System.out.print(genes[j].getAllele() + " ");
 				}
-			}
+			}*/
 			
 			Genotype geno = new Genotype(getConfiguration(), new Population(getConfiguration(),chromosomes));
 			
