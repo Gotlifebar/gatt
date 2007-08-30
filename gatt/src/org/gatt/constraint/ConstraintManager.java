@@ -1,7 +1,8 @@
 package org.gatt.constraint;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Vector;
@@ -9,7 +10,6 @@ import java.util.Vector;
 import org.gatt.constraint.compiler.ConstraintCompiler;
 import org.gatt.constraint.compiler.generator.ConstraintSourceGenerator;
 import org.gatt.constraint.io.XMLConstraintRepository;
-import org.gatt.domain.Session;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
 import org.igfay.jfig.JFigException;
@@ -31,8 +31,19 @@ public class ConstraintManager {
 			xmlConstraintFilePath = config.getValue("XMLWriterInfo", "FilePath");
 		}catch(JFigException jFigEx){
 			jFigEx.printStackTrace();
-		}		
-		repository = new XMLConstraintRepository(xmlConstraintFilePath);		
+		}
+		
+		/*URI uri = null;
+		//String sFile = null;
+		try{
+			//sFile = config.getValue("XMLWriterInfo", "FilePath");
+			//System.out.println(sFile);
+			//uri = getClass().getResource(xmlConstraintFilePath).toURI();
+		}catch(URISyntaxException uriEx){
+			uriEx.printStackTrace();
+		}*/
+		repository = new XMLConstraintRepository(new File(xmlConstraintFilePath));
+		//repository = new XMLConstraintRepository(new File(uri));		
 	}	
 	
 	public Vector<Constraint> getCompiledConstraints(){
