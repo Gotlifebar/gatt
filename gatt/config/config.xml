@@ -6,7 +6,7 @@
 		<entry key="PopulationSize" value="5"/>
 	</section>
 	<section name="MySqlConnectionInfo">
-		<entry key="URLConnectionString" value="jdbc:mysql://localhost/gatt"/>
+		<entry key="URLConnectionString" value="jdbc:mysql://localhost:3306/gatt"/>
 		<entry key="UserConnection" value="gatt"/>
 		<entry key="PasswordConnection" value="gatt"/>
 	</section>
@@ -22,6 +22,7 @@
 		<entry key="space" value="Número"/>
 		<entry key="hour" value="Hora"/>
 		<entry key="time" value="Tiempo"/>
+		<entry key="day" value="Día"/>
 		<entry key="representation" value="Representación"/>
 		<entry key="group" value="Grupo"/>
 		<entry key="number" value="Número"/>
