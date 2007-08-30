@@ -47,20 +47,20 @@ public class XMLConstraintWriter {
 		outp = new XMLOutputter();
 		outp.setFormat(Format.getPrettyFormat());
 		
-		URI uri = null;
-		//String sFile = null;
+		//URI uri = null;
+		String sFile = null;
 		try{
-			//sFile = config.getValue("XMLWriterInfo", "FilePath");
-			String sFile = config.getValue("XMLWriterInfo", "FilePath");
+			sFile = config.getValue("XMLWriterInfo", "FilePath");
+			//String sFile = config.getValue("XMLWriterInfo", "FilePath");
 			//System.out.println(sFile);
-			uri = getClass().getResource(sFile).toURI();
-		}catch(URISyntaxException uriEx){
+			//uri = getClass().getResource(sFile).toURI();
+		}/*catch(URISyntaxException uriEx){
 			uriEx.printStackTrace();
-		}catch(JFigException jFigEx){
+		}*/catch(JFigException jFigEx){
 			jFigEx.printStackTrace();
 		}
 		
-		file = new File(uri);
+		file = new File(sFile);
 		//file = new File(sFile);
 	}
 	
