@@ -102,6 +102,16 @@ public class TreeContentManager {
 		return name;
 	}
 	
+	public String getFieldReadableStringFromNode(FieldTreeNode node, char var){
+		String readable = node.toString();
+		FieldTreeNode n = (FieldTreeNode)node.getParent();
+		while( n.getParent() != null ){
+			readable = n.toString() + " -> " + readable;
+			n = (FieldTreeNode)n.getParent();		
+		}
+		return readable;
+	}
+	
 	public static void main(String[] ar){
 		
 	}
