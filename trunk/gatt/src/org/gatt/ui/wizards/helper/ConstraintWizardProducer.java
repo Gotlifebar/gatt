@@ -131,6 +131,7 @@ public class ConstraintWizardProducer {
 	public ConstraintInfo getProducedConstraint(){		
 		String strategy = ConstraintSourceGenerator.generateStrategySourceCode(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getJavaString(), usedVars);		
 		cInfo.setStrategyCodeImplementation(strategy);
+		cInfo.setDefinition(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getReadableName());
 		return cInfo;
 	}
 	
