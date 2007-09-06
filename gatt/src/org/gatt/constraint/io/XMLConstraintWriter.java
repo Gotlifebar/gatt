@@ -90,10 +90,10 @@ public class XMLConstraintWriter {
 		constraint.setAttribute(SIGNIFICANCE_ATTR,Double.toString(cInfo.getSignificance()));
 		
 		Element description = new Element(DESCRIPTION_ELEMENT);
-		description.setText(cInfo.getDescription());
+		description.addContent(new CDATA(cInfo.getDescription()));
 		
 		Element definition = new Element(DEFINITION_ELEMENT);
-		definition.setText(cInfo.getDefinition());
+		definition.addContent(new CDATA(cInfo.getDefinition()));
 		
 		Element impl = new Element(IMPLEMENTATION_ELEMENT);
 		impl.addContent(new CDATA(cInfo.getStrategyCodeImplementation()));
@@ -140,10 +140,10 @@ public class XMLConstraintWriter {
 			constraint.setAttribute(SIGNIFICANCE_ATTR,Double.toString(cInfo.getSignificance()));
 	
 			Element description = new Element(DESCRIPTION_ELEMENT);
-			description.setText(cInfo.getDescription());
+			description.addContent(new CDATA(cInfo.getDescription()));
 			
 			Element definition = new Element(DEFINITION_ELEMENT);
-			definition.setText(cInfo.getDefinition());
+			definition.addContent(new CDATA(cInfo.getDefinition()));
 			
 			Element impl = new Element(IMPLEMENTATION_ELEMENT);
 			impl.addContent(new CDATA(cInfo.getStrategyCodeImplementation()));
@@ -241,10 +241,10 @@ public class XMLConstraintWriter {
 		c.setAttribute(SIGNIFICANCE_ATTR,Double.toString(cInfo.getSignificance()));
 		
 		Element description = new Element(DESCRIPTION_ELEMENT);
-		description.setText(cInfo.getDescription());
+		description.addContent(new CDATA(cInfo.getDescription()));
 		
 		Element definition = new Element(DEFINITION_ELEMENT);
-		definition.setText(cInfo.getDefinition());
+		definition.addContent(new CDATA(cInfo.getDefinition()));
 		
 		Element impl = new Element(IMPLEMENTATION_ELEMENT);
 		impl.addContent(new CDATA(cInfo.getStrategyCodeImplementation()));
