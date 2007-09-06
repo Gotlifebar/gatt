@@ -17,13 +17,17 @@ import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
 public class ConditionalConstraint implements CodifiableDisplayableObject{	
 	
 	private CodifiableConstraintValue penality;
+	private BooleanOperand antecedent,  consequent;
 	private CompositeBooleanExpression cbe;
+	
 	
 	public ConditionalConstraint(BooleanOperand antecedent, BooleanOperand consequent, CodifiableConstraintValue penality){		
 		this.penality = penality;
 		cbe = new CompositeBooleanExpression(BooleanOperator.AND, 
 											antecedent, 
 											new CompositeBooleanExpression(BooleanOperator.NOT, consequent));
+		this.antecedent = antecedent;
+		this.consequent = consequent;
 	}
 	
 	/* The idea is
@@ -46,14 +50,25 @@ public class ConditionalConstraint implements CodifiableDisplayableObject{
 		return buffer.toString();
 	}
 	public String getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("Si pasa que: ");
+		buffer.append(antecedent.getDisplayName() + ", ");
+		buffer.append(NL);
+		buffer.append("Entonces debe ocurrir que: ");
+		buffer.append(consequent.getDisplayName());		
+		return buffer.toString();
 	}
 
 	public String getReadableName() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("Si pasa que: ");
+		buffer.append(antecedent.getDisplayName() + ", ");
+		buffer.append(NL);
+		buffer.append("Entonces debe ocurrir que: ");
+		buffer.append(consequent.getDisplayName());		
+		return buffer.toString();
 	}
+	
 	public static void main(String ar[]){
 		
 		StringComparableOperand compOperand1 = new StringComparableOperand("chucho", "Value1", "cosa1");
