@@ -27,7 +27,7 @@ public class SimpleConstraint implements CodifiableDisplayableObject {
 	public String getDisplayName() {
 		StringBuffer buffer = new StringBuffer();		
 		buffer.append("Debe cumplirse que: ");
-		buffer.append(cbe.getJavaString());		
+		buffer.append(cbe.getDisplayName());		
 		return buffer.toString();
 	}
 	/**
@@ -36,7 +36,7 @@ public class SimpleConstraint implements CodifiableDisplayableObject {
 	public String getReadableName() {
 		StringBuffer buffer = new StringBuffer();		
 		buffer.append("Debe cumplirse que: ");
-		buffer.append(cbe.getJavaString());		
+		buffer.append(cbe.getReadableName());		
 		return buffer.toString();
 	}
 	/**
