@@ -14,7 +14,7 @@ public class CompTypeConstantFormerSimpleComparisonSelectedAction extends Abstra
 		this.panel = panel;
 	}
 	
-	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		panel.getTreeRight().setEnabled(false);
 		panel.getTfConstantValue().setEnabled(true);

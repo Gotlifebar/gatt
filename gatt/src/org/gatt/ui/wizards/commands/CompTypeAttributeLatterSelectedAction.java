@@ -14,7 +14,7 @@ private CreateConditionalComparisonPanel panel;
 		this.panel = panel;
 	}
 	
-	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		panel.getTreeRight1().setEnabled(true);
 		panel.getTfConstantValue1().setEnabled(false);

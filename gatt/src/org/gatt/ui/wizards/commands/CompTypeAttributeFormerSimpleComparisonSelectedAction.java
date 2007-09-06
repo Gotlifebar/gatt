@@ -14,7 +14,7 @@ private CreateSimpleComparisonPanel panel;
 		this.panel = panel;
 	}
 	
-	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		panel.getTreeRight().setEnabled(true);
 		panel.getTfConstantValue().setEnabled(false);

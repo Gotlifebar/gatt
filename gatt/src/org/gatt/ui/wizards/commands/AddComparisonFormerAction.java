@@ -67,21 +67,23 @@ public class AddComparisonFormerAction extends AbstractAction {
 		Field leftField = (Field)treeNodeLeft.getUserObject();
 		
 		ComparableOperand operand1 = facade.createOperand(
-				treeManager.getFieldJavaStringFromNode(treeNodeLeft, LEFT_SIDE_VAR),
-				treeNodeLeft.toString(),
-				treeNodeLeft.toString(),
-				leftField.getType());
+				treeManager.getFieldJavaStringFromNode(treeNodeLeft, LEFT_SIDE_VAR),				
+				treeNodeLeft.toString(),//TODO: Construct the real string
+				treeManager.getFieldReadableStringFromNode(treeNodeLeft), //FIXME: Lol !!!!!
+				leftField.getType()); 
 		
 		Operator operator = (Operator)panel.getCbOperators().getSelectedItem();
 		
 		ComparableOperand operand2 = null;
 		if( panel.getRbAttribute().isSelected() ){	
 			FieldTreeNode treeNodeRight = (FieldTreeNode)panel.getTreeRight().getSelectionPath().getLastPathComponent();
-			
+			char var = LEFT_SIDE_VAR;
+			if( treeNodeRight.getUserObject().equals(treeNodeLeft.getUserObject()))
+				var = RIGHT_SIDE_VAR;
 			operand2 = facade.createOperand(
-						treeManager.getFieldJavaStringFromNode(treeNodeRight, RIGHT_SIDE_VAR),
+						treeManager.getFieldJavaStringFromNode(treeNodeRight, var),
 						treeNodeRight.toString(),
-						treeNodeRight.toString(),
+						treeManager.getFieldReadableStringFromNode(treeNodeRight),
 						leftField.getType());
 		}else{
 			String javaString = "";
