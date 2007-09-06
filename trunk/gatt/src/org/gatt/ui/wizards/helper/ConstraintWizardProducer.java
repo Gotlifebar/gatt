@@ -76,6 +76,10 @@ public class ConstraintWizardProducer {
 		cInfo.setSignificance(significance);
 	}
 	
+	public void setConstraintDefinition(String definition){
+		cInfo.setDefinition(definition);
+	}
+	
 	public void setDefaultComparison(DefaultComparisonOperator op, ComparableOperand op1, ComparableOperand op2){
 		//constraint = new DefaultComparison(op, op1, op2);		
 		//current = facade.createDefaultComparison(op, op1, op2);
