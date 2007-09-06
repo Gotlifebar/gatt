@@ -14,7 +14,7 @@ public class CompTypeConstantLatterSelectedAction extends AbstractAction {
 		this.panel = panel;
 	}
 	
-	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		panel.getTreeRight1().setEnabled(false);
 		panel.getTfConstantValue1().setEnabled(true);
