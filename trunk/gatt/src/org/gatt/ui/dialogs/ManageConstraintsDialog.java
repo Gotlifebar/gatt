@@ -204,8 +204,8 @@ public class ManageConstraintsDialog extends JDialog {
 		if (bNew == null) {
 			bNew = new JButton();
 			bNew.setText("Nueva");
-			bNew.setSize(new Dimension(71, 26));
-			bNew.setLocation(new Point(299, 251));
+			bNew.setSize(new Dimension(71, 23));
+			bNew.setLocation(new Point(299, 248));
 			bNew.addActionListener(new NewConstraintAction(this));
 		}
 		return bNew;
@@ -220,8 +220,8 @@ public class ManageConstraintsDialog extends JDialog {
 		if (bDelete == null) {
 			bDelete = new JButton();
 			bDelete.setText("Eliminar");
-			bDelete.setLocation(new Point(472, 251));
-			bDelete.setSize(new Dimension(85, 26));
+			bDelete.setLocation(new Point(472, 248));
+			bDelete.setSize(new Dimension(85, 23));
 			bDelete.addActionListener(new DeleteConstraintAction(this));
 		}
 		return bDelete;
@@ -249,7 +249,7 @@ public class ManageConstraintsDialog extends JDialog {
 	private JButton getBDetail() {
 		if (bDetail == null) {
 			bDetail = new JButton();
-			bDetail.setBounds(new Rectangle(380, 251, 80, 26));
+			bDetail.setBounds(new Rectangle(380, 248, 80, 23));
 			bDetail.setText("Detallar");
 			bDetail.addActionListener(new DetailConstraintAction(this));
 		}

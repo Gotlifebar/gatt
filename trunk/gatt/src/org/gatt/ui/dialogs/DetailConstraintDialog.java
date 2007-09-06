@@ -66,6 +66,7 @@ public class DetailConstraintDialog extends JDialog {
 	 */
 	private void initialize() {
 		this.setSize(381, 406);
+		this.setResizable(false);
 		this.setTitle("Detalles de la restricción");
 		this.setContentPane(getJContentPane());
 	}
