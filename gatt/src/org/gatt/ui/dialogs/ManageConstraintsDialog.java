@@ -127,7 +127,7 @@ public class ManageConstraintsDialog extends JDialog {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(578, 323);
+		this.setSize(578, 320);
 		this.setResizable(false);
 		this.setTitle("Administrar restricciones");
 		this.setContentPane(getJContentPane());

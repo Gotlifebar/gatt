@@ -154,11 +154,9 @@ public class ConstraintWizard extends JWizardDialog {
 			case CREATE_SIMPLE_COMPARISON_PANEL:
 				//currentOperation = DEFINING_OPERATION;
 				next = CONSTRAINT_PREVIEW_PANEL;
-				saveConstraint();
 				break;
 			case CREATE_CONDITIONAL_COMPARISON_PANEL:
 				next = CONSTRAINT_PREVIEW_PANEL;
-				saveConstraint();
 				break;
 			/*case CREATE_HAND_SIDE_PANEL:
 				if( currentOperation == COMPLEMENTING_OPERATION ){
@@ -195,9 +193,9 @@ public class ConstraintWizard extends JWizardDialog {
 		return next;
 	}
 	
-	private void saveConstraint(){
+	/*private void saveConstraint(){
 		XMLConstraintWriter writer = XMLConstraintWriter.getInstance();
 		writer.write(constraintProducer.getProducedConstraint());
-	}
+	}*/
 	
 }

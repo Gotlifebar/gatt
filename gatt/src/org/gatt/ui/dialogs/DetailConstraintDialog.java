@@ -221,6 +221,7 @@ public class DetailConstraintDialog extends JDialog {
 		if (taDefinition == null) {
 			taDefinition = new JTextArea();
 			taDefinition.setEditable(false);
+			taDefinition.setText(constraint.getDefinition());
 		}
 		return taDefinition;
 	}
