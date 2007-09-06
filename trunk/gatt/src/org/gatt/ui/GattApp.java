@@ -1,22 +1,18 @@
 package org.gatt.ui;
 
-import java.text.ParseException;
-
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import de.javasoft.plaf.synthetica.SyntheticaBlueSteelLookAndFeel;
+import org.fife.plaf.OfficeXP.OfficeXPLookAndFeel;
 
 
 public class GattApp {
 
 	public static void main(String[] args) {
 		try{
-			UIManager.setLookAndFeel(new SyntheticaBlueSteelLookAndFeel());
+			UIManager.setLookAndFeel(new OfficeXPLookAndFeel());
 		}catch (UnsupportedLookAndFeelException lfEx) {
 			lfEx.printStackTrace();
-	    }catch(ParseException pEx){
-	    	pEx.printStackTrace();
 	    }
 
 	    GattFrame win = GattFrame.getInstance();

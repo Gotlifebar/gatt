@@ -30,6 +30,8 @@ import org.gatt.ui.commands.ReportByRoomAction;
 import org.gatt.ui.commands.SaveAction;
 import org.gatt.ui.commands.StatisticsAction;
 import org.gatt.ui.commands.StopAction;
+import javax.swing.JProgressBar;
+import javax.swing.JLabel;
 
 public class GattFrame extends JFrame {
 
@@ -88,6 +90,8 @@ public class GattFrame extends JFrame {
 	private JTabbedPane tpTabs = null;
 
 	private JPanel pStatus = null;
+
+	private JLabel lbMessage = null;
 	
 	public static GattFrame getInstance(){
 		if(instance == null)
@@ -538,6 +542,7 @@ public class GattFrame extends JFrame {
 	private JTabbedPane getTpTabs() {
 		if (tpTabs == null) {
 			tpTabs = new JTabbedPane();
+			tpTabs.addTab("Reporte", null);
 		}
 		return tpTabs;
 	}
@@ -549,9 +554,12 @@ public class GattFrame extends JFrame {
 	 */
 	private JPanel getPStatus() {
 		if (pStatus == null) {
+			lbMessage = new JLabel();
+			lbMessage.setText("JLabel");
 			pStatus = new JPanel();
-			pStatus.setLayout(new GridBagLayout());
+			pStatus.setLayout(new BorderLayout());
 			pStatus.setPreferredSize(new Dimension(0, 25));
+			pStatus.add(lbMessage, BorderLayout.WEST);
 		}
 		return pStatus;
 	}
