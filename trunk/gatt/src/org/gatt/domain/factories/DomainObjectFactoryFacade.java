@@ -1,5 +1,15 @@
 package org.gatt.domain.factories;
-import org.gatt.domain.*;
+import java.util.Collection;
+
+import org.gatt.domain.Group;
+import org.gatt.domain.HashMapRepository;
+import org.gatt.domain.Hour;
+import org.gatt.domain.MediaType;
+import org.gatt.domain.Repository;
+import org.gatt.domain.Room;
+import org.gatt.domain.Session;
+import org.gatt.domain.Subject;
+import org.gatt.domain.Teacher;
 
 public class DomainObjectFactoryFacade {
 	private Repository cache;
@@ -76,6 +86,9 @@ public class DomainObjectFactoryFacade {
 			cache.addObject(r);
 		}
 		return r;
+	}
+	public Collection<Room> getAllRooms(){
+		return factory.getRoomDAO().findAll();
 	}
 	public int getRoomsCount(){
 		return factory.getRoomDAO().countRooms();
