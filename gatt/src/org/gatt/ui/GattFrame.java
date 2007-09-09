@@ -2,17 +2,18 @@ package org.gatt.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
@@ -25,13 +26,12 @@ import org.gatt.ui.commands.OccupationTimeAction;
 import org.gatt.ui.commands.OptimizeAction;
 import org.gatt.ui.commands.OptimizePreviousAction;
 import org.gatt.ui.commands.PauseAction;
+import org.gatt.ui.commands.PrintAction;
 import org.gatt.ui.commands.ReportByDayAction;
 import org.gatt.ui.commands.ReportByRoomAction;
 import org.gatt.ui.commands.SaveAction;
 import org.gatt.ui.commands.StatisticsAction;
 import org.gatt.ui.commands.StopAction;
-import javax.swing.JProgressBar;
-import javax.swing.JLabel;
 
 public class GattFrame extends JFrame {
 
@@ -92,6 +92,8 @@ public class GattFrame extends JFrame {
 	private JPanel pStatus = null;
 
 	private JLabel lbMessage = null;
+
+	private JButton bPrint = null;
 	
 	public static GattFrame getInstance(){
 		if(instance == null)
@@ -348,7 +350,7 @@ public class GattFrame extends JFrame {
 		if (miReportRoom == null) {
 			miReportRoom = new JMenuItem();
 			miReportRoom.setText("Reporte por aula...");
-			miReportRoom.addActionListener(new ReportByRoomAction());
+			miReportRoom.addActionListener(new ReportByRoomAction(this));
 		}
 		return miReportRoom;
 	}
@@ -470,6 +472,8 @@ public class GattFrame extends JFrame {
 			tbToolBar.add(getBStop());
 			tbToolBar.addSeparator();
 			tbToolBar.add(getBSave());
+			tbToolBar.addSeparator();
+			tbToolBar.add(getBPrint());
 		}
 		return tbToolBar;
 	}
@@ -542,11 +546,15 @@ public class GattFrame extends JFrame {
 	private JTabbedPane getTpTabs() {
 		if (tpTabs == null) {
 			tpTabs = new JTabbedPane();
-			tpTabs.addTab("Reporte", null);
+			//tpTabs.addTab("Reporte", null);
 		}
 		return tpTabs;
 	}
-
+	
+	private void initTabComponent(int i){
+		tpTabs.setTabComponentAt(i, new ButtonTabComponent(tpTabs));
+	}
+	
 	/**
 	 * This method initializes pStatus	
 	 * 	
@@ -562,6 +570,28 @@ public class GattFrame extends JFrame {
 			pStatus.add(lbMessage, BorderLayout.WEST);
 		}
 		return pStatus;
+	}
+
+	/**
+	 * This method initializes bPrint	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBPrint() {
+		if (bPrint == null) {
+			bPrint = new JButton();
+			bPrint.setText("Imprimir");
+			bPrint.setIcon(new ImageIcon(getClass().getResource("/resources/print.png")));
+			bPrint.addActionListener(new PrintAction(this));
+		}
+		return bPrint;
+	}
+	
+	public void addReport(String title, JScrollPane report){
+		tpTabs.add(title,report);
+		int i = tpTabs.getTabCount() - 1;
+		initTabComponent(i);
+		tpTabs.setSelectedIndex(i);
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
