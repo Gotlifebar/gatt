@@ -3,8 +3,9 @@ package org.gatt.domain.factories.mysqldaofactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Vector;
 
-import org.gatt.domain.Group;
 import org.gatt.domain.Hour;
 import org.gatt.domain.factories.HourDAO;
 
@@ -43,13 +44,39 @@ public class MySqlHourDAO implements HourDAO {
 			h.setDay(r.getInt("day"));
 			h.setTime(r.getInt("time"));
 			h.setRepresentation(r.getString("representation"));
-			// what about subject and teacher ?
+			
 			ps.close();
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
 		}
 		return h;
+	}
+	
+	public Collection<Hour> findAll(){
+		Connection c = MySqlDAOFactory.getConnection();
+		Vector<Hour> hours = new Vector<Hour>();
+		
+		try{
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM hours");
+			ResultSet r = ps.executeQuery();
+			
+			while(r.next()){
+				Hour h = new Hour();
+				h.setId(r.getInt("id"));
+				h.setDay(r.getInt("day"));
+				h.setTime(r.getInt("time"));
+				h.setRepresentation(r.getString("representation"));
+				hours.addElement(h);
+			}
+			
+			ps.close();
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return null;
+		}
+		return hours;
 	}
 
 }
