@@ -3,7 +3,6 @@ package org.gatt.ui.commands;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 
 import org.gatt.optimization.ttga.OptimizationFacade;
 import org.gatt.ui.GattFrame;

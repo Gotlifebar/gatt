@@ -13,8 +13,8 @@ public class CloseDetailConstraintDialogAction extends AbstractAction {
 	public CloseDetailConstraintDialogAction(DetailConstraintDialog dialog){
 		this.dialog = dialog;
 	}
+
 	
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		dialog.setVisible(false);
 		dialog.dispose();
