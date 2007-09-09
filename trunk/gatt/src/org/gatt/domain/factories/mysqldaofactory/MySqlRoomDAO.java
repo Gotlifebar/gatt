@@ -1,9 +1,13 @@
 package org.gatt.domain.factories.mysqldaofactory;
 
-import org.gatt.domain.Hour;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Vector;
+
 import org.gatt.domain.Room;
 import org.gatt.domain.factories.RoomDAO;
-import java.sql.*;
 public class MySqlRoomDAO implements RoomDAO {
 
 	public int countRooms() {
@@ -44,6 +48,31 @@ public class MySqlRoomDAO implements RoomDAO {
 			return null;
 		}
 		return room;
+	}
+	
+	public Collection<Room> findAll(){
+		Connection c = MySqlDAOFactory.getConnection();
+		Vector<Room> rooms = new Vector<Room>();
+		try{			
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM rooms");
+			ResultSet r = ps.executeQuery();
+			//extract the elements from the ResultSet and create the object
+			//If not found
+			while( r.next() ){
+				Room room = new Room();
+				room.setId(r.getInt("id"));
+				room.setCurrentChairs(r.getInt("currentChairs"));
+				room.setMaxChairs(r.getInt("maxChairs"));
+				room.setSpace(r.getString("space"));
+				room.setType(r.getString("type"));
+				rooms.addElement(room);
+			}
+			ps.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return rooms;
 	}
 
 }
