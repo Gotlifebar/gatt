@@ -26,7 +26,7 @@ public class DetailConstraintAction extends AbstractAction {
 		this.dialog = dialog;
 	}
 	
-	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		int row = dialog.getTabConstraints().getSelectedRow();
 		

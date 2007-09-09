@@ -3,8 +3,6 @@ package org.gatt.ui.wizards.helper;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import javax.swing.tree.TreeNode;
-
 public class TreeContentManager {
 	private boolean generateFor(Class c){
 		if(c == null)

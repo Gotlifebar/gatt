@@ -1,8 +1,8 @@
 package org.gatt.optimization.ttga;
 
 import org.jgap.FitnessFunction;
-import org.jgap.IChromosome;
 import org.jgap.Gene;
+import org.jgap.IChromosome;
 
 public class OrderFitnessFunction extends FitnessFunction {
 	protected double evaluate(IChromosome arg0) {
