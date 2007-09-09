@@ -1,5 +1,7 @@
 package org.gatt.optimization.ttga;
 
+import java.util.List;
+
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.optimization.util.ImpShuffler;
 import org.gatt.optimization.util.Shuffler;
@@ -139,13 +141,17 @@ public class OptimizationFacade {
 		
 	}
 	
+	public IChromosome getBestSolution(){
+		return genotype.getFittestChromosome();
+	}
+	
 	/**
 	 * Gives the best solutions so far, which have been found by the optimization process
 	 * @param numberOfSolutions An integer representing the number of solutions
 	 * @return An array of Chromosome object
 	 */
-	public Chromosome[] getBestSolutions(int numberOfSolutions){
-		return null;
+	public List getBestSolutions(int numberOfSolutions){
+		return genotype.getFittestChromosomes(numberOfSolutions);
 	}
 	
 	// TODO: Delete this method
