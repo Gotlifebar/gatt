@@ -22,7 +22,7 @@ public class SolutionManager {
 			solutionCache = transform(solution);
 		Vector<Session> filtered = new Vector<Session>();
 		for(Session session: solutionCache)
-			if( session.getRoom().getId() == r.getId() )
+			if( (session != null) && (session.getRoom().getId() == r.getId()) )
 				filtered.add(session);
 		
 		return filtered;
