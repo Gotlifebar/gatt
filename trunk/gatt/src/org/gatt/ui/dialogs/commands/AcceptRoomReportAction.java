@@ -32,6 +32,7 @@ public class AcceptRoomReportAction extends AbstractAction {
 		SolutionManager solManager = new SolutionManager(new NumericTransformationFunction(roomsCount, hoursCount));
 		Vector<Session> filtered = solManager.filterSolutionBy(OptimizationFacade.getInstance().getBestSolution(), rw.getRoom());
 		mainFrame.addReport("Asignación aula " + rw.getRoom().getSpace(), new RoomReport(rw.getRoom(), filtered));
+		dialog.setVisible(false);
 		dialog.dispose();
 	}
 
