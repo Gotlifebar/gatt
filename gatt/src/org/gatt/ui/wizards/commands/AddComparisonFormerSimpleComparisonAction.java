@@ -10,8 +10,10 @@ import javax.swing.JOptionPane;
 import org.gatt.constraint.codifiable.ConstraintCodifiableFacade;
 import org.gatt.constraint.codifiable.Operator;
 import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
+import org.gatt.ui.wizards.ConstraintWizard;
 import org.gatt.ui.wizards.CreateSimpleComparisonPanel;
 import org.gatt.ui.wizards.ConstraintWizard.ComplementType;
+import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 import org.gatt.ui.wizards.helper.FieldTreeNode;
 import org.gatt.ui.wizards.helper.ListConstraintRepresentation;
 import org.gatt.ui.wizards.helper.TreeContentManager;
@@ -59,7 +61,8 @@ public class AddComparisonFormerSimpleComparisonAction extends AbstractAction {
 					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
+		ConstraintWizardProducer producer = ((ConstraintWizard)panel.getWizardParent()).getConstraintProducer();
+		producer.addUsedVar(LEFT_SIDE_VAR);
 		ConstraintCodifiableFacade facade = new ConstraintCodifiableFacade();
 		TreeContentManager treeManager = new TreeContentManager();
 		
@@ -78,8 +81,12 @@ public class AddComparisonFormerSimpleComparisonAction extends AbstractAction {
 		if( panel.getRbAttribute().isSelected() ){	
 			FieldTreeNode treeNodeRight = (FieldTreeNode)panel.getTreeRight().getSelectionPath().getLastPathComponent();
 			char var = LEFT_SIDE_VAR;
+			
 			if( treeNodeRight.getUserObject().equals(treeNodeLeft.getUserObject()))
 				var = RIGHT_SIDE_VAR;
+			
+			producer.addUsedVar(var);
+			
 			operand2 = facade.createOperand(
 						treeManager.getFieldJavaStringFromNode(treeNodeRight, var),
 						treeNodeRight.toString(),
