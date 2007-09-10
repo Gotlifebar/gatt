@@ -322,6 +322,10 @@ public class OptimizationFacade {
 		return gaConfig;
 	}
 	
+	public boolean isOptimizationProcessStarted(){
+		return (genotype != null);
+	}
+	
 	// TODO: Delete this method
 	public static void main(String ar[]){
 		OptimizationFacade of = OptimizationFacade.getInstance();
