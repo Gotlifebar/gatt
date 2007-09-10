@@ -543,7 +543,7 @@ public class GattFrame extends JFrame {
 	 * 	
 	 * @return javax.swing.JTabbedPane	
 	 */
-	private JTabbedPane getTpTabs() {
+	public JTabbedPane getTpTabs() {
 		if (tpTabs == null) {
 			tpTabs = new JTabbedPane();
 			//tpTabs.addTab("Reporte", null);
