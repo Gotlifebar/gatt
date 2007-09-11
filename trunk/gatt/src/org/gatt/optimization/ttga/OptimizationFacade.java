@@ -145,6 +145,10 @@ public class OptimizationFacade {
 		return genotype.getFittestChromosome();
 	}
 	
+	public boolean isOptimizationProcessStarted(){
+		return (genotype != null);
+	}
+	
 	/**
 	 * Gives the best solutions so far, which have been found by the optimization process
 	 * @param numberOfSolutions An integer representing the number of solutions
@@ -320,10 +324,6 @@ public class OptimizationFacade {
 	 */
 	public Configuration getConfiguration() {
 		return gaConfig;
-	}
-	
-	public boolean isOptimizationProcessStarted(){
-		return (genotype != null);
 	}
 	
 	// TODO: Delete this method
