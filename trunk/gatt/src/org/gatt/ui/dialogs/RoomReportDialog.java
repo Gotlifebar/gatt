@@ -43,6 +43,7 @@ public class RoomReportDialog extends JDialog {
 	 */
 	private void initialize() {
 		this.setSize(197, 168);
+		this.setResizable(false);
 		this.setTitle("Reporte por aula");
 		this.setContentPane(getJContentPane());
 	}

@@ -18,7 +18,7 @@ public class RoomReport extends JScrollPane {
 	private Vector<Session> assignatedSessions;
 	
 	private final int NUMBER_OF_DAYS = 6;
-	private final int NUMBER_OF_HOURS = 12;
+	private final int NUMBER_OF_HOURS = 8;
 	
 	/**
 	 * This is the default constructor
@@ -62,7 +62,7 @@ public class RoomReport extends JScrollPane {
 		
 		for (Iterator<Session> iterator = assignatedSessions.iterator(); iterator.hasNext();) {
 			Session session = iterator.next();
-			schedule[session.getHour().getTime()/2][session.getHour().getDay()-1] = session.getGroup().getSubject().getName();			
+			schedule[((session.getHour().getTime()-4)/2)-1][session.getHour().getDay()-1] = session.getGroup().getSubject().getName();			
 		}
 		return schedule;
 	}
@@ -96,7 +96,7 @@ public class RoomReport extends JScrollPane {
 		
 		String row;
 		for (int i = 0; i < NUMBER_OF_HOURS; i++) {
-			row = "<tr><td style=\"border-collapse:collapse;border-width:1px;border-color:#E4E3DA;border-style:solid;\" align=\"center\" width=\"50px\">"+i*2+" - "+(i*2+2)+"</td>";
+			row = "<tr><td style=\"border-collapse:collapse;border-width:1px;border-color:#E4E3DA;border-style:solid;\" align=\"center\" width=\"50px\">"+(i*2+6)+" - "+(i*2+8)+"</td>";
 			for(int j = 0; j < NUMBER_OF_DAYS; j++){
 				if(schedule[i][j] == null)
 					row += "<td style=\"border-collapse:collapse;border-width:1px;border-color:#E4E3DA;border-style:solid;\" align=\"center\">&nbsp;</td>";
