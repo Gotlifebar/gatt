@@ -2,6 +2,7 @@ package org.gatt.optimization.ttga;
 
 import java.util.Vector;
 
+import org.gatt.domain.Hour;
 import org.gatt.domain.Room;
 import org.gatt.domain.Session;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
@@ -17,12 +18,22 @@ public class SolutionManager {
 		solutionCache = null;
 		this.ntf = ntf;
 	}
-	public Vector<Session> filterSolutionBy(IChromosome solution, Room r){
+	public Vector<Session> filterSolutionByRoom(IChromosome solution, Room r){
 		if( solutionCache == null )
 			solutionCache = transform(solution);
 		Vector<Session> filtered = new Vector<Session>();
 		for(Session session: solutionCache)
 			if( (session != null) && (session.getRoom().getId() == r.getId()) )
+				filtered.add(session);
+		
+		return filtered;
+	}
+	public Vector<Session> filterSolutionByDay(IChromosome solution, int day){
+		if(solutionCache == null)
+			solutionCache = transform(solution);
+		Vector<Session> filtered = new Vector<Session>();
+		for(Session session: solutionCache)
+			if( (session != null) && (session.getHour().getDay() == day) )
 				filtered.add(session);
 		
 		return filtered;

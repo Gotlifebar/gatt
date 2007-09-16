@@ -364,7 +364,7 @@ public class GattFrame extends JFrame {
 		if (miReportDay == null) {
 			miReportDay = new JMenuItem();
 			miReportDay.setText("Reporte por día...");
-			miReportDay.addActionListener(new ReportByDayAction());
+			miReportDay.addActionListener(new ReportByDayAction(this));
 		}
 		return miReportDay;
 	}
