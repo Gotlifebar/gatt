@@ -1,18 +1,14 @@
 package org.gatt.optimization.io;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Writer;
 
+import org.jgap.Chromosome;
+import org.jgap.IChromosome;
 import org.jgap.impl.IntegerGene;
 
 public class SolutionIO {
@@ -36,30 +32,30 @@ public class SolutionIO {
 		}
 	}*/
 	
-	public void saveSolution(IntegerGene g){
+	public void saveSolution(IChromosome c){
 		ObjectOutputStream out;
 		try{
 			out = new ObjectOutputStream(new FileOutputStream(file));
-			out.writeObject(g);
+			out.writeObject(c);
 			out.close();
 		}catch(IOException exp){
 			exp.printStackTrace();
 		}
 	}
 	
-	public IntegerGene loadSolution(){
+	public Chromosome loadSolution(){
 		ObjectInputStream in;
-		IntegerGene gene = null;
+		Chromosome c = null;
 		try{
 			in = new ObjectInputStream(new FileInputStream(file));
-			gene = (IntegerGene)in.readObject();
+			c = (Chromosome)in.readObject();
 			in.close();
 		}catch(IOException exp){
 			exp.printStackTrace();
 		} catch (ClassNotFoundException e) { 
 			e.printStackTrace();
 		}
-		return gene;
+		return c;
 	}
 	
 /*	public IntegerGene loadSolution(){
