@@ -11,26 +11,26 @@ import org.gatt.optimization.ttga.OptimizationFacade;
 import org.gatt.optimization.ttga.SolutionManager;
 import org.gatt.optimization.util.NumericTransformationFunction;
 import org.gatt.ui.GattFrame;
-import org.gatt.ui.dialogs.RoomReportDialog;
-import org.gatt.ui.dialogs.helper.RoomWrapper;
-import org.gatt.ui.reports.RoomReport;
+import org.gatt.ui.dialogs.DayReportDialog;
+import org.gatt.ui.dialogs.helper.DayWrapper;
+import org.gatt.ui.reports.DayReport;
 
-public class AcceptRoomReportAction extends AbstractAction {
+public class AcceptDayReportAction extends AbstractAction {
 	
-	private RoomReportDialog dialog;
+	private DayReportDialog dialog;
 	
-	public AcceptRoomReportAction(RoomReportDialog dialog){
+	public AcceptDayReportAction(DayReportDialog dialog){
 		this.dialog = dialog;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		GattFrame mainFrame = GattFrame.getInstance();
-		RoomWrapper rw = (RoomWrapper)dialog.getCbRoom().getSelectedItem();
+		DayWrapper dw = (DayWrapper)dialog.getCbDays().getSelectedItem();
 		int roomsCount = DomainObjectFactoryFacade.getInstance().getRoomsCount(),
 			hoursCount = DomainObjectFactoryFacade.getInstance().getHoursCount();
 		SolutionManager solManager = new SolutionManager(new NumericTransformationFunction(roomsCount, hoursCount));
-		Vector<Session> filtered = solManager.filterSolutionByRoom(OptimizationFacade.getInstance().getBestSolution(), rw.getRoom());
-		mainFrame.addReport("Asignación aula " + rw.getRoom().getSpace(), new RoomReport(rw.getRoom(), filtered));
+		Vector<Session> filtered = solManager.filterSolutionByDay(OptimizationFacade.getInstance().getBestSolution(), dw.getDay());
+		mainFrame.addReport("Asignación del día " + dw.toString(), new DayReport(filtered));
 		dialog.setVisible(false);
 		dialog.dispose();
 	}
