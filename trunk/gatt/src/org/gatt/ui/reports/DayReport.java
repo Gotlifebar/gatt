@@ -13,7 +13,7 @@ import org.gatt.domain.Hour;
 import org.gatt.domain.Session;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 
-public class DayReport extends JScrollPane {
+public class DayReport extends JScrollPane implements Printable {
 
 	private static final long serialVersionUID = 1L;
 	private JEditorPane epReportArea = null;
@@ -65,7 +65,7 @@ public class DayReport extends JScrollPane {
 			String space = session.getRoom().getSpace();
 			if(!roomsHash.containsKey(space))
 				roomsHash.put(space, new String[NUMBER_OF_HOURS]);
-			roomsHash.get(space)[((session.getHour().getTime()-4)/2)-1] = session.getGroup().getSubject().getName();	
+			roomsHash.get(space)[((session.getHour().getTime()-4)/2)-1] = session.getGroup().getSubject().getName() + " G " + session.getGroup().getNumber();	
 		}
 		return roomsHash;
 	}
