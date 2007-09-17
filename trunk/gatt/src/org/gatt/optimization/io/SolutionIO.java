@@ -32,15 +32,11 @@ public class SolutionIO {
 		}
 	}*/
 	
-	public void saveSolution(IChromosome c){
+	public void saveSolution(IChromosome c) throws Exception{
 		ObjectOutputStream out;
-		try{
-			out = new ObjectOutputStream(new FileOutputStream(file));
-			out.writeObject(c);
-			out.close();
-		}catch(IOException exp){
-			exp.printStackTrace();
-		}
+		out = new ObjectOutputStream(new FileOutputStream(file));
+		out.writeObject(c);
+		out.close();
 	}
 	
 	public Chromosome loadSolution(){
