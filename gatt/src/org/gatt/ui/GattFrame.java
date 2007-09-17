@@ -452,7 +452,7 @@ public class GattFrame extends JFrame {
 			miSaveSolution.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_MASK));
 			miSaveSolution.setText("Guardar solución");
 			miSaveSolution.setIcon(new ImageIcon(getClass().getResource("/resources/Save.png")));
-			miSaveSolution.addActionListener(new SaveAction());
+			miSaveSolution.addActionListener(new SaveAction(this));
 		}
 		return miSaveSolution;
 	}
@@ -533,7 +533,7 @@ public class GattFrame extends JFrame {
 			bSave = new JButton();
 			bSave.setText("Guardar");
 			bSave.setIcon(new ImageIcon(getClass().getResource("/resources/Save.png")));
-			bSave.addActionListener(new SaveAction());
+			bSave.addActionListener(new SaveAction(this));
 		}
 		return bSave;
 	}
