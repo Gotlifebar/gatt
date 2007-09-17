@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import org.gatt.ui.GattFrame;
-import org.gatt.ui.reports.RoomReport;
+import org.gatt.ui.reports.Printable;
 
 public class PrintAction extends AbstractAction {
 
@@ -29,7 +29,7 @@ public class PrintAction extends AbstractAction {
 			return;
 		}
 		
-		RoomReport report = (RoomReport)tPane.getSelectedComponent();
+		Printable report = (Printable)tPane.getSelectedComponent();
 		report.print();
 	}
 

@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 import org.gatt.domain.Room;
 import org.gatt.domain.Session;
 
-public class RoomReport extends JScrollPane {
+public class RoomReport extends JScrollPane implements Printable {
 
 	private static final long serialVersionUID = 1L;
 	private JEditorPane epReportArea = null;
