@@ -5,6 +5,8 @@ public class Session extends DomainObject {
 	private Group group;
 	private Hour hour;
 	private Room room;
+	private boolean isTheorical;
+	private int usedHours;
 	
 	public Session(){
 		super();
@@ -19,6 +21,22 @@ public class Session extends DomainObject {
 	public Hour getHour() {
 		return hour;
 	}
+	public boolean isTheorical() {
+		return isTheorical;
+	}
+
+	public void setTheorical(boolean isTheorical) {
+		this.isTheorical = isTheorical;
+	}
+
+	public int getUsedHours() {
+		return usedHours;
+	}
+
+	public void setUsedHours(int usedHours) {
+		this.usedHours = usedHours;
+	}
+
 	public void setHour(Hour hour) {
 		this.hour = hour;
 	}
@@ -28,7 +46,4 @@ public class Session extends DomainObject {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-	
-	
-	
 }
