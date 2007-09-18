@@ -184,7 +184,7 @@ public class OptimizationFacade {
 	public void stopOptimization(){
 		setOptimizationState(OptimizationState.FINISHED);
 		evolutionThread.stop();
-		printBestSolution();
+		//printBestSolution();
 		
 		Configuration.reset();
 	}

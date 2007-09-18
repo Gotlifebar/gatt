@@ -19,9 +19,11 @@ public class StopAction extends AbstractAction {
 		//JOptionPane.showMessageDialog(null, "Stop Action");
 		OptimizationFacade opFacade = OptimizationFacade.getInstance();
 		opFacade.stopOptimization();
+		frame.hideProgressPanel();
 		frame.enableOptimizationCommands();
 		frame.disablePauseCommands();
 		frame.disableStopCommands();
+		frame.enableOptions();
 	}
 
 }

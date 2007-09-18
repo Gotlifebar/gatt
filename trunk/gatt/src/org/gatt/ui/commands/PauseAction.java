@@ -19,6 +19,7 @@ public class PauseAction extends AbstractAction {
 		//JOptionPane.showMessageDialog(null, "Pause Action");
 		OptimizationFacade opFacade = OptimizationFacade.getInstance();
 		opFacade.pauseOptimization();
+		frame.pauseProgressBar();
 		frame.enableOptimizationCommands();
 		frame.disablePauseCommands();
 	}
