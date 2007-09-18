@@ -18,15 +18,18 @@ public class OptimizeAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		//JOptionPane.showMessageDialog(null, "Optimize Action");
 		OptimizationFacade opFacade = OptimizationFacade.getInstance();
-		
+		frame.showProgressPanel();
 		if(opFacade.getOptimizationState() == OptimizationFacade.OptimizationState.PAUSED){
+			frame.restartProgressBar();
 			opFacade.resumeOptimization();
 		}else{
+			frame.increaseProgressPanel(0);
 			opFacade.optimize();
 		}
 		frame.disableOptimizationCommands();
 		frame.enablePauseCommands();
 		frame.enableStopCommands();
+		frame.disableOptions();
 	}
 
 }

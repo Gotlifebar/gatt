@@ -32,6 +32,10 @@ import org.gatt.ui.commands.ReportByRoomAction;
 import org.gatt.ui.commands.SaveAction;
 import org.gatt.ui.commands.StatisticsAction;
 import org.gatt.ui.commands.StopAction;
+import java.awt.GridBagLayout;
+import javax.swing.JProgressBar;
+import java.awt.Rectangle;
+import java.awt.Point;
 
 public class GattFrame extends JFrame {
 
@@ -91,9 +95,13 @@ public class GattFrame extends JFrame {
 
 	private JPanel pStatus = null;
 
-	private JLabel lbMessage = null;
-
 	private JButton bPrint = null;
+
+	private JPanel pProgress = null;
+
+	private JProgressBar pbOpProgress = null;
+
+	private JLabel lbIterations = null;
 	
 	public static GattFrame getInstance(){
 		if(instance == null)
@@ -562,12 +570,10 @@ public class GattFrame extends JFrame {
 	 */
 	private JPanel getPStatus() {
 		if (pStatus == null) {
-			lbMessage = new JLabel();
-			lbMessage.setText("JLabel");
 			pStatus = new JPanel();
 			pStatus.setLayout(new BorderLayout());
 			pStatus.setPreferredSize(new Dimension(0, 25));
-			pStatus.add(lbMessage, BorderLayout.WEST);
+			pStatus.add(getPProgress(), BorderLayout.WEST);
 		}
 		return pStatus;
 	}
@@ -592,6 +598,89 @@ public class GattFrame extends JFrame {
 		int i = tpTabs.getTabCount() - 1;
 		initTabComponent(i);
 		tpTabs.setSelectedIndex(i);
+	}
+
+	/**
+	 * This method initializes pProgress	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getPProgress() {
+		if (pProgress == null) {
+			lbIterations = new JLabel();
+			lbIterations.setBounds(new Rectangle(96, 4, 144, 17));
+			lbIterations.setText("Iteración: 0");
+			pProgress = new JPanel();
+			pProgress.setLayout(null);
+			pProgress.setPreferredSize(new Dimension(250, 0));
+			pProgress.add(getPbOpProgress(), null);
+			pProgress.add(lbIterations, null);
+			pProgress.setVisible(false);
+		}
+		return pProgress;
+	}
+
+	/**
+	 * This method initializes pbOpProgress	
+	 * 	
+	 * @return javax.swing.JProgressBar	
+	 */
+	private JProgressBar getPbOpProgress() {
+		if (pbOpProgress == null) {
+			pbOpProgress = new JProgressBar();
+			pbOpProgress.setSize(new Dimension(84, 19));
+			pbOpProgress.setLocation(new Point(7, 3));
+			pbOpProgress.setIndeterminate(true);
+			pbOpProgress.setToolTipText("El algoritmo de optimización se está ejecutando.");
+		}
+		return pbOpProgress;
+	}
+	
+	public void increaseProgressPanel(int iteration){
+		lbIterations.setText("Iteración: " + iteration);
+		getPbOpProgress().setValue(iteration);
+	}
+	
+	public void showProgressPanel(){
+		getPProgress().setVisible(true);
+	}
+	
+	public void hideProgressPanel(){
+		getPProgress().setVisible(false);
+	}
+	
+	public void pauseProgressBar(){
+		getPbOpProgress().setIndeterminate(false);
+		getPbOpProgress().setToolTipText("El algoritmo de optimización está pausado.");
+	}
+	
+	public void restartProgressBar(){
+		getPbOpProgress().setIndeterminate(true);
+		getPbOpProgress().setToolTipText("El algoritmo de optimización se está ejecutando.");
+	}
+	
+	public void disableOptions(){
+		getBSave().setEnabled(false);
+		getMiReportDay().setEnabled(false);
+		getMiReportRoom().setEnabled(false);
+		getMiStatistics().setEnabled(false);
+		getMiOccupationRoom().setEnabled(false);
+		getMiOccupationTime().setEnabled(false);
+		getMiManageConstraint().setEnabled(false);
+		getMiSaveSolution().setEnabled(false);
+		getMiOptimizePrevious().setEnabled(false);
+	}
+	
+	public void enableOptions(){
+		getBSave().setEnabled(true);
+		getMiReportDay().setEnabled(true);
+		getMiReportRoom().setEnabled(true);
+		getMiStatistics().setEnabled(true);
+		getMiOccupationRoom().setEnabled(true);
+		getMiOccupationTime().setEnabled(true);
+		getMiManageConstraint().setEnabled(true);
+		getMiSaveSolution().setEnabled(true);
+		getMiOptimizePrevious().setEnabled(true);
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
