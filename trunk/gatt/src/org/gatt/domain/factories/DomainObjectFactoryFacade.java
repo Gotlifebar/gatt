@@ -146,6 +146,9 @@ public class DomainObjectFactoryFacade {
 	public int getTeachersCount(){
 		return factory.getTeacherDAO().countTeachers();
 	}
+	public void deleteAllSessions(){
+		factory.getSessionDAO().deleteAllSessions();
+	}
 	public static void main(String ar[]){
 		DomainObjectFactoryFacade doff = new DomainObjectFactoryFacade();
 		try{
