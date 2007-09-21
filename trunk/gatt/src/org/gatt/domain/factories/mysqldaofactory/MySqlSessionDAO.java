@@ -1,9 +1,11 @@
 package org.gatt.domain.factories.mysqldaofactory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import org.gatt.domain.Session;
-import org.gatt.domain.Teacher;
 import org.gatt.domain.factories.SessionDAO;
-import java.sql.*;
 public class MySqlSessionDAO implements SessionDAO {
 
 	public int countSessions() {
@@ -48,7 +50,7 @@ public class MySqlSessionDAO implements SessionDAO {
 	public void insertSession(Session session){
 		Connection c = MySqlDAOFactory.getConnection();
 		try{			
-			PreparedStatement ps = c.prepareStatement("INSERT INTO sessions(group,hour,room,theorical, usedHours) VALUES(?,?,?,?,?)");
+			PreparedStatement ps = c.prepareStatement("INSERT INTO sessions(group,hour,room,theorical,usedHours) VALUES(?,?,?,?,?)");
 			ps.setInt(1, session.getGroup().getId());
 			ps.setInt(2, session.getHour().getId());
 			ps.setInt(3, session.getRoom().getId());
@@ -72,6 +74,16 @@ public class MySqlSessionDAO implements SessionDAO {
 			ps.setInt(5, session.getUsedHours());
 			ps.setInt(6, session.getId());
 			ps.executeUpdate();
+			ps.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void deleteAllSessions(){
+		Connection c= MySqlDAOFactory.getConnection();
+		try{
+			PreparedStatement ps = c.prepareStatement("DELETE FROM sessions");
+			ps.execute();
 			ps.close();
 		}catch(Exception e){
 			e.printStackTrace();
