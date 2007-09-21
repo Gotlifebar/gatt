@@ -23,9 +23,10 @@ public class SessionsResetter {
 		for(int i = 0; i < numberOfGroups; i++){
 			Group g = doff.getGroup(i);
 			Subject sub = g.getSubject();
-			int hours = sub.getPracticalHours() + sub.getTheoricalHours();
-			int incompleteSessions = hours % 2;
-			int fullSessions = hours / 2 - incompleteSessions;
+			//int hours = sub.getPracticalHours() + sub.getTheoricalHours();
+			//Insert the practical hours
+			int incompleteSessions = sub.getPracticalHours() % 2;
+			int fullSessions = sub.getPracticalHours() / 2 - incompleteSessions;
 			for(int j = 0 ; j < fullSessions; j++){
 				//Create a new full session.
 				Session s = new Session();
@@ -33,6 +34,7 @@ public class SessionsResetter {
 				s.setHour(h);
 				s.setRoom(r);
 				s.setUsedHours(2);
+				s.setTheorical(false);
 				doff.insertSession(s);
 			}
 			if( incompleteSessions == 1 ){
@@ -42,8 +44,33 @@ public class SessionsResetter {
 				s.setHour(h);
 				s.setRoom(r);
 				s.setUsedHours(1);
+				s.setTheorical(false);
 				doff.insertSession(s);
 			}
+			//Insert the theorical hours
+			incompleteSessions = sub.getTheoricalHours() % 2;
+			fullSessions = sub.getTheoricalHours() / 2 - incompleteSessions;
+			for(int j = 0 ; j < fullSessions; j++){
+				//Create a new full session.
+				Session s = new Session();
+				s.setGroup(g);
+				s.setHour(h);
+				s.setRoom(r);
+				s.setUsedHours(2);
+				s.setTheorical(false);
+				doff.insertSession(s);
+			}
+			if( incompleteSessions == 1 ){
+				//Create a new incomplete session.
+				Session s = new Session();
+				s.setGroup(g);
+				s.setHour(h);
+				s.setRoom(r);
+				s.setUsedHours(1);
+				s.setTheorical(false);
+				doff.insertSession(s);
+			}
+			
 		}
 	}
 }
