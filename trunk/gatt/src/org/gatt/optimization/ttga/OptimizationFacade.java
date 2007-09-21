@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.optimization.util.ImpShuffler;
+import org.gatt.optimization.util.SessionsResetter;
 import org.gatt.optimization.util.Shuffler;
 import org.gatt.optimization.util.UniqueRandomNumberGenerator;
 import org.gatt.util.GattConfigLocator;
@@ -119,6 +120,9 @@ public class OptimizationFacade {
 			
 			FitnessFunction fitnessFunction = createFitnessFunction();
 			gaConfig.setFitnessFunction(fitnessFunction);
+
+			SessionsResetter resetter = new SessionsResetter();
+			resetter.resetSessions();
 			
 			IChromosome sampleChromosome = createSampleChromosome(); 
 			gaConfig.setSampleChromosome(sampleChromosome);
@@ -239,24 +243,27 @@ public class OptimizationFacade {
 	 */
 	private IChromosome createSampleChromosome(){
 		DomainObjectFactoryFacade dofFacade = DomainObjectFactoryFacade.getInstance();
-		
-		/*int numberOfRooms = 2;//dofFacade.getRoomsCount();
-		int numberOfHours = 5;//dofFacade.getHoursCount();
-		int numberOfGroups = 8;//dofFacade.getGroupsCount();*/
 		int numberOfRooms = dofFacade.getRoomsCount();
 		int numberOfHours = dofFacade.getHoursCount();
-		int numberOfGroups = dofFacade.getGroupsCount();
+		
+		//int numberOfGroups = dofFacade.getGroupsCount();
+		
+		int numberOfSessions = dofFacade.getSessionsCount();
 		
 		int genesArraySize = numberOfRooms*numberOfHours;
 		
-		int lowBound = numberOfGroups - genesArraySize;
-		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
+		//int lowBound = numberOfGroups - genesArraySize;
+		int lowBound = numberOfSessions - genesArraySize;
+		
+		//UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
+		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfSessions);
 		
 		try {
 			Gene[] genes = new Gene[genesArraySize];
 			
 			for (int i = 0; i < genes.length; i++) {
-				genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfGroups-1);
+				//genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfGroups-1);
+				genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfSessions-1);
 				genes[i].setAllele(rand.nextRandom());
 			}
 			
