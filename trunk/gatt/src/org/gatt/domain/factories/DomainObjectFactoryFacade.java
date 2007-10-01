@@ -149,6 +149,9 @@ public class DomainObjectFactoryFacade {
 	public void deleteAllSessions(){
 		factory.getSessionDAO().deleteAllSessions();
 	}
+	public void insertSession(Session session){
+		factory.getSessionDAO().insertSession(session);
+	}
 	public static void main(String ar[]){
 		DomainObjectFactoryFacade doff = new DomainObjectFactoryFacade();
 		try{

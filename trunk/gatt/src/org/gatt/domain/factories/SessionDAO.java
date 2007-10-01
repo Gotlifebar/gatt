@@ -6,4 +6,5 @@ public interface SessionDAO {
 	public int countSessions();
 	public void insertSession(Session session);
 	public void updateSession(Session session);
+	public void deleteAllSessions();
 }
