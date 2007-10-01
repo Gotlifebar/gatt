@@ -19,7 +19,7 @@ public class SessionsResetter {
 		r.setId(-1);
 		Hour h = new Hour();//dummy hour
 		h.setId(-1);
-		
+		int id = 0;
 		for(int i = 0; i < numberOfGroups; i++){
 			Group g = doff.getGroup(i);
 			Subject sub = g.getSubject();
@@ -30,6 +30,7 @@ public class SessionsResetter {
 			for(int j = 0 ; j < fullSessions; j++){
 				//Create a new full session.
 				Session s = new Session();
+				s.setId(id++);
 				s.setGroup(g);
 				s.setHour(h);
 				s.setRoom(r);
@@ -40,6 +41,7 @@ public class SessionsResetter {
 			if( incompleteSessions == 1 ){
 				//Create a new incomplete session.
 				Session s = new Session();
+				s.setId(id++);
 				s.setGroup(g);
 				s.setHour(h);
 				s.setRoom(r);
@@ -53,6 +55,7 @@ public class SessionsResetter {
 			for(int j = 0 ; j < fullSessions; j++){
 				//Create a new full session.
 				Session s = new Session();
+				s.setId(id++);
 				s.setGroup(g);
 				s.setHour(h);
 				s.setRoom(r);
@@ -63,6 +66,7 @@ public class SessionsResetter {
 			if( incompleteSessions == 1 ){
 				//Create a new incomplete session.
 				Session s = new Session();
+				s.setId(id++);
 				s.setGroup(g);
 				s.setHour(h);
 				s.setRoom(r);

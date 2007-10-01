@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import org.gatt.domain.Session;
+import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.domain.factories.SessionDAO;
 public class MySqlSessionDAO implements SessionDAO {
 
@@ -37,6 +38,12 @@ public class MySqlSessionDAO implements SessionDAO {
 			//Was found... create
 			s = new Session();
 			s.setId(r.getInt("id"));
+			
+			DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
+			s.setGroup(doff.getGroup(r.getInt("group")));
+			s.setTheorical(r.getInt("theorical")==1);
+			s.setUsedHours(r.getInt("usedHours"));
+			
 			//TODO: Llamar a la facade para obtener el grupo, la hora, y el aula como objetos
 			
 			ps.close();
@@ -50,12 +57,13 @@ public class MySqlSessionDAO implements SessionDAO {
 	public void insertSession(Session session){
 		Connection c = MySqlDAOFactory.getConnection();
 		try{			
-			PreparedStatement ps = c.prepareStatement("INSERT INTO sessions(group,hour,room,theorical,usedHours) VALUES(?,?,?,?,?)");
+			PreparedStatement ps = c.prepareStatement("INSERT INTO sessions(`group`,`hour`,room,theorical,usedHours,id) VALUES(?,?,?,?,?,?)");
 			ps.setInt(1, session.getGroup().getId());
 			ps.setInt(2, session.getHour().getId());
 			ps.setInt(3, session.getRoom().getId());
-			ps.setBoolean(4, session.isTheorical());
+			ps.setInt(4, session.isTheorical()?1:0);
 			ps.setInt(5, session.getUsedHours());
+			ps.setInt(6, session.getId());
 			ps.executeUpdate();
 			ps.close();
 		}catch(Exception e){
@@ -66,11 +74,11 @@ public class MySqlSessionDAO implements SessionDAO {
 	public void updateSession(Session session){
 		Connection c = MySqlDAOFactory.getConnection();
 		try{			
-			PreparedStatement ps = c.prepareStatement("UPDATE sessions SET group=?, hour=?, room=?, theorical=?, usedHours=? WHERE id=?");
+			PreparedStatement ps = c.prepareStatement("UPDATE sessions SET `group`=?, `hour`=?, room=?, theorical=?, usedHours=? WHERE id=?");
 			ps.setInt(1, session.getGroup().getId());
 			ps.setInt(2, session.getHour().getId());
 			ps.setInt(3, session.getRoom().getId());
-			ps.setBoolean(4, session.isTheorical());
+			ps.setInt(4, session.isTheorical()?1:0);
 			ps.setInt(5, session.getUsedHours());
 			ps.setInt(6, session.getId());
 			ps.executeUpdate();

@@ -37,6 +37,8 @@
 		<entry key="name" value="Nombre"/>
 		<entry key="letterCode" value="Código de letras"/>
 		<entry key="code" value="Código"/>
+		<entry key="isTheorical" value="Es teórica"/>
+		<entry key="usedHours" value="Duración"/>
 	</section>
 	<section name="ConstraintCompilerOptions">
 		<entry key="OutputDir" value="bin"/>
