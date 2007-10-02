@@ -193,6 +193,7 @@ public class DetailConstraintDialog extends JDialog {
 		if (taDescription == null) {
 			taDescription = new JTextArea();
 			taDescription.setEditable(false);
+			taDescription.setLineWrap(true);
 			taDescription.setText(constraint.getDescription());
 		}
 		return taDescription;
@@ -222,6 +223,7 @@ public class DetailConstraintDialog extends JDialog {
 		if (taDefinition == null) {
 			taDefinition = new JTextArea();
 			taDefinition.setEditable(false);
+			taDefinition.setLineWrap(true);
 			taDefinition.setText(constraint.getDefinition());
 		}
 		return taDefinition;
