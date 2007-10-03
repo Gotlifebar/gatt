@@ -44,11 +44,12 @@ public class ConstraintSourceGenerator {
 		buf.append(NL + "}");
 		return buf.toString();
 	}
-	public static String generateStrategySourceCode(String constraint, Vector<Character> usedVars){
+	public static String generateStrategySourceCode(String constraint, Vector<Character> usedVars, ConstraintInfo cInfo){
 		StringBuffer buf = new StringBuffer();
 		for(char c : usedVars){
 			buf.append("\t\tfor(int " +  c + " = 0; " +  c  + " < session.length; " + c + "++){" + NL);
 			buf.append("\t\t\tif(session[" + c + "] == null) continue;");
+			buf.append("\t\t\tif( !session[" + c + "].getGroup().applyConstraint(\"" + cInfo.getId() + "\")) continue;");	
 		}
 		buf.append(constraint);		
 		for(char c : usedVars){
