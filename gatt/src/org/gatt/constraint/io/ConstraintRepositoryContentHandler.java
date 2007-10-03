@@ -1,7 +1,6 @@
 package org.gatt.constraint.io;
 
 import java.util.HashMap;
-import java.util.Vector;
 
 import org.gatt.constraint.ConstraintInfo;
 import org.xml.sax.Attributes;
