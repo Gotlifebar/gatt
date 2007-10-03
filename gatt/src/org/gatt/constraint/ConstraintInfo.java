@@ -1,6 +1,5 @@
 package org.gatt.constraint;
 
-import java.util.Vector;
 
 public class ConstraintInfo {
 	
