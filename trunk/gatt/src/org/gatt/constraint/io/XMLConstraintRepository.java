@@ -2,8 +2,6 @@ package org.gatt.constraint.io;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -12,7 +10,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.gatt.constraint.ConstraintInfo;
-import org.igfay.jfig.JFigException;
 import org.xml.sax.SAXException;
 
 
