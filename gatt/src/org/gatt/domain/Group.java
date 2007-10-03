@@ -35,7 +35,9 @@ public class Group extends DomainObject {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
-	
+	public boolean applyConstraint(String constraintId){
+		return true;
+	}
 	
 	
 }
