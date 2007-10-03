@@ -2,7 +2,6 @@ package org.gatt.constraint;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Vector;
