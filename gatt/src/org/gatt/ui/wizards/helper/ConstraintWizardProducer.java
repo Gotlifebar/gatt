@@ -129,7 +129,7 @@ public class ConstraintWizardProducer {
 	}
 	
 	public ConstraintInfo getProducedConstraint(){		
-		String strategy = ConstraintSourceGenerator.generateStrategySourceCode(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getJavaString(), usedVars);		
+		String strategy = ConstraintSourceGenerator.generateStrategySourceCode(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getJavaString(), usedVars, cInfo);		
 		cInfo.setStrategyCodeImplementation(strategy);
 		cInfo.setDefinition(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getReadableName());
 		return cInfo;
@@ -137,7 +137,7 @@ public class ConstraintWizardProducer {
 	
 	public String getConstraintCode(){
 		//
-		return ConstraintSourceGenerator.generateStrategySourceCode(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getJavaString(), usedVars);
+		return ConstraintSourceGenerator.generateStrategySourceCode(facade.createConstraint(constraintType, CodifiableConstraintValue.ONE, expressions).getJavaString(), usedVars, cInfo);
 	}
 	public void addUsedVar(char c){
 		if( usedVars.contains(c))
