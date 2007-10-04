@@ -12,6 +12,7 @@
 	</section>
 	<section name="XMLWriterInfo">
 		<entry key="FilePath" value="bin/org/gatt/constraint/defined/ConstraintsDefinition.xml"/>
+		<entry key="DirPath" value="bin/org/gatt/constraint/defined/"/>
 	</section>
 	<section name="TreeKeys">
 		<entry key="Session" value="Sesión"/>

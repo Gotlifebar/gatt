@@ -1,10 +1,12 @@
 package org.gatt.ui.wizards.helper;
 
+import java.io.Serializable;
+
 import org.gatt.constraint.codifiable.Operator;
 import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
 import org.gatt.ui.wizards.ConstraintWizard.ComplementType;
 
-public class ListConstraintRepresentation {
+public class ListConstraintRepresentation implements Serializable {
 	
 	private Operator operator;
 	private ComparableOperand operand1;

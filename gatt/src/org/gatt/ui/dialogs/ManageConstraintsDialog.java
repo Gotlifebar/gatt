@@ -28,6 +28,7 @@ import org.gatt.constraint.io.XMLConstraintWriter;
 import org.gatt.ui.dialogs.commands.DeleteConstraintAction;
 import org.gatt.ui.dialogs.commands.DetailConstraintAction;
 import org.gatt.ui.dialogs.commands.NewConstraintAction;
+import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
 import org.igfay.jfig.JFigException;
@@ -106,10 +107,13 @@ public class ManageConstraintsDialog extends JDialog {
 		return new ConstraintsTableModel(data,columnNames);
 	}
 	
-	public void addConstraint(ConstraintInfo constraint){
+	public void addConstraint(ConstraintWizardInfoWrapper cWrapper){
+		
+		ConstraintInfo constraint = cWrapper.getConstraintInfo();
 		
 		XMLConstraintWriter writer = XMLConstraintWriter.getInstance();
 		writer.write(constraint);
+		writer.writeConstraintWrapper(cWrapper);
 		
 		Vector row = new Vector();
 		row.addElement(constraint.getId());
