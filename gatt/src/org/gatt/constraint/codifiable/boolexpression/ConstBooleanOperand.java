@@ -1,6 +1,8 @@
 package org.gatt.constraint.codifiable.boolexpression;
 
-public class ConstBooleanOperand extends BooleanOperand {	
+import java.io.Serializable;
+
+public class ConstBooleanOperand extends BooleanOperand implements Serializable {	
 	
 	public static ConstBooleanOperand TRUE = new ConstBooleanOperand("true", "True", "verdadero");
 	public static ConstBooleanOperand FALSE = new ConstBooleanOperand("false", "False", "falso");	

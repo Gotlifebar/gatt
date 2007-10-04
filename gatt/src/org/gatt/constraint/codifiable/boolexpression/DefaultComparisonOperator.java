@@ -1,9 +1,11 @@
 package org.gatt.constraint.codifiable.boolexpression;
 
+import java.io.Serializable;
+
 import org.gatt.constraint.codifiable.Operator;
 
 //It's like an enumeration
-public class DefaultComparisonOperator implements Operator {
+public class DefaultComparisonOperator implements Operator, Serializable {
 	public static DefaultComparisonOperator EQUAL = new DefaultComparisonOperator("==", "EQUAL", "es igual a"),
 									 LESS_THAN = new DefaultComparisonOperator("<", "LESS_THAN", "es menor que"),
 									 LESS_EQUAL_THAN = new DefaultComparisonOperator("<=", "LESS_EQUAL_THAN", "es menor o igual que"),
