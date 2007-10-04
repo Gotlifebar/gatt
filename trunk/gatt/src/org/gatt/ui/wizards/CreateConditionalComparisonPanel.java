@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Enumeration;
-import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -205,7 +204,12 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 			}
 		}
 		
-		//System.out.println(constraintProducer.getConstraintCode());
+		
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		wizard.getConstraintWrapper().setConditional(true);
+		wizard.getConstraintWrapper().setFormerModel(listModelFormer);
+		wizard.getConstraintWrapper().setLatterModel(listModelLatter);
+		
 		setNextStep(((ConstraintWizard)getWizardParent()).getNextPanel());
 		super.next();
 	}

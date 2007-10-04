@@ -141,7 +141,10 @@ public class CreateSimpleComparisonPanel extends JWizardPanel{
 			}
 		}
 		
-		//System.out.println(constraintProducer.getConstraintCode());
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		wizard.getConstraintWrapper().setConditional(false);
+		wizard.getConstraintWrapper().setFormerModel(listModelFormer);
+		
 		setNextStep(((ConstraintWizard)getWizardParent()).getNextPanel());
 		super.next();
 	}
