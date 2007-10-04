@@ -1,8 +1,10 @@
 package org.gatt.constraint.codifiable.boolexpression;
 
+import java.io.Serializable;
+
 import org.gatt.constraint.codifiable.Operator;
 
-public class BooleanOperator implements Operator {
+public class BooleanOperator implements Operator, Serializable {
 	public static BooleanOperator AND = new BooleanOperator("&&", "AND", "y"),
 								  OR = new BooleanOperator("||", "OR", "o"),
 								  NOT = new BooleanOperator("!", "NOT", "no");

@@ -1,9 +1,11 @@
 package org.gatt.constraint.codifiable.boolexpression;
 
+import java.io.Serializable;
+
 import org.gatt.constraint.codifiable.Operand;
 
 
-public abstract class ComparableOperand implements Operand {
+public abstract class ComparableOperand implements Operand, Serializable {
 	private String javaString, name, readableName;
 	
 	

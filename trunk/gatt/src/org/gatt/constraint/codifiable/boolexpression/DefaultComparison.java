@@ -1,7 +1,9 @@
 package org.gatt.constraint.codifiable.boolexpression;
 
+import java.io.Serializable;
 
-public class DefaultComparison extends BooleanOperand{
+
+public class DefaultComparison extends BooleanOperand implements Serializable{
 	private ComparableOperand left, right;
 	private DefaultComparisonOperator operator;
 	

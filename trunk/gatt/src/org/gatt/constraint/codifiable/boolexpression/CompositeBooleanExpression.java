@@ -1,6 +1,8 @@
 package org.gatt.constraint.codifiable.boolexpression;
 
-public class CompositeBooleanExpression extends BooleanOperand {
+import java.io.Serializable;
+
+public class CompositeBooleanExpression extends BooleanOperand implements Serializable {
 	private BooleanOperand left, right;
 	private BooleanOperator operator;
 	
