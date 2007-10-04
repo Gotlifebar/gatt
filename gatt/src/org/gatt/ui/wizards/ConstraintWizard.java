@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import org.freixas.jwizard.JWizardDialog;
 import org.gatt.constraint.ConstraintInfo;
-import org.gatt.constraint.io.XMLConstraintWriter;
+import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 
 public class ConstraintWizard extends JWizardDialog {
@@ -36,6 +36,7 @@ public class ConstraintWizard extends JWizardDialog {
 	
 	private boolean canceled = false;
 	
+	private ConstraintWizardInfoWrapper constraintWrapper;
 	
 	public ConstraintWizard(){
 		
@@ -45,6 +46,7 @@ public class ConstraintWizard extends JWizardDialog {
 		lastRound = 0;
 		complementType = null;
 		constraintProducer = new ConstraintWizardProducer();
+		constraintWrapper = new ConstraintWizardInfoWrapper();
 		
 		this.setTitle("Asistente para la definición de restricciones");
 		
@@ -62,6 +64,10 @@ public class ConstraintWizard extends JWizardDialog {
 		setVisible(true);
 	}
 	
+	
+	public ConstraintWizardInfoWrapper getConstraintWrapper(){
+		return constraintWrapper;
+	}
 	
 	public boolean isCanceled(){
 		return canceled;
