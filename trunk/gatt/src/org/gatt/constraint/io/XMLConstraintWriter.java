@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.gatt.constraint.ConstraintInfo;
+import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
 import org.igfay.jfig.JFigException;
@@ -36,6 +38,7 @@ public class XMLConstraintWriter {
 	public static XMLConstraintWriter instance;
 	private XMLOutputter outp;
 	private File file;
+	private String dir;
 	
 	
 	private XMLConstraintWriter(){
@@ -46,21 +49,15 @@ public class XMLConstraintWriter {
 		outp = new XMLOutputter();
 		outp.setFormat(Format.getPrettyFormat());
 		
-		//URI uri = null;
 		String sFile = null;
 		try{
 			sFile = config.getValue("XMLWriterInfo", "FilePath");
-			//String sFile = config.getValue("XMLWriterInfo", "FilePath");
-			//System.out.println(sFile);
-			//uri = getClass().getResource(sFile).toURI();
-		}/*catch(URISyntaxException uriEx){
-			uriEx.printStackTrace();
-		}*/catch(JFigException jFigEx){
+			dir = config.getValue("XMLWriterInfo", "DirPath");	
+		}catch(JFigException jFigEx){
 			jFigEx.printStackTrace();
 		}
 		
 		file = new File(sFile);
-		//file = new File(sFile);
 	}
 	
 	public static XMLConstraintWriter getInstance(){
@@ -261,6 +258,20 @@ public class XMLConstraintWriter {
 			fEx.printStackTrace();
 		}
 		catch(IOException ioEx){
+			ioEx.printStackTrace();
+		}
+	}
+	
+	public void writeConstraintWrapper(ConstraintWizardInfoWrapper constraintWrapper){
+		String nFile = "Constraint_" + constraintWrapper.getConstraintInfo().getId() + ".constraint";
+		File cFile = new File(dir + nFile);
+		
+		try{
+			FileOutputStream fos = new FileOutputStream(cFile);
+			ObjectOutputStream os = new ObjectOutputStream(fos);
+			os.writeObject(constraintWrapper);
+			os.close();
+		}catch(IOException ioEx){
 			ioEx.printStackTrace();
 		}
 	}
