@@ -1,7 +1,10 @@
 package org.gatt.constraint;
 
 
-public class ConstraintInfo {
+import java.io.Serializable;
+
+
+public class ConstraintInfo implements Serializable {
 	
 	private String id;
 	private String name;
