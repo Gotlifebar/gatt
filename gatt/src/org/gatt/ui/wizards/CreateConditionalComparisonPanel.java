@@ -24,6 +24,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
 import org.freixas.jwizard.JWizardPanel;
+import org.gatt.constraint.ConstraintInfo;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 import org.gatt.ui.wizards.commands.AddComparisonFormerAction;
 import org.gatt.ui.wizards.commands.AddComparisonLatterAction;
@@ -35,6 +36,7 @@ import org.gatt.ui.wizards.commands.DeleteComparisonFormerAction;
 import org.gatt.ui.wizards.commands.DeleteComparisonLatterAction;
 import org.gatt.ui.wizards.commands.TreeLeftFormerSelectionAction;
 import org.gatt.ui.wizards.commands.TreeLeftLatterSelectionAction;
+import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 import org.gatt.ui.wizards.helper.ListConstraintRepresentation;
 import org.gatt.ui.wizards.helper.TreeContentManager;
@@ -99,6 +101,9 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		this.setStepTitle("Definir comparición condicional");
 		setBackStep(-1);
 	    setNextStep(3);
+	    
+	   // if(((ConstraintWizard)getWizardParent()).isEditing())
+	    //	loadData();
 	}
 
 	/**
@@ -112,7 +117,18 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		this.getContentPane().add(getPFormer(), null);
 		this.getContentPane().add(getPLatter(), null);
 	}
+	
+	private void loadData(){
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		ConstraintWizardInfoWrapper cWrapper = wizard.getConstraintWrapper();
 
+		this.getListComparisons().setModel(cWrapper.getFormerModel());
+		this.getListComparisons1().setModel(cWrapper.getLatterModel());
+		
+		this.habilitarAndOr();
+		this.habilitarAndOr1();
+	}
+	
 	protected void next(){
 		boolean error = false;
 		String msg = "Atención:";
@@ -215,7 +231,10 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	}
 	
 	protected void makingVisible(){
-		System.out.println("Haciendo visible...");
+		
+		if(((ConstraintWizard)getWizardParent()).isEditing())
+	    	loadData();
+
 		this.getWizardParent().setPreferredSize(new Dimension(620,830));
 		this.getWizardParent().repaint();
 		super.makingVisible();

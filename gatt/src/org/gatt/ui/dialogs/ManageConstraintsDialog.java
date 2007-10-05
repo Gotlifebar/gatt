@@ -27,6 +27,7 @@ import org.gatt.constraint.io.XMLConstraintRepository;
 import org.gatt.constraint.io.XMLConstraintWriter;
 import org.gatt.ui.dialogs.commands.DeleteConstraintAction;
 import org.gatt.ui.dialogs.commands.DetailConstraintAction;
+import org.gatt.ui.dialogs.commands.EditConstraintAction;
 import org.gatt.ui.dialogs.commands.NewConstraintAction;
 import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 import org.gatt.util.GattConfigLocator;
@@ -45,7 +46,13 @@ public class ManageConstraintsDialog extends JDialog {
 	private JButton bNew = null;
 	private JButton bDelete = null;
 	private JButton bDetail = null;
+	private JButton bEdit = null;
 
+	private final int COLUMN_ID = 0;
+	private final int COLUMN_NAME = 1;
+	private final int COLUMN_DESCRIPTION = 2;
+	private final int COLUMN_SIGNIFICANCE = 3;
+	
 	/**
 	 * @param owner
 	 */
@@ -125,6 +132,29 @@ public class ManageConstraintsDialog extends JDialog {
 		model.addRow(row);
 	}
 	
+	public void updateConstraint(ConstraintWizardInfoWrapper cWrapper){
+		ConstraintInfo constraint = cWrapper.getConstraintInfo();
+		
+		XMLConstraintWriter writer = XMLConstraintWriter.getInstance();
+		writer.updateConstraint(constraint);
+		writer.writeConstraintWrapper(cWrapper);
+		
+		DefaultTableModel model = (DefaultTableModel)this.getTabConstraints().getModel();
+		
+		int row = 0;
+		
+		for(int i=0; i < model.getRowCount(); i++){
+			if(model.getValueAt(i, COLUMN_ID).equals(constraint.getId())){
+				row = i;
+				break;
+			}
+		}
+
+		model.setValueAt(constraint.getName(), row, COLUMN_NAME);
+		model.setValueAt(constraint.getDescription(), row, COLUMN_DESCRIPTION);
+		model.setValueAt(constraint.getSignificance(), row, COLUMN_SIGNIFICANCE);
+	}
+	
 	/**
 	 * This method initializes this
 	 * 
@@ -150,6 +180,7 @@ public class ManageConstraintsDialog extends JDialog {
 			jContentPane.add(getBNew(), null);
 			jContentPane.add(getBDelete(), null);
 			jContentPane.add(getBDetail(), null);
+			jContentPane.add(getBEdit(), null);
 		}
 		return jContentPane;
 	}
@@ -209,7 +240,7 @@ public class ManageConstraintsDialog extends JDialog {
 			bNew = new JButton();
 			bNew.setText("Nueva");
 			bNew.setSize(new Dimension(71, 23));
-			bNew.setLocation(new Point(299, 248));
+			bNew.setLocation(new Point(213, 248));
 			bNew.addActionListener(new NewConstraintAction(this));
 		}
 		return bNew;
@@ -253,11 +284,27 @@ public class ManageConstraintsDialog extends JDialog {
 	private JButton getBDetail() {
 		if (bDetail == null) {
 			bDetail = new JButton();
-			bDetail.setBounds(new Rectangle(380, 248, 80, 23));
+			bDetail.setBounds(new Rectangle(294, 248, 80, 23));
 			bDetail.setText("Detallar");
 			bDetail.addActionListener(new DetailConstraintAction(this));
 		}
 		return bDetail;
+	}
+
+	/**
+	 * This method initializes bEdit	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBEdit() {
+		if (bEdit == null) {
+			bEdit = new JButton();
+			bEdit.setText("Editar");
+			bEdit.setSize(new Dimension(80, 23));
+			bEdit.setLocation(new Point(383, 248));
+			bEdit.addActionListener(new EditConstraintAction(this));
+		}
+		return bEdit;
 	}
 	
 }  //  @jve:decl-index=0:visual-constraint="10,10"

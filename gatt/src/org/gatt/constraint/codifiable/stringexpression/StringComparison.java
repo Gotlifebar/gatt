@@ -1,11 +1,13 @@
 package org.gatt.constraint.codifiable.stringexpression;
 
+import java.io.Serializable;
+
 import org.gatt.constraint.codifiable.boolexpression.BooleanOperand;
 import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparison;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 
-public class StringComparison extends BooleanOperand {
+public class StringComparison extends BooleanOperand implements Serializable {
 	private ComparableOperand left, right;
 	private StringComparisonOperator operator;
 	

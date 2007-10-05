@@ -35,8 +35,8 @@ public class ConstraintWizard extends JWizardDialog {
 	
 	
 	private boolean canceled = false;
-	
 	private ConstraintWizardInfoWrapper constraintWrapper;
+	private boolean editing;
 	
 	public ConstraintWizard(){
 		
@@ -47,6 +47,7 @@ public class ConstraintWizard extends JWizardDialog {
 		complementType = null;
 		constraintProducer = new ConstraintWizardProducer();
 		constraintWrapper = new ConstraintWizardInfoWrapper();
+		editing = false;
 		
 		this.setTitle("Asistente para la definición de restricciones");
 		
@@ -64,6 +65,37 @@ public class ConstraintWizard extends JWizardDialog {
 		setVisible(true);
 	}
 	
+	public ConstraintWizard(ConstraintWizardInfoWrapper constraintWrapper){
+
+		setModal(true);
+		currentOperation = DEFINING_OPERATION;
+		currentRound = 1;
+		lastRound = 0;
+		complementType = null;
+		constraintProducer = new ConstraintWizardProducer();
+		this.constraintWrapper = constraintWrapper; 
+		editing = true;
+		constraintProducer.setConstraintId(constraintWrapper.getConstraintInfo().getId());
+		
+		this.setTitle("Asistente para la definición de restricciones");
+		
+		this.setPreferredSize(new Dimension(620, 455));
+		
+		// Create each step
+		addWizardPanel(new AddConstraintPanel());
+	    addWizardPanel(new CreateSimpleComparisonPanel());
+	    addWizardPanel(new CreateConditionalComparisonPanel());
+	    addWizardPanel(new ConstraintPreviewPanel());
+		
+		this.disableCancelAtEnd();
+				
+		pack();
+		setVisible(true);
+	}
+	
+	public boolean isEditing(){
+		return editing;
+	}
 	
 	public ConstraintWizardInfoWrapper getConstraintWrapper(){
 		return constraintWrapper;

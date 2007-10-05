@@ -30,6 +30,7 @@ import org.gatt.ui.wizards.commands.CompTypeAttributeFormerSimpleComparisonSelec
 import org.gatt.ui.wizards.commands.CompTypeConstantFormerSimpleComparisonSelectedAction;
 import org.gatt.ui.wizards.commands.DeleteComparisonFormerSimpleComparisonAction;
 import org.gatt.ui.wizards.commands.TreeLeftFormerSimpleComparisonSelectionAction;
+import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 import org.gatt.ui.wizards.helper.ListConstraintRepresentation;
 import org.gatt.ui.wizards.helper.TreeContentManager;
@@ -72,6 +73,8 @@ public class CreateSimpleComparisonPanel extends JWizardPanel{
 		this.setStepTitle("Definir comparición simple");
 		setBackStep(-1);
 	    setNextStep(3);
+	    //if(((ConstraintWizard)getWizardParent()).isEditing())
+	    	//loadData();
 	}
 	
 	/**
@@ -83,6 +86,15 @@ public class CreateSimpleComparisonPanel extends JWizardPanel{
 		this.getContentPane().setSize(602, 715);
 		this.getContentPane().setLayout(null);
 		this.getContentPane().add(getPFormer(), null);
+	}
+	
+	private void loadData(){
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		ConstraintWizardInfoWrapper cWrapper = wizard.getConstraintWrapper();
+
+		this.getListComparisons().setModel(cWrapper.getFormerModel());
+		
+		this.habilitarAndOr();
 	}
 	
 	protected void next(){
@@ -150,6 +162,8 @@ public class CreateSimpleComparisonPanel extends JWizardPanel{
 	}
 	
 	protected void makingVisible(){
+		if(((ConstraintWizard)getWizardParent()).isEditing())
+	    	loadData();
 		this.getWizardParent().setPreferredSize(new Dimension(620,470));
 		this.getWizardParent().repaint();
 		super.makingVisible();
