@@ -204,6 +204,8 @@ public class XMLConstraintWriter {
 		catch(IOException ioEx){
 			ioEx.printStackTrace();
 		}
+		
+		deleteConstraintWrapperFile(id);
 	}
 	
 	public void updateConstraint(ConstraintInfo cInfo){
@@ -276,6 +278,12 @@ public class XMLConstraintWriter {
 		}catch(IOException ioEx){
 			ioEx.printStackTrace();
 		}
+	}
+	
+	private void deleteConstraintWrapperFile(String id){
+		String nFile = "Constraint_" + id + ".constraint";
+		File cFile = new File(dir + nFile);
+		cFile.delete();
 	}
 	
 	public ConstraintWizardInfoWrapper readConstraintWrapper(String id){

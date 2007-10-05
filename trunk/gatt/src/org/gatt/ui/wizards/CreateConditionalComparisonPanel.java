@@ -101,9 +101,6 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		this.setStepTitle("Definir comparición condicional");
 		setBackStep(-1);
 	    setNextStep(3);
-	    
-	   // if(((ConstraintWizard)getWizardParent()).isEditing())
-	    //	loadData();
 	}
 
 	/**
@@ -228,6 +225,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		
 		setNextStep(((ConstraintWizard)getWizardParent()).getNextPanel());
 		super.next();
+		return;
 	}
 	
 	protected void makingVisible(){
@@ -235,7 +233,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		if(((ConstraintWizard)getWizardParent()).isEditing())
 	    	loadData();
 
-		this.getWizardParent().setPreferredSize(new Dimension(620,830));
+		this.getWizardParent().setPreferredSize(new Dimension(620,755));
 		this.getWizardParent().repaint();
 		super.makingVisible();
 	}
@@ -274,26 +272,26 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JPanel getPFormer() {
 		if (pFormer == null) {
 			lbComparisonLink = new JLabel();
-			lbComparisonLink.setBounds(new Rectangle(15, 297, 156, 24));
+			lbComparisonLink.setBounds(new Rectangle(15, 286, 156, 24));
 			lbComparisonLink.setText("Enlace de la comparasión:");
 			lbComparisons = new JLabel();
-			lbComparisons.setBounds(new Rectangle(15, 210, 122, 22));
+			lbComparisons.setBounds(new Rectangle(15, 198, 122, 22));
 			lbComparisons.setText("Comparaciones");
 			lbConstantValue = new JLabel();
-			lbConstantValue.setBounds(new Rectangle(383, 154, 129, 22));
+			lbConstantValue.setBounds(new Rectangle(383, 142, 129, 22));
 			lbConstantValue.setText("Valor constante");
 			lbRight = new JLabel();
-			lbRight.setBounds(new Rectangle(383, 24, 178, 25));
+			lbRight.setBounds(new Rectangle(383, 18, 178, 25));
 			lbRight.setText("Variables lado derecho");
 			lbOperator = new JLabel();
-			lbOperator.setBounds(new Rectangle(208, 40, 148, 28));
+			lbOperator.setBounds(new Rectangle(208, 34, 148, 28));
 			lbOperator.setText("Operador");
 			lbLeft = new JLabel();
-			lbLeft.setBounds(new Rectangle(14, 24, 179, 26));
+			lbLeft.setBounds(new Rectangle(14, 18, 179, 26));
 			lbLeft.setText("Variables lado izquierdo");
 			pFormer = new JPanel();
 			pFormer.setLayout(null);
-			pFormer.setBounds(new Rectangle(12, 14, 576, 330));
+			pFormer.setBounds(new Rectangle(15, 2, 576, 320));
 			pFormer.setBorder(BorderFactory.createTitledBorder(null, "Antecedente", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
 			pFormer.add(getSpLeft(), null);
 			pFormer.add(lbLeft, null);
@@ -327,7 +325,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JScrollPane getSpLeft() {
 		if (spLeft == null) {
 			spLeft = new JScrollPane();
-			spLeft.setBounds(new Rectangle(14, 48, 181, 156));
+			spLeft.setBounds(new Rectangle(14, 42, 181, 150));
 			spLeft.setViewportView(getTreeLeft());
 		}
 		return spLeft;
@@ -355,7 +353,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	public JComboBox getCbOperators() {
 		if (cbOperators == null) {
 			cbOperators = new JComboBox();
-			cbOperators.setBounds(new Rectangle(208, 69, 155, 26));
+			cbOperators.setBounds(new Rectangle(208, 63, 155, 26));
 			cbOperators.addItem(new String("[Seleccione una opción...]"));
 			cbOperators.addItem(DefaultComparisonOperator.EQUAL);
 			cbOperators.addItem(DefaultComparisonOperator.LESS_EQUAL_THAN);
@@ -376,7 +374,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		if (pComparisonType == null) {
 			pComparisonType = new JPanel();
 			pComparisonType.setLayout(null);
-			pComparisonType.setBounds(new Rectangle(208, 112, 155, 78));
+			pComparisonType.setBounds(new Rectangle(208, 100, 155, 78));
 			pComparisonType.setBorder(BorderFactory.createTitledBorder(null, "Tipo de comparación", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
 			
 			ButtonGroup group = new ButtonGroup();
@@ -397,8 +395,8 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JScrollPane getSpRight() {
 		if (spRight == null) {
 			spRight = new JScrollPane();
-			spRight.setLocation(new Point(382, 48));
-			spRight.setSize(new Dimension(181, 97));
+			spRight.setLocation(new Point(382, 42));
+			spRight.setSize(new Dimension(181, 91));
 			spRight.setViewportView(getTreeRight());
 		}
 		return spRight;
@@ -426,7 +424,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	public JTextField getTfConstantValue() {
 		if (tfConstantValue == null) {
 			tfConstantValue = new JTextField();
-			tfConstantValue.setBounds(new Rectangle(382, 176, 180, 26));
+			tfConstantValue.setBounds(new Rectangle(382, 164, 180, 26));
 			tfConstantValue.setEnabled(false);
 		}
 		return tfConstantValue;
@@ -440,7 +438,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JScrollPane getSpComparisons() {
 		if (spComparisons == null) {
 			spComparisons = new JScrollPane();
-			spComparisons.setBounds(new Rectangle(15, 230, 548, 60));
+			spComparisons.setBounds(new Rectangle(15, 218, 548, 60));
 			spComparisons.setViewportView(getListComparisons());
 		}
 		return spComparisons;
@@ -468,7 +466,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JButton getBAddComparison() {
 		if (bAddComparison == null) {
 			bAddComparison = new JButton();
-			bAddComparison.setBounds(new Rectangle(389, 297, 81, 22));
+			bAddComparison.setBounds(new Rectangle(389, 285, 81, 22));
 			bAddComparison.setText("Agregar");
 			bAddComparison.addActionListener(new AddComparisonFormerAction(this));
 		}
@@ -485,7 +483,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 			bDeleteComparison = new JButton();
 			bDeleteComparison.setText("Eliminar");
 			bDeleteComparison.setSize(new Dimension(81, 22));
-			bDeleteComparison.setLocation(new Point(481, 297));
+			bDeleteComparison.setLocation(new Point(481, 285));
 			bDeleteComparison.addActionListener(new DeleteComparisonFormerAction(this));
 		}
 		return bDeleteComparison;
@@ -499,28 +497,28 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JPanel getPLatter() {
 		if (pLatter == null) {
 			lbComparisonLink1 = new JLabel();
-			lbComparisonLink1.setBounds(new Rectangle(15, 299, 149, 23));
+			lbComparisonLink1.setBounds(new Rectangle(15, 286, 149, 23));
 			lbComparisonLink1.setText("Enlace de la comparasión:");
 			lbComparisons1 = new JLabel();
-			lbComparisons1.setBounds(new Rectangle(15, 210, 122, 22));
+			lbComparisons1.setBounds(new Rectangle(15, 198, 122, 22));
 			lbComparisons1.setText("Comparaciones");
 			lbConstantValue1 = new JLabel();
-			lbConstantValue1.setBounds(new Rectangle(383, 154, 129, 22));
+			lbConstantValue1.setBounds(new Rectangle(383, 142, 129, 22));
 			lbConstantValue1.setText("Valor constante");
 			lbRight1 = new JLabel();
-			lbRight1.setBounds(new Rectangle(383, 24, 178, 25));
+			lbRight1.setBounds(new Rectangle(383, 18, 178, 25));
 			lbRight1.setText("Variables lado derecho");
 			lbOperator1 = new JLabel();
-			lbOperator1.setBounds(new Rectangle(208, 40, 148, 28));
+			lbOperator1.setBounds(new Rectangle(208, 34, 148, 28));
 			lbOperator1.setText("Operador");
 			lbLeft1 = new JLabel();
-			lbLeft1.setBounds(new Rectangle(14, 24, 179, 26));
+			lbLeft1.setBounds(new Rectangle(14, 18, 179, 26));
 			lbLeft1.setText("Variables lado izquierdo");
 			pLatter = new JPanel();
 			pLatter.setLayout(null);
 			pLatter.setBorder(BorderFactory.createTitledBorder(null, "Consecuente", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
-			pLatter.setLocation(new Point(15, 373));
-			pLatter.setSize(new Dimension(576, 330));
+			pLatter.setLocation(new Point(15, 327));
+			pLatter.setSize(new Dimension(576, 320));
 			pLatter.add(getSpLeft1(), null);
 			pLatter.add(lbLeft1, null);
 			pLatter.add(getCbOperators1(), null);
@@ -552,7 +550,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JScrollPane getSpLeft1() {
 		if (spLeft1 == null) {
 			spLeft1 = new JScrollPane();
-			spLeft1.setBounds(new Rectangle(14, 48, 181, 156));
+			spLeft1.setBounds(new Rectangle(14, 42, 181, 150));
 			spLeft1.setViewportView(getTreeLeft1());
 		}
 		return spLeft1;
@@ -581,7 +579,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	public JComboBox getCbOperators1() {
 		if (cbOperators1 == null) {
 			cbOperators1 = new JComboBox();
-			cbOperators1.setBounds(new Rectangle(208, 69, 155, 26));
+			cbOperators1.setBounds(new Rectangle(208, 63, 155, 26));
 			cbOperators1.addItem(new String("[Seleccione una opción...]"));
 			cbOperators1.addItem(DefaultComparisonOperator.EQUAL);
 			cbOperators1.addItem(DefaultComparisonOperator.LESS_EQUAL_THAN);
@@ -602,7 +600,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		if (pComparisonType1 == null) {
 			pComparisonType1 = new JPanel();
 			pComparisonType1.setLayout(null);
-			pComparisonType1.setBounds(new Rectangle(208, 112, 155, 78));
+			pComparisonType1.setBounds(new Rectangle(208, 100, 155, 78));
 			pComparisonType1.setBorder(BorderFactory.createTitledBorder(null, "Tipo de comparación", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
 			ButtonGroup group = new ButtonGroup();
 			group.add(getRbAttribute1());
@@ -621,9 +619,9 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JScrollPane getSpRight1() {
 		if (spRight1 == null) {
 			spRight1 = new JScrollPane();
-			spRight1.setLocation(new Point(382, 48));
+			spRight1.setLocation(new Point(382, 42));
 			spRight1.setViewportView(getTreeRight1());
-			spRight1.setSize(new Dimension(181, 97));
+			spRight1.setSize(new Dimension(181, 91));
 		}
 		return spRight1;
 	}
@@ -650,7 +648,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	public JTextField getTfConstantValue1() {
 		if (tfConstantValue1 == null) {
 			tfConstantValue1 = new JTextField();
-			tfConstantValue1.setBounds(new Rectangle(382, 176, 180, 26));
+			tfConstantValue1.setBounds(new Rectangle(382, 164, 180, 26));
 			tfConstantValue1.setEnabled(false);
 		}
 		return tfConstantValue1;
@@ -664,7 +662,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JScrollPane getSpComparisons1() {
 		if (spComparisons1 == null) {
 			spComparisons1 = new JScrollPane();
-			spComparisons1.setBounds(new Rectangle(15, 230, 548, 60));
+			spComparisons1.setBounds(new Rectangle(15, 218, 548, 60));
 			spComparisons1.setViewportView(getListComparisons1());
 		}
 		return spComparisons1;
@@ -692,7 +690,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JButton getBAddComparison1() {
 		if (bAddComparison1 == null) {
 			bAddComparison1 = new JButton();
-			bAddComparison1.setBounds(new Rectangle(389, 297, 81, 22));
+			bAddComparison1.setBounds(new Rectangle(389, 285, 81, 22));
 			bAddComparison1.setText("Agregar");
 			bAddComparison1.addActionListener(new AddComparisonLatterAction(this));
 		}
@@ -707,7 +705,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	private JButton getBDeleteComparison1() {
 		if (bDeleteComparison1 == null) {
 			bDeleteComparison1 = new JButton();
-			bDeleteComparison1.setLocation(new Point(481, 297));
+			bDeleteComparison1.setLocation(new Point(481, 285));
 			bDeleteComparison1.setText("Eliminar");
 			bDeleteComparison1.setSize(new Dimension(81, 22));
 			bDeleteComparison1.addActionListener(new DeleteComparisonLatterAction(this));
@@ -788,7 +786,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	public JRadioButton getRbAnd() {
 		if (rbAnd == null) {
 			rbAnd = new JRadioButton();
-			rbAnd.setBounds(new Rectangle(178, 298, 69, 21));
+			rbAnd.setBounds(new Rectangle(178, 285, 69, 21));
 			rbAnd.setText("Y (AND)");
 			rbAnd.setEnabled(false);
 		}
@@ -804,7 +802,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		if (rbOr == null) {
 			rbOr = new JRadioButton();
 			rbOr.setText("O (OR)");
-			rbOr.setLocation(new Point(253, 297));
+			rbOr.setLocation(new Point(253, 285));
 			rbOr.setSize(new Dimension(67, 24));
 			rbOr.setEnabled(false);
 		}
@@ -819,7 +817,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	public JRadioButton getRbAnd1() {
 		if (rbAnd1 == null) {
 			rbAnd1 = new JRadioButton();
-			rbAnd1.setBounds(new Rectangle(170, 298, 67, 24));
+			rbAnd1.setBounds(new Rectangle(170, 285, 67, 24));
 			rbAnd1.setText("Y (AND)");
 			rbAnd1.setEnabled(false);
 		}
@@ -834,7 +832,7 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 	public JRadioButton getRbOr1() {
 		if (rbOr1 == null) {
 			rbOr1 = new JRadioButton();
-			rbOr1.setBounds(new Rectangle(245, 299, 62, 24));
+			rbOr1.setBounds(new Rectangle(245, 285, 62, 24));
 			rbOr1.setText("O (OR)");
 			rbOr1.setEnabled(false);
 		}
