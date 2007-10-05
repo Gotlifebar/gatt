@@ -1,10 +1,12 @@
 package org.gatt.constraint.codifiable.stringexpression;
 
+import java.io.Serializable;
+
 import org.gatt.constraint.codifiable.Operator;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 
 
-public class StringComparisonOperator implements Operator{
+public class StringComparisonOperator implements Operator, Serializable{
 
 	private String displayName;
 	private String readableName;

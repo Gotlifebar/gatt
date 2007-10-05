@@ -17,6 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.freixas.jwizard.JWizardPanel;
+import org.gatt.constraint.ConstraintInfo;
+import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 
 public class AddConstraintPanel extends JWizardPanel {
 
@@ -44,6 +46,36 @@ public class AddConstraintPanel extends JWizardPanel {
 		initialize();
 		setBackStep(-1);
 	    setNextStep(1);
+	    
+	    //if(((ConstraintWizard)getWizardParent()).isEditing())
+	    	//loadData();
+	}
+	
+	private void loadData(){
+		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
+		ConstraintWizardInfoWrapper cWrapper = wizard.getConstraintWrapper();
+		ConstraintInfo cInfo = cWrapper.getConstraintInfo();
+		
+		this.getTfName().setText(cInfo.getName());
+		this.getTsDescription().setText(cInfo.getDescription());
+		
+		if(cWrapper.isConditional())
+			this.getComboConstraintTypes().setSelectedIndex(1);
+		else
+			this.getComboConstraintTypes().setSelectedIndex(2);
+		
+		this.getComboConstraintTypes().setEnabled(false);
+		
+		if(cInfo.getSignificance() == 0.19d)
+			this.getRbVeryLow().setSelected(true);
+		if(cInfo.getSignificance() == 0.39d)
+			this.getRbLow().setSelected(true);
+		if(cInfo.getSignificance() == 0.59d)
+			this.getRbMedium().setSelected(true);
+		if(cInfo.getSignificance() == 0.79d)
+			this.getRbHigh().setSelected(true);
+		if(cInfo.getSignificance() == 0.99d)
+			this.getRbVeryHigh().setSelected(true);
 	}
 	
 	protected void next(){
@@ -98,14 +130,14 @@ public class AddConstraintPanel extends JWizardPanel {
 	}
 	
 	protected void makingVisible(){
-		/*ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
-		if(!wizard.isSameRound() && wizard.getCurrentRound() != 1){
-			resetView();
-		}*/
+		
+		if(((ConstraintWizard)getWizardParent()).isEditing())
+	    	loadData();
+		
 		this.getWizardParent().setPreferredSize(new Dimension(620,445));
 		this.getWizardParent().repaint();
 		super.makingVisible();
-		super.makingVisible();
+
 	}
 	
 	private void resetView(){

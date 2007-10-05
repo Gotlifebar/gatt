@@ -1,9 +1,11 @@
 package org.gatt.constraint.io;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -274,6 +276,26 @@ public class XMLConstraintWriter {
 		}catch(IOException ioEx){
 			ioEx.printStackTrace();
 		}
+	}
+	
+	public ConstraintWizardInfoWrapper readConstraintWrapper(String id){
+		String nFile = "Constraint_" + id + ".constraint";
+		File cFile = new File(dir + nFile);
+		
+		ConstraintWizardInfoWrapper wrapper = null;
+		
+		try {
+			FileInputStream fis = new FileInputStream(cFile);
+			ObjectInputStream os = new ObjectInputStream(fis);
+			wrapper = (ConstraintWizardInfoWrapper)os.readObject();
+			os.close();
+		} catch (IOException ioEx) {
+			ioEx.printStackTrace();
+		} catch(ClassNotFoundException cnfEx){
+			cnfEx.printStackTrace();
+		}
+		
+		return wrapper;
 	}
 	
 	public static void main(String ar[]){
