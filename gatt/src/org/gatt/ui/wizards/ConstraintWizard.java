@@ -158,13 +158,6 @@ public class ConstraintWizard extends JWizardDialog {
 		 	super.cancel();
 		}
 	}
-	
-	public static void	main(
-	    String[] args)
-	{
-	    new ConstraintWizard();
-	    System.exit(0);
-	}
 
 	public int getCurrentOperation() {
 		return currentOperation;
