@@ -51,8 +51,6 @@ public class GattFrame extends JFrame {
 
 	private JMenu mReports = null;
 
-	private JMenu mHelp = null;
-
 	private JMenu mConstraints = null;
 
 	private JMenuItem miOptimize = null;
@@ -74,10 +72,6 @@ public class GattFrame extends JFrame {
 	private JMenuItem miOccupationTime = null;
 
 	private JMenuItem miStatistics = null;
-
-	private JMenuItem miHelpContents = null;
-
-	private JMenuItem miAbout = null;
 
 	private JMenuItem miSaveSolution = null;
 
@@ -200,7 +194,6 @@ public class GattFrame extends JFrame {
 			mbMenuBar.add(getMOptimization());
 			mbMenuBar.add(getMConstraints());
 			mbMenuBar.add(getMReports());
-			mbMenuBar.add(getMHelp());
 		}
 		return mbMenuBar;
 	}
@@ -244,22 +237,6 @@ public class GattFrame extends JFrame {
 			mReports.insertSeparator(5);
 		}
 		return mReports;
-	}
-
-	/**
-	 * This method initializes mHelp	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getMHelp() {
-		if (mHelp == null) {
-			mHelp = new JMenu();
-			mHelp.setText("Ayuda");
-			mHelp.add(getMiHelpContents());
-			mHelp.add(getMiAbout());
-			mHelp.insertSeparator(1);
-		}
-		return mHelp;
 	}
 
 	/**
@@ -417,36 +394,6 @@ public class GattFrame extends JFrame {
 			miStatistics.addActionListener(new StatisticsAction());
 		}
 		return miStatistics;
-	}
-
-	/**
-	 * This method initializes miHelpContents	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getMiHelpContents() {
-		if (miHelpContents == null) {
-			miHelpContents = new JMenuItem();
-			miHelpContents.setText("Contenido de ayuda");
-			miHelpContents.setIcon(new ImageIcon(getClass().getResource("/resources/help.png")));
-			miHelpContents.addActionListener(new HelpContentsAction());
-		}
-		return miHelpContents;
-	}
-
-	/**
-	 * This method initializes miAbout	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getMiAbout() {
-		if (miAbout == null) {
-			miAbout = new JMenuItem();
-			miAbout.setText("Acerca de Gatt...");
-			miAbout.setIcon(new ImageIcon(getClass().getResource("/resources/about.png")));
-			miAbout.addActionListener(new AboutAction());
-		}
-		return miAbout;
 	}
 
 	/**
