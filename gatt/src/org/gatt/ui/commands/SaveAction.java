@@ -21,6 +21,15 @@ public class SaveAction extends AbstractAction {
 		//JOptionPane.showMessageDialog(null, "Save Action");
 		OptimizationFacade o = OptimizationFacade.getInstance();
 		SolutionIO s = new SolutionIO();
+		
+		if(!o.isOptimizationProcessStarted()){
+			JOptionPane.showMessageDialog(frame,
+					"Debe haber iniciado un proceso de optimización antes de guardar alguna solución",
+					"Guardar solución",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
 		try{
 			s.saveSolution(o.getBestSolution());
 		}catch(Exception ex){
