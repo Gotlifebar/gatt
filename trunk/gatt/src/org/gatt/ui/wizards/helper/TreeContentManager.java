@@ -18,8 +18,8 @@ public class TreeContentManager {
 		if( Modifier.isStatic(f.getModifiers()) )
 			return;		
 		if( filter != null && f.getType() != filter)
-			return;
-		root.add(new FieldTreeNode(f));
+			return;		 
+		addNodeTo(root, new FieldTreeNode(f));
 	}
 	
 	private void addNodeTo(FieldTreeNode root, FieldTreeNode node){
