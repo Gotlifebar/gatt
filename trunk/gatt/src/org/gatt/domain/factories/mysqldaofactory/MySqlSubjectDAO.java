@@ -52,6 +52,7 @@ public class MySqlSubjectDAO implements SubjectDAO {
 	public Subject findSubject(int id) {
 		Connection c = MySqlDAOFactory.getConnection();
 		Subject subject = null;
+		//System.out.println("Finding subject: " + id);
 		try{			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM Subjects WHERE id = ?");
 			ps.setInt(1, id);
@@ -79,6 +80,7 @@ public class MySqlSubjectDAO implements SubjectDAO {
 	}
 	
 	public Subject findSubjectByCode(int code){
+		return findSubject(code);
 	/*	Connection c = MySqlDAOFactory.getConnection();
 		Subject s = null;
 		try{			
@@ -104,7 +106,6 @@ public class MySqlSubjectDAO implements SubjectDAO {
 			e.printStackTrace();
 			return null;
 		}
-		return s;*/
-		return null;
+		return s;*/		
 	}
 }
