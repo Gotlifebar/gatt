@@ -23,7 +23,7 @@ public class TreeContentManager {
 	}
 	
 	private void addNodeTo(FieldTreeNode root, FieldTreeNode node){
-		if( !node.toString().equals(""))
+		if( node.toString() != null )
 			root.add(node);
 	}
 	
