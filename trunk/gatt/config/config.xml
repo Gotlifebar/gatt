@@ -6,9 +6,9 @@
 		<entry key="PopulationSize" value="5"/>
 	</section>
 	<section name="MySqlConnectionInfo">
-		<entry key="URLConnectionString" value="jdbc:mysql://localhost:3306/gatt"/>
-		<entry key="UserConnection" value="gatt"/>
-		<entry key="PasswordConnection" value="gatt"/>
+		<entry key="URLConnectionString" value="jdbc:mysql://192.168.0.151:3306/dbgatt"/>
+		<entry key="UserConnection" value="root_new"/>
+		<entry key="PasswordConnection" value="root_lol"/>
 	</section>
 	<section name="XMLWriterInfo">
 		<entry key="FilePath" value="bin/org/gatt/constraint/defined/ConstraintsDefinition.xml"/>
@@ -16,30 +16,24 @@
 	</section>
 	<section name="TreeKeys">
 		<entry key="Session" value="Sesión"/>
+		<entry key="isTheorical" value="Es teórica?"/>
+		<entry key="usedHours" value="Horas necesarias"/>
 		<entry key="room" value="Aula"/>
-		<entry key="maxChairs" value="Sillas máximas"/>
-		<entry key="currentChairs" value="Sillas actuales"/>
 		<entry key="type" value="Tipo"/>
-		<entry key="space" value="Número"/>
+		<entry key="number" value="Número"/>
+		<entry key="capacity" value="Capacidad"/>
 		<entry key="hour" value="Hora"/>
-		<entry key="time" value="Tiempo"/>
-		<entry key="day" value="Día"/>
-		<entry key="representation" value="Representación"/>
+		<entry key="representation" value="Horario"/>
 		<entry key="group" value="Grupo"/>
 		<entry key="number" value="Número"/>
-		<entry key="maxCapacity" value="Capacidad máxima"/>
-		<entry key="teacher" value="Profesor"/>
-		<entry key="lastName" value="Apellido"/>
-		<entry key="name" value="Nombre"/>
-		<entry key="registerNumber" value="Cédula"/>
+		<entry key="numStudents" value="Número de estudiantes"/>
 		<entry key="subject" value="Materia"/>
-		<entry key="theoricalHours" value="Horas teóricas"/>
-		<entry key="practicalHours" value="Horas prácticas"/>
+		<entry key="fac" value="Facultad"/>
+		<entry key="dep" value="Departamento"/>
 		<entry key="name" value="Nombre"/>
 		<entry key="letterCode" value="Código de letras"/>
+		<entry key="credits" value="Créditos"/>
 		<entry key="code" value="Código"/>
-		<entry key="isTheorical" value="Es teórica"/>
-		<entry key="usedHours" value="Duración"/>
 	</section>
 	<section name="ConstraintCompilerOptions">
 		<entry key="OutputDir" value="bin"/>
