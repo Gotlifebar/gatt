@@ -40,7 +40,7 @@ public class FieldTreeNode extends DefaultMutableTreeNode {
 		try{
 			value = config.getValue("TreeKeys", key);
 		}catch(JFigException jFigEx){
-			jFigEx.printStackTrace();
+			//jFigEx.printStackTrace();
 			return null;
 		}
 		return value;
