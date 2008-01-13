@@ -124,8 +124,9 @@ public class DomainObjectFactoryFacade {
 			return factory.getSubjectDAO().findSubjectByCode(id);
 		
 		Subject s = (Subject)cache.getObjectById(id, Subject.class);
-		if( s == null ){
+		if( s == null ){			
 			s = factory.getSubjectDAO().findSubjectByCode(id);
+			
 			cache.addObject(s);
 		}
 		return s;
