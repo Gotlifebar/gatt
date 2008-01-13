@@ -20,6 +20,7 @@ public class DayReport extends JScrollPane implements Printable {
 	private Vector<Session> assignatedSessions;
 	
 	private Hashtable<String, Integer> hourIndex;
+	private Hashtable<String, Boolean> notApplicable;
 	
 	private final int NUMBER_OF_HOURS = 8;
 	
@@ -39,7 +40,13 @@ public class DayReport extends JScrollPane implements Printable {
 	 * @return void
 	 */
 	private void initialize() {
-		hourIndex = new Hashtable();
+		notApplicable = new Hashtable<String, Boolean>();
+		notApplicable.put("7-10", true);
+		notApplicable.put("6-9", true);
+		notApplicable.put("10-13", true);
+		notApplicable.put("13-16", true);
+		
+		hourIndex = new Hashtable<String, Integer>();
 		hourIndex.put("6-8", new Integer(0));
 		hourIndex.put("8-10", new Integer(1));
 		hourIndex.put("10-12", new Integer(2));
@@ -74,9 +81,10 @@ public class DayReport extends JScrollPane implements Printable {
 		for (Iterator<Session> iterator = assignatedSessions.iterator(); iterator.hasNext();) {
 			Session session = iterator.next();
 			String space = session.getRoom().getNumber();
-			if(!roomsHash.containsKey(space))
+			if(!roomsHash.containsKey(space) && !notApplicable.contains(space)){
 				roomsHash.put(space, new String[NUMBER_OF_HOURS]);
-			roomsHash.get(space)[extractHourIndex(session.getHour().getRepresentation())] = session.getGroup().getSubject().getName() + " G " + session.getGroup().getNumber();	
+				roomsHash.get(space)[extractHourIndex(session.getHour().getRepresentation())] = session.getGroup().getSubject().getName() + " G " + session.getGroup().getNumber();
+			}
 		}
 		return roomsHash;
 	}
