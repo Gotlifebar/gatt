@@ -4,6 +4,7 @@ import java.util.Collection;
 import org.gatt.domain.Group;
 import org.gatt.domain.HashMapRepository;
 import org.gatt.domain.Hour;
+import org.gatt.domain.InitialTT;
 import org.gatt.domain.MediaType;
 import org.gatt.domain.Repository;
 import org.gatt.domain.Room;
@@ -149,20 +150,10 @@ public class DomainObjectFactoryFacade {
 	public void deleteAllSessions(){
 		factory.getSessionDAO().deleteAllSessions();
 	}
-	public void insertSession(Session session){
-		factory.getSessionDAO().insertSession(session);
+	public void insertSession(Session s){
+		factory.getSessionDAO().insertSession(s);
 	}
-	public static void main(String ar[]){
-		DomainObjectFactoryFacade doff = new DomainObjectFactoryFacade();
-		try{
-			doff.setDAOFactoryClass("org.gatt.domain.factories.mysqldaofactory.MySqlDAOFactory");
-		}catch(Exception e){
-			e.printStackTrace();
-			return;
-		}
-		int count = doff.getSubjectsCount();
-		System.out.println(count);
-		//Subject s = doff.getSubject(1);
-		//System.out.println(s.getName());
+	public Collection<InitialTT> getInitialTT(){
+		return factory.getInitialTTDAO().findAll();
 	}
 }
