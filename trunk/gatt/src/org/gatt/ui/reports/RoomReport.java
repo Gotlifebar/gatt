@@ -1,6 +1,7 @@
 package org.gatt.ui.reports;
 
 import java.awt.print.PrinterException;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -16,6 +17,10 @@ public class RoomReport extends JScrollPane implements Printable {
 	private JEditorPane epReportArea = null;
 	private Room room;
 	private Vector<Session> assignatedSessions;
+	
+	private Hashtable<String, Integer> hourIndex;
+	private Hashtable<Character, Integer> dayIndex;
+	private Hashtable<String, Boolean> notApplicable;
 	
 	private final int NUMBER_OF_DAYS = 6;
 	private final int NUMBER_OF_HOURS = 8;
@@ -37,6 +42,30 @@ public class RoomReport extends JScrollPane implements Printable {
 	 * @return void
 	 */
 	private void initialize() {
+		notApplicable = new Hashtable<String, Boolean>();
+		notApplicable.put("7-10", true);
+		notApplicable.put("6-9", true);
+		notApplicable.put("10-13", true);
+		notApplicable.put("13-16", true);
+		
+		hourIndex = new Hashtable<String, Integer>();
+		hourIndex.put("6-8", new Integer(0));
+		hourIndex.put("8-10", new Integer(1));
+		hourIndex.put("10-12", new Integer(2));
+		hourIndex.put("12-14", new Integer(3));
+		hourIndex.put("14-16", new Integer(4));
+		hourIndex.put("16-18", new Integer(5));
+		hourIndex.put("18-20", new Integer(6));
+		hourIndex.put("20-22", new Integer(7));
+		
+		dayIndex = new Hashtable<Character, Integer>();
+		dayIndex.put('L', new Integer(0));
+		dayIndex.put('M', new Integer(1));
+		dayIndex.put('W', new Integer(2));
+		dayIndex.put('J', new Integer(3));
+		dayIndex.put('V', new Integer(4));
+		dayIndex.put('S', new Integer(5));
+		
 		this.setSize(516, 313);
 		this.setViewportView(getEpReportArea());
 	}
@@ -62,9 +91,32 @@ public class RoomReport extends JScrollPane implements Printable {
 		
 		for (Iterator<Session> iterator = assignatedSessions.iterator(); iterator.hasNext();) {
 			Session session = iterator.next();
-			schedule[((session.getHour().getTime()-4)/2)-1][session.getHour().getDay()-1] = session.getGroup().getSubject().getName();			
+			
+			String hourRep = session.getHour().getRepresentation();
+			int fIndex = 0;			
+			for(int i=0; i < hourRep.length(); i++){
+				if(Character.isDigit(hourRep.charAt(i))){
+					fIndex = i;
+					break;
+				}
+			}			
+			String hour = hourRep.substring(fIndex);
+			String days = hourRep.substring(0, fIndex);
+			
+			System.out.println("days:"+days+" -- hour:"+hour);
+			
+			if(!notApplicable.containsKey(hour)){
+				for(int k=0; k<days.length(); k++){
+					schedule[hourIndex.get(hour)][dayIndex.get(days.charAt(k))] = session.getGroup().getSubject().getName();
+				}
+			}
 		}
 		return schedule;
+	}
+	
+	private int extractDays(String hourRep){
+		
+		return 0;
 	}
 	
 	private String generateReport(){
