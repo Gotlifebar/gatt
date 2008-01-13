@@ -8,6 +8,7 @@ import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.optimization.io.SolutionIO;
 import org.gatt.optimization.util.ImpShuffler;
 import org.gatt.optimization.util.NumericTransformationFunction;
+import org.gatt.optimization.util.ResultManager;
 import org.gatt.optimization.util.SessionsResetter;
 import org.gatt.optimization.util.Shuffler;
 import org.gatt.util.GattConfigLocator;
@@ -69,6 +70,15 @@ public class OptimizationFacade {
 	 */
 	private OptimizationState optimizationState;
 	
+	/**
+	 * Listener for evolution events.
+	 */
+	private TimeTablingEvolutionListener listener;
+	
+	/**
+	 * Starting Time of an optimization
+	 */
+	private long startTime;
 	
 	/**
 	 * A protected constructor. (It's part of the singleton pattern)
@@ -136,8 +146,10 @@ public class OptimizationFacade {
 		
 		genotype = initPopulation();
 		evolutionThread = new Thread(genotype);
+		listener = new TimeTablingEvolutionListener(evolutionThread);
 		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT,
-												new TimeTablingEvolutionListener(evolutionThread));
+												listener);
+		startTime = System.currentTimeMillis();
 		evolutionThread.start();
 	}
 	
@@ -170,6 +182,7 @@ public class OptimizationFacade {
 		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT,
 												new TimeTablingEvolutionListener(evolutionThread));
 		evolutionThread.start();
+		
 	}
 	
 	public IChromosome getBestSolution(){
@@ -215,7 +228,12 @@ public class OptimizationFacade {
 	public void stopOptimization(){
 		setOptimizationState(OptimizationState.FINISHED);
 		evolutionThread.stop();
+		long stopTime = System.currentTimeMillis();
 		//printBestSolution();
+		float totalTime = ((float)(stopTime - startTime)) / 1000;
+		
+		ResultManager rm = new ResultManager(totalTime, listener.getFitnessValues());
+		rm.saveResults();
 		
 		Configuration.reset();
 	}
