@@ -57,7 +57,7 @@ public class MySqlSessionDAO implements SessionDAO {
 	public void insertSession(Session session){
 		Connection c = MySqlDAOFactory.getConnection();
 		try{			
-			PreparedStatement ps = c.prepareStatement("INSERT INTO sessions(`group`,`hour`,room,theorical,usedHours,id) VALUES(?,?,?,?,?,?)");
+			PreparedStatement ps = c.prepareStatement("INSERT INTO sessions(`group`,`hour`,room,isTheorical,usedHours,id) VALUES(?,?,?,?,?,?)");
 			ps.setInt(1, session.getGroup().getId());
 			ps.setInt(2, session.getHour().getId());
 			ps.setInt(3, session.getRoom().getId());
@@ -74,7 +74,7 @@ public class MySqlSessionDAO implements SessionDAO {
 	public void updateSession(Session session){
 		Connection c = MySqlDAOFactory.getConnection();
 		try{			
-			PreparedStatement ps = c.prepareStatement("UPDATE sessions SET `group`=?, `hour`=?, room=?, theorical=?, usedHours=? WHERE id=?");
+			PreparedStatement ps = c.prepareStatement("UPDATE sessions SET `group`=?, `hour`=?, room=?, isTheorical=?, usedHours=? WHERE id=?");
 			ps.setInt(1, session.getGroup().getId());
 			ps.setInt(2, session.getHour().getId());
 			ps.setInt(3, session.getRoom().getId());
