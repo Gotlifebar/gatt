@@ -41,8 +41,8 @@ public class MySqlHourDAO implements HourDAO {
 			//Was found... create
 			h = new Hour();
 			h.setId(r.getInt("id"));
-			h.setDay(r.getInt("day"));
-			h.setTime(r.getInt("time"));
+			//h.setDay(r.getInt("day"));
+			//h.setTime(r.getInt("time"));
 			h.setRepresentation(r.getString("representation"));
 			
 			ps.close();
@@ -64,8 +64,8 @@ public class MySqlHourDAO implements HourDAO {
 			while(r.next()){
 				Hour h = new Hour();
 				h.setId(r.getInt("id"));
-				h.setDay(r.getInt("day"));
-				h.setTime(r.getInt("time"));
+				//h.setDay(r.getInt("day"));
+				//h.setTime(r.getInt("time"));
 				h.setRepresentation(r.getString("representation"));
 				hours.addElement(h);
 			}
