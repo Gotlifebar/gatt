@@ -16,7 +16,6 @@
 	</section>
 	<section name="TreeKeys">
 		<entry key="Session" value="Sesión"/>
-		<entry key="isTheorical" value="Es teórica?"/>
 		<entry key="usedHours" value="Horas necesarias"/>
 		<entry key="room" value="Aula"/>
 		<entry key="type" value="Tipo"/>
