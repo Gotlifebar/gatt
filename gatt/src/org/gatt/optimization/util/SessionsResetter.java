@@ -1,14 +1,31 @@
 package org.gatt.optimization.util;
 
-import org.gatt.domain.Group;
-import org.gatt.domain.Hour;
-import org.gatt.domain.Room;
+import java.util.Collection;
+
+import org.gatt.domain.InitialTT;
 import org.gatt.domain.Session;
 import org.gatt.domain.Subject;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 
 public class SessionsResetter {
-	public void resetSessions(){		
+	public void resetSessions(){
+		DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
+		doff.deleteAllSessions();
+		//Copy all sessions.
+		Collection<InitialTT> initialTTs = doff.getInitialTT();
+		int id = 0;
+		for(InitialTT tt : initialTTs){
+			Session s = new Session();
+			s.setId(id++);
+		//	System.out.println("Tratando de ubicar: [Grupo: " + tt.getGroup() + ", Hora: " + tt.getHour() + ", Room: " + tt.getRoom());
+			s.setGroup(doff.getGroup(tt.getGroup()));
+			s.setHour(doff.getHour(tt.getHour()));
+			s.setRoom(doff.getRoom(tt.getRoom()));
+			s.setUsedHours(2);
+			s.setTheorical(false);
+			doff.insertSession(s);
+			
+		}
 		/*DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
 		//Delete all sessions
 		doff.deleteAllSessions();
