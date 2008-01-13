@@ -2,73 +2,53 @@ package org.gatt.domain;
 
 public class Subject extends DomainObject {
 	
-	private int code;
+	private int fac;
+	private int dep;
 	private String letterCode;
 	private String name;
-	private int theoricalHours;
-	private int practicalHours;
-	//private int program;
-	//private int semester;
+	private int credits;
+	private String restrictions;
 	
 	public Subject(){
 		super();
 	}
 
-	public int getCode() {
-		return code;
+	public int getFac(){
+		return this.fac;
 	}
-
-	public void setCode(int code) {
-		this.code = code;
+	public int getDep(){
+		return this.dep;
 	}
-
-	public String getLetterCode() {
-		return letterCode;
+	public String getLetterCode(){
+		return this.letterCode;
 	}
+	public String getName(){
+		return this.name;
+	}
+	public int getCredits(){
+		return this.credits;
+	}
+	public String getRestrictions(){
+		return this.restrictions;
+	}	
 
-	public void setLetterCode(String letterCode) {
+	public void setFac(int fac){
+		this.fac = fac;
+	}
+	public void setDep(int dep){
+		this.dep = dep;
+	}
+	public void setLetterCode(String letterCode){
 		this.letterCode = letterCode;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
+	public void setName(String name){
 		this.name = name;
 	}
-
-	public int getTheoricalHours() {
-		return theoricalHours;
+	public void setCredits(int credits){
+		this.credits = credits;
 	}
-
-	public void setTheoricalHours(int theoricalHours) {
-		this.theoricalHours = theoricalHours;
-	}
-
-	public int getPracticalHours() {
-		return practicalHours;
-	}
-
-	public void setPracticalHours(int practicalHours) {
-		this.practicalHours = practicalHours;
-	}
-
-	/*public int getProgram() {
-		return program;
-	}
-
-	public void setProgram(int program) {
-		this.program = program;
-	}
-
-	public int getSemester() {
-		return semester;
-	}
-
-	public void setSemester(int semester) {
-		this.semester = semester;
-	}*/
-
+	public void setRestrictions(String restrictions){
+		this.restrictions = restrictions;
+	}	
 	
 }

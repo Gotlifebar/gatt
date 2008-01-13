@@ -1,3 +1,24 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <constraints>
+  <constraint id="1187846143015" name="Prueba" significance="0.79">
+    <description>Prueba</description>
+    <implementation><![CDATA[for(int i = 0; i < session.length; i++){
+		for(int j = 0; j < session.length; j++){
+if(!(session[i].getRoom().getMaxChairs() >= session[j].getGroup().getMaxCapacity()))
+	return ConstraintValue.ONE;
+		}
+		}
+	 return ConstraintValue.ZERO;
+	}]]></implementation>
+  </constraint>
+  <constraint id="1187903997765" name="Restricciòn de matemàticas" significance="0.59">
+    <description>Matematicas debe ser a las 12</description>
+    <implementation><![CDATA[for(int i = 0; i < session.length; i++){
+if((session[i].getGroup().getSubject().getLetterCode().equals( "ISI-332") ) && (!(session[i].getHour().getTime() == 12)))
+	return ConstraintValue.ONE;
+		}
+	 return ConstraintValue.ZERO;
+	}]]></implementation>
+  </constraint>
 </constraints>
+

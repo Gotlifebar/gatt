@@ -7,6 +7,7 @@ import org.gatt.constraint.ConstraintFacade;
 import org.gatt.domain.Session;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.optimization.util.NumericTransformationFunction;
+import org.gatt.optimization.util.SolutionManager;
 import org.jgap.FitnessFunction;
 import org.jgap.Gene;
 import org.jgap.IChromosome;

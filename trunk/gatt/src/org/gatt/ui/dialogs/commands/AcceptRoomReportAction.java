@@ -8,8 +8,8 @@ import javax.swing.AbstractAction;
 import org.gatt.domain.Session;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.optimization.ttga.OptimizationFacade;
-import org.gatt.optimization.ttga.SolutionManager;
 import org.gatt.optimization.util.NumericTransformationFunction;
+import org.gatt.optimization.util.SolutionManager;
 import org.gatt.ui.GattFrame;
 import org.gatt.ui.dialogs.RoomReportDialog;
 import org.gatt.ui.dialogs.helper.RoomWrapper;
@@ -30,7 +30,7 @@ public class AcceptRoomReportAction extends AbstractAction {
 			hoursCount = DomainObjectFactoryFacade.getInstance().getHoursCount();
 		SolutionManager solManager = new SolutionManager(new NumericTransformationFunction(roomsCount, hoursCount));
 		Vector<Session> filtered = solManager.filterSolutionByRoom(OptimizationFacade.getInstance().getBestSolution(), rw.getRoom());
-		mainFrame.addReport("Asignación aula " + rw.getRoom().getSpace(), new RoomReport(rw.getRoom(), filtered));
+		mainFrame.addReport("Asignación aula " + rw.getRoom().getNumber(), new RoomReport(rw.getRoom(), filtered));
 		dialog.setVisible(false);
 		dialog.dispose();
 	}

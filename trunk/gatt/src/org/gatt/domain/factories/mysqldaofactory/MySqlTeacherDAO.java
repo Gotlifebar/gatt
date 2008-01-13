@@ -1,9 +1,11 @@
 package org.gatt.domain.factories.mysqldaofactory;
 
-import org.gatt.domain.Room;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import org.gatt.domain.Teacher;
 import org.gatt.domain.factories.TeacherDAO;
-import java.sql.*;
 public class MySqlTeacherDAO implements TeacherDAO {
 
 	public Teacher findTeacher(int registerNumber) {

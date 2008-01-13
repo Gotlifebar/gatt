@@ -28,11 +28,11 @@ public class MySqlGroupDAO implements GroupDAO {
 			
 			//Was found... create
 			g = new Group();
-			g.setMaxCapacity(r.getInt("maxCapacity"));
+			g.setNumStudents(r.getInt("numStudents"));
 			g.setNumber(r.getInt("number"));
 			g.setId(r.getInt("id"));
 			g.setSubject(facade.getSubjectByCode(r.getInt("subject")));
-			g.setTeacher(facade.getTeacher(r.getInt("teacher")));
+			//g.setTeacher(facade.getTeacher(r.getInt("teacher")));
 			// what about subject and teacher ?
 			ps.close();
 		}catch(Exception e){

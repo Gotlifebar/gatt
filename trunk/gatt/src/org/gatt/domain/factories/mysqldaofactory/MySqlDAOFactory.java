@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import org.gatt.domain.factories.DAOFactory;
 import org.gatt.domain.factories.GroupDAO;
 import org.gatt.domain.factories.HourDAO;
+import org.gatt.domain.factories.InitialTTDAO;
 import org.gatt.domain.factories.MediaTypeDAO;
 import org.gatt.domain.factories.RoomDAO;
 import org.gatt.domain.factories.SessionDAO;
@@ -78,5 +79,9 @@ public class MySqlDAOFactory extends DAOFactory {
 	@Override
 	public TeacherDAO getTeacherDAO() {		
 		return new MySqlTeacherDAO();
+	}
+	@Override
+	public InitialTTDAO getInitialTTDAO(){
+		return new MySqlInitialTTDAO();
 	}
 }

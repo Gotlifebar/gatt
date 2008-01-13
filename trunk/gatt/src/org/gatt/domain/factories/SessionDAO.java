@@ -1,5 +1,5 @@
 package org.gatt.domain.factories;
-import org.gatt.domain.*;
+import org.gatt.domain.Session;
 
 public interface SessionDAO {
 	public Session findSession(int id);

@@ -4,8 +4,8 @@ public class Group extends DomainObject {
 	
 	private int number;
 	private Subject subject;
-	private int maxCapacity;
-	private Teacher teacher;
+	private int numStudents;
+	//private Teacher teacher;
 	
 	public Group(){
 		super();
@@ -23,18 +23,18 @@ public class Group extends DomainObject {
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
-	public int getMaxCapacity() {
-		return maxCapacity;
+	public int getNumStudents() {
+		return numStudents;
 	}
-	public void setMaxCapacity(int maxCapacity) {
-		this.maxCapacity = maxCapacity;
+	public void setNumStudents(int maxCapacity) {
+		this.numStudents = maxCapacity;
 	}
-	public Teacher getTeacher() {
+/*	public Teacher getTeacher() {
 		return teacher;
 	}
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
-	}
+	}*/
 	public boolean applyConstraint(String constraintId){
 		return true;
 	}
