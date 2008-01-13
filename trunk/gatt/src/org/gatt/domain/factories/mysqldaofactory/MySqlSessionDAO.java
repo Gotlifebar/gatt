@@ -41,7 +41,7 @@ public class MySqlSessionDAO implements SessionDAO {
 			
 			DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
 			s.setGroup(doff.getGroup(r.getInt("group")));
-			s.setTheorical(r.getInt("theorical")==1);
+			s.setTheorical(r.getInt("isTheorical")==1);
 			s.setUsedHours(r.getInt("usedHours"));
 			
 			//TODO: Llamar a la facade para obtener el grupo, la hora, y el aula como objetos
