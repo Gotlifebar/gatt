@@ -81,28 +81,29 @@ public class DayReport extends JScrollPane implements Printable {
 		for (Iterator<Session> iterator = assignatedSessions.iterator(); iterator.hasNext();) {
 			Session session = iterator.next();
 			String space = session.getRoom().getNumber();
-			if(!roomsHash.containsKey(space) && !notApplicable.contains(space)){
+			String hourRep = session.getHour().getRepresentation();
+			int fIndex = 0;			
+			for(int i=0; i < hourRep.length(); i++){
+				if(Character.isDigit(hourRep.charAt(i))){
+					fIndex = i;
+					break;
+				}
+			}			
+			String hour = hourRep.substring(fIndex);
+
+			if(!roomsHash.containsKey(space) && !notApplicable.containsKey(hour)){
 				roomsHash.put(space, new String[NUMBER_OF_HOURS]);
-				roomsHash.get(space)[extractHourIndex(session.getHour().getRepresentation())] = session.getGroup().getSubject().getName() + " G " + session.getGroup().getNumber();
+				roomsHash.get(space)[hourIndex.get(hour)] = session.getGroup().getSubject().getName() + " G " + session.getGroup().getNumber();
 			}
 		}
 		return roomsHash;
 	}
 	
-	private int extractHourIndex(String hourRep){
-		int fIndex = 0;
+	/*private int extractHourIndex(String hourRep){
 		
-		for(int i=0; i < hourRep.length(); i++){
-			if(Character.isDigit(hourRep.charAt(i))){
-				fIndex = i;
-				break;
-			}
-		}
-		
-		String hour = hourRep.substring(fIndex);
-		
+System.out.println("Tratando de encontrar: " + hour);
 		return hourIndex.get(hour);
-	}
+	}*/
 	
 	private String generateReport(){
 		String html = "<html>" +
