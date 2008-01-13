@@ -34,8 +34,16 @@ public class SolutionManager {
 		Vector<Session> filtered = new Vector<Session>();
 		
 		for(Session session: solutionCache){
-			String rep = session.getHour().getRepresentation();
-			if( (session != null) && rep.contains(dayToString[day]) )
+//			if( session == null ){
+//				System.out.println("La sesión está nula");
+//				System.exit(1);
+//			}
+//			if( session.getHour() == null ){
+//				System.out.println("La Hora está nula");
+//				System.exit(1);
+//			}
+			
+			if( (session != null) && session.getHour().getRepresentation().contains(dayToString[day]) )
 				filtered.add(session);
 		}
 		return filtered;
