@@ -274,8 +274,9 @@ public class OptimizationFacade {
 		int numberOfHours = dofFacade.getHoursCount();
 		
 		//int numberOfGroups = dofFacade.getGroupsCount();
-		
-		int numberOfSessions = dofFacade.getSessionsCount();
+		Collection<InitialTT> initialTT = dofFacade.getInitialTT();
+		//int numberOfSessions = dofFacade.getSessionsCount();
+		int numberOfSessions = initialTT.size();
 		
 		int genesArraySize = numberOfRooms*numberOfHours;
 		
@@ -286,7 +287,7 @@ public class OptimizationFacade {
 		//UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfSessions);		
 		
 		NumericTransformationFunction ntf = new NumericTransformationFunction(numberOfRooms, numberOfHours);
-		Collection<InitialTT> initialTT = dofFacade.getInitialTT();
+		
 		
 		try {
 			Gene[] genes = new Gene[genesArraySize];
