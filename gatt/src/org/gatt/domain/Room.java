@@ -4,7 +4,7 @@ public class Room extends DomainObject {
 	
 	private String number;
 	private int capacity;
-	private String type;
+	private String type;	
 
 	public Room(){
 		super();
