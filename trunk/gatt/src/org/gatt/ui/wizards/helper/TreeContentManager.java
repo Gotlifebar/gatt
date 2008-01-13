@@ -23,7 +23,8 @@ public class TreeContentManager {
 	}
 	
 	private void addNodeTo(FieldTreeNode root, FieldTreeNode node){
-		root.add(node);
+		if( !node.toString().equals(""))
+			root.add(node);
 	}
 	
 	private Field[] getAndArrange(Field[] fields){
@@ -48,6 +49,7 @@ public class TreeContentManager {
 	
 	public FieldTreeNode generateAttributesTree(Class c, Class filter){
 		FieldTreeNode root = new FieldTreeNode(c.getSimpleName(), true);		
+			
 		//System.out.println("Generating for " + c.getSimpleName());
 		//Extract fields and arrange them.
 		Field[] fields = getAndArrange(c.getDeclaredFields());
