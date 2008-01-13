@@ -12,6 +12,7 @@ import org.jgap.IChromosome;
 public class SolutionManager {
 	private Session[] solutionCache;
 	private NumericTransformationFunction ntf;
+	private static final String[] dayToString = {"L", "M", "W", "J", "V", "S"};
 	
 	public SolutionManager(NumericTransformationFunction ntf){
 		solutionCache = null;
@@ -31,10 +32,12 @@ public class SolutionManager {
 		if(solutionCache == null)
 			solutionCache = transform(solution);
 		Vector<Session> filtered = new Vector<Session>();
-		for(Session session: solutionCache)
-			if( (session != null) && (session.getHour().getDay() == day) )
-				filtered.add(session);
 		
+		for(Session session: solutionCache){
+			String rep = session.getHour().getRepresentation();
+			if( (session != null) && rep.contains(dayToString[day]) )
+				filtered.add(session);
+		}
 		return filtered;
 	}
 	public Session[] transform(IChromosome individual){		
