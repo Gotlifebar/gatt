@@ -19,6 +19,8 @@ public class DayReport extends JScrollPane implements Printable {
 	private JEditorPane epReportArea = null;
 	private Vector<Session> assignatedSessions;
 	
+	private Hashtable<String, Integer> hourIndex;
+	
 	private final int NUMBER_OF_HOURS = 8;
 	
 	/**
@@ -37,6 +39,15 @@ public class DayReport extends JScrollPane implements Printable {
 	 * @return void
 	 */
 	private void initialize() {
+		hourIndex = new Hashtable();
+		hourIndex.put("6-8", new Integer(0));
+		hourIndex.put("8-10", new Integer(1));
+		hourIndex.put("10-12", new Integer(2));
+		hourIndex.put("12-14", new Integer(3));
+		hourIndex.put("14-16", new Integer(4));
+		hourIndex.put("16-18", new Integer(5));
+		hourIndex.put("18-20", new Integer(6));
+		hourIndex.put("20-22", new Integer(7));
 		this.setSize(516, 313);
 		this.setViewportView(getEpReportArea());
 	}
@@ -65,9 +76,24 @@ public class DayReport extends JScrollPane implements Printable {
 			String space = session.getRoom().getNumber();
 			if(!roomsHash.containsKey(space))
 				roomsHash.put(space, new String[NUMBER_OF_HOURS]);
-			roomsHash.get(space)[((session.getHour().getTime()-4)/2)-1] = session.getGroup().getSubject().getName() + " G " + session.getGroup().getNumber();	
+			roomsHash.get(space)[extractHourIndex(session.getHour().getRepresentation())] = session.getGroup().getSubject().getName() + " G " + session.getGroup().getNumber();	
 		}
 		return roomsHash;
+	}
+	
+	private int extractHourIndex(String hourRep){
+		int fIndex = 0;
+		
+		for(int i=0; i < hourRep.length(); i++){
+			if(Character.isDigit(hourRep.charAt(i))){
+				fIndex = i;
+				break;
+			}
+		}
+		
+		String hour = hourRep.substring(fIndex);
+		
+		return hourIndex.get(hour);
 	}
 	
 	private String generateReport(){
