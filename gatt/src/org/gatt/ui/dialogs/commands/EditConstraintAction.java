@@ -20,9 +20,8 @@ public class EditConstraintAction extends AbstractAction {
 	
 	public EditConstraintAction(ManageConstraintsDialog dialog){
 		this.dialog = dialog;
-	}
+	}	
 	
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		int row = dialog.getTabConstraints().getSelectedRow();
 		

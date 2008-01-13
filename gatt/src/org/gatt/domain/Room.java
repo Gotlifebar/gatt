@@ -2,40 +2,32 @@ package org.gatt.domain;
 
 public class Room extends DomainObject {
 	
-	private String space;
-	private int maxChairs;
-	private int currentChairs;
+	private String number;
+	private int capacity;
 	private String type;
-	
+	private int id;
+
 	public Room(){
 		super();
 	}
 	
-	public String getSpace() {
-		return space;
+	public String getNumber(){
+		return this.number;
 	}
-	public void setSpace(String space) {
-		this.space = space;
+	public int getCapacity(){
+		return this.capacity;
 	}
-	public int getMaxChairs() {
-		return maxChairs;
+	public String getType(){
+		return this.type;
+	}	
+
+	public void setNumber(String number){
+		this.number = number;
 	}
-	public void setMaxChairs(int maxChairs) {
-		this.maxChairs = maxChairs;
+	public void setCapacity(int capacity){
+		this.capacity = capacity;
 	}
-	public int getCurrentChairs() {
-		return currentChairs;
-	}
-	public void setCurrentChairs(int currentChairs) {
-		this.currentChairs = currentChairs;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
+	public void setType(String type){
 		this.type = type;
 	}
-	
-	
-	
 }

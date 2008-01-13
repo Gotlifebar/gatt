@@ -1,5 +1,5 @@
 package org.gatt.domain;
-import java.util.*;
+import java.util.Vector;
 
 public class VectorRepository extends Repository{
 	private Vector<DomainObject> memory;

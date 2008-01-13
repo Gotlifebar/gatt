@@ -62,7 +62,7 @@ public class DayReport extends JScrollPane implements Printable {
 		
 		for (Iterator<Session> iterator = assignatedSessions.iterator(); iterator.hasNext();) {
 			Session session = iterator.next();
-			String space = session.getRoom().getSpace();
+			String space = session.getRoom().getNumber();
 			if(!roomsHash.containsKey(space))
 				roomsHash.put(space, new String[NUMBER_OF_HOURS]);
 			roomsHash.get(space)[((session.getHour().getTime()-4)/2)-1] = session.getGroup().getSubject().getName() + " G " + session.getGroup().getNumber();	

@@ -2,7 +2,6 @@ package org.gatt.constraint.codifiable;
 
 import org.gatt.constraint.codifiable.boolexpression.BooleanOperand;
 import org.gatt.constraint.codifiable.boolexpression.BooleanOperator;
-import org.gatt.constraint.codifiable.boolexpression.ComparableOperand;
 import org.gatt.constraint.codifiable.boolexpression.CompositeBooleanExpression;
 import org.gatt.constraint.codifiable.boolexpression.ConstBooleanOperand;
 import org.gatt.constraint.codifiable.stringexpression.StringComparableOperand;

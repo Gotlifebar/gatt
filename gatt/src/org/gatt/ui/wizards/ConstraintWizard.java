@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import org.freixas.jwizard.JWizardDialog;
 import org.gatt.constraint.ConstraintInfo;
 import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
+
 import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 
 public class ConstraintWizard extends JWizardDialog {

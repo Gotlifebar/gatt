@@ -1,12 +1,15 @@
 package org.gatt.optimization.ttga;
 
+import java.util.Collection;
 import java.util.List;
 
+import org.gatt.domain.InitialTT;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
+import org.gatt.optimization.io.SolutionIO;
 import org.gatt.optimization.util.ImpShuffler;
+import org.gatt.optimization.util.NumericTransformationFunction;
 import org.gatt.optimization.util.SessionsResetter;
 import org.gatt.optimization.util.Shuffler;
-import org.gatt.optimization.util.UniqueRandomNumberGenerator;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
 import org.igfay.jfig.JFigIF;
@@ -124,7 +127,7 @@ public class OptimizationFacade {
 			SessionsResetter resetter = new SessionsResetter();
 			resetter.resetSessions();
 			
-			IChromosome sampleChromosome = createSampleChromosome(); 
+			IChromosome sampleChromosome = createSampleChromosome();
 			gaConfig.setSampleChromosome(sampleChromosome);
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
@@ -142,7 +145,31 @@ public class OptimizationFacade {
 	 * Starts the optimization process from a previously obtained solution
 	 */
 	public void optimizeFromPreviousSolution(){
+		System.out.println("Initializating...");
 		
+		setOptimizationState(OptimizationState.RUNNING);
+		
+		try {
+			gaConfig = createConfiguration();
+			
+			FitnessFunction fitnessFunction = createFitnessFunction();
+			gaConfig.setFitnessFunction(fitnessFunction);
+
+			SessionsResetter resetter = new SessionsResetter();
+			resetter.resetSessions();
+			SolutionIO sIO = new SolutionIO();
+			IChromosome sampleChromosome = sIO.loadSolution(); 
+			gaConfig.setSampleChromosome(sampleChromosome);
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+			return;
+		}
+		
+		genotype = initPopulation();
+		evolutionThread = new Thread(genotype);
+		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT,
+												new TimeTablingEvolutionListener(evolutionThread));
+		evolutionThread.start();
 	}
 	
 	public IChromosome getBestSolution(){
@@ -253,8 +280,42 @@ public class OptimizationFacade {
 		int genesArraySize = numberOfRooms*numberOfHours;
 		
 		//int lowBound = numberOfGroups - genesArraySize;
-		int lowBound = numberOfSessions - genesArraySize;
+		int lowBound = -genesArraySize;//numberOfSessions - genesArraySize;
 		
+//		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
+		//UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfSessions);		
+		
+		NumericTransformationFunction ntf = new NumericTransformationFunction(numberOfRooms, numberOfHours);
+		Collection<InitialTT> initialTT = dofFacade.getInitialTT();
+		
+		try {
+			Gene[] genes = new Gene[genesArraySize];
+			
+//			Fill blank spaces.
+			for(int i = 0; i < genes.length; i++){
+				genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfSessions-1);
+				//Set blank space.
+				genes[i].setAllele(-(i+1));				
+			}
+			
+			for(InitialTT tt : initialTT)
+				genes[ntf.getIndexFor(tt.getRoom(), tt.getHour())].setAllele(tt.getGroup());
+			
+			
+			/*for (int i = 0; i < genes.length; i++) {
+				//genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfGroups-1);
+				genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfSessions-1);
+				//genes[i].setAllele(rand.nextRandom());
+			}*/
+			
+			IChromosome sample = new Chromosome(getConfiguration(),genes);
+				
+			return sample;
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+			return null;
+		}
+/*		
 		//UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
 		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfSessions);
 		
@@ -273,7 +334,7 @@ public class OptimizationFacade {
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
 			return null;
-		}
+		}*/
 	}
 	
 	/**

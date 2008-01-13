@@ -14,7 +14,7 @@ public class RoomWrapper{
 	}
 	
 	public String toString(){
-		return room.getSpace();
+		return room.getNumber();
 	}
 	
 }

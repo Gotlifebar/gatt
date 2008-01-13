@@ -9,7 +9,7 @@ import org.gatt.domain.factories.DomainObjectFactoryFacade;
 
 public class SessionsResetter {
 	public void resetSessions(){		
-		DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
+		/*DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
 		//Delete all sessions
 		doff.deleteAllSessions();
 		//Generate all sessions, based on the groups and the weekly hours of the subject.
@@ -22,7 +22,7 @@ public class SessionsResetter {
 		int id = 0;
 		for(int i = 0; i < numberOfGroups; i++){
 			Group g = doff.getGroup(i);
-			Subject sub = g.getSubject();
+			Subject sub = doff.getSubject(g.getSubject());
 			//int hours = sub.getPracticalHours() + sub.getTheoricalHours();
 			//Insert the practical hours
 			int incompleteSessions = sub.getPracticalHours() % 2;
@@ -75,6 +75,6 @@ public class SessionsResetter {
 				doff.insertSession(s);
 			}
 			
-		}
+		}*/
 	}
 }
