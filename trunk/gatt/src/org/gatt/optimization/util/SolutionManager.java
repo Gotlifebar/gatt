@@ -63,7 +63,10 @@ public class SolutionManager {
 			//using a memory cache, that can be in the DAO's or in the Facade itself.
 			sessions[i].setHour(doff.getHour(ntf.getHourIdFrom(i)));
 			sessions[i].setRoom(doff.getRoom(ntf.getRoomIdFrom(i)));
-			sessions[i].setGroup(doff.getSession((Integer)gene[i].getAllele()).getGroup());			
+			Session inarr = sessions[i];
+			Session inmem = doff.getSession((Integer)gene[i].getAllele());
+			sessions[i].setGroup(doff.getGroup((Integer)gene[i].getAllele()));//doff.getSession((Integer)gene[i].getAllele()).getGroup());
+			//sessions[i].setGroup(doff.getSession((Integer)gene[i].getAllele()).getGroup());
 		}
 		return sessions;
 	}
