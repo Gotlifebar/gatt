@@ -134,7 +134,8 @@ try {
 			.append("Start Position: ").append(message.getStartPosition()).append('\n')
 			.append("End Position: ").append(message.getEndPosition()).append('\n')
 			.append("Source: ").append(message.getSource()).append('\n')
-			.append("Code: ").append(message.getCode());			
+			.append("Code: ").append(message.getCode())
+			.append("Message: ").append(message.getMessage(null));			
 			System.out.println(messageString);
 		}
 	}
