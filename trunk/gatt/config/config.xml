@@ -6,9 +6,9 @@
 		<entry key="PopulationSize" value="5"/>
 	</section>
 	<section name="MySqlConnectionInfo">
-		<entry key="URLConnectionString" value="jdbc:mysql://192.168.0.151:3306/dbgatt"/>
-		<entry key="UserConnection" value="root_new"/>
-		<entry key="PasswordConnection" value="root_lol"/>
+		<entry key="URLConnectionString" value="jdbc:mysql://localhost:3306/dbgatt"/>
+		<entry key="UserConnection" value="root"/>
+		<entry key="PasswordConnection" value=""/>
 	</section>
 	<section name="XMLWriterInfo">
 		<entry key="FilePath" value="bin/org/gatt/constraint/defined/ConstraintsDefinition.xml"/>
@@ -33,6 +33,7 @@
 		<entry key="letterCode" value="Código de letras"/>
 		<entry key="credits" value="Créditos"/>
 		<entry key="code" value="Código"/>
+		<entry key="restrictions" value="Restricciones"/>
 	</section>
 	<section name="ConstraintCompilerOptions">
 		<entry key="OutputDir" value="bin"/>
