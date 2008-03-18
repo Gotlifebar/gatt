@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.gatt.domain.InitialTT;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
+import org.gatt.domain.factories.mysqldaofactory.MySqlRoomDAO;
 import org.gatt.optimization.io.SolutionIO;
 import org.gatt.optimization.util.ImpShuffler;
 import org.gatt.optimization.util.NumericTransformationFunction;
@@ -38,6 +39,9 @@ import org.jgap.impl.SwappingMutationOperator;
  * The facade for the optimization component.
  */
 public class OptimizationFacade {
+	
+	private static final float REQUIRED_MEDIA_PCT = 0.3f,
+							   DISPONIBLE_MEDIA_PCT = 0.3f;
 	
 	/**
 	 * An enumeration that represents the possible states of the optimization process
@@ -135,7 +139,10 @@ public class OptimizationFacade {
 			gaConfig.setFitnessFunction(fitnessFunction);
 
 			SessionsResetter resetter = new SessionsResetter();
-			resetter.resetSessions();
+			resetter.resetSessions(REQUIRED_MEDIA_PCT);
+			//This will be deleted
+			MySqlRoomDAO roomDao = new MySqlRoomDAO();
+			roomDao.randomizeMedia(DISPONIBLE_MEDIA_PCT);
 			
 			IChromosome sampleChromosome = createSampleChromosome();
 			gaConfig.setSampleChromosome(sampleChromosome);
@@ -168,7 +175,7 @@ public class OptimizationFacade {
 			gaConfig.setFitnessFunction(fitnessFunction);
 
 			SessionsResetter resetter = new SessionsResetter();
-			resetter.resetSessions();
+			resetter.resetSessions(REQUIRED_MEDIA_PCT);
 			SolutionIO sIO = new SolutionIO();
 			IChromosome sampleChromosome = sIO.loadSolution(); 
 			gaConfig.setSampleChromosome(sampleChromosome);

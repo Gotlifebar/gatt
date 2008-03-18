@@ -29,11 +29,23 @@ public class TTFitnessFunction extends FitnessFunction {
 		ConstraintFacade constraintFacade = new ConstraintFacade();
 		Vector<Constraint> constraints = constraintFacade.getCompiledConstraints();
 		double val = 0;
-		for(Constraint c : constraints)
-			val = c.getSignificance() * c.evaluate(sessions).getValue();
+		long timeInit  = System.currentTimeMillis();
+		for(Constraint c : constraints){
+
+//			long timeInit  = System.currentTimeMillis();
+			double eval = c.evaluate(sessions).getValue();
+//			System.out.println("evaluated... taken: " + (System.currentTimeMillis() - timeInit));
+			double significance = c.getSignificance(); 
+			//val = c.getSignificance() * c.evaluate(sessions).getValue();
+			val = significance * eval;
+//			System.out.println("Eval: " + eval + " : significance " + significance + " : factor " + val);
+		}
+		System.out.println("Constraints evaluated. Fitness: " + (1/val) + "  taken: " + (System.currentTimeMillis() - timeInit) +" ms");
 		return 1 / val;
 	}
 	
-	
+/*	if((session[i].getIsTheorical() == true) && (!(session[i].getRoom().getType().equals( "Y") )))
+		return ConstraintValue.ONE;
+		 return ConstraintValue.ZERO;*/
 	
 }
