@@ -42,6 +42,7 @@ public class ConstraintSourceGenerator {
 		buf.append(cInfo.getStrategyCodeImplementation());
 		//buf.append(getStrategySourceCode());
 		buf.append(NL + "}");
+		System.out.println("SOURCE CODE: " + buf.toString());
 		return buf.toString();
 	}
 	public static String generateStrategySourceCode(String constraint, Vector<Character> usedVars, ConstraintInfo cInfo){
