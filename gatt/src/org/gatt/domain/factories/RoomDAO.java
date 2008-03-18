@@ -7,4 +7,5 @@ public interface RoomDAO {
 	public Room findRoom(int id);
 	public Collection<Room> findAll();
 	public int countRooms();
+	public void randomizeMedia(double p);
 }
