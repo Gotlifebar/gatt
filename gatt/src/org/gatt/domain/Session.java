@@ -21,11 +21,11 @@ public class Session extends DomainObject {
 	public Hour getHour() {
 		return hour;
 	}
-	public boolean isTheorical() {
+	public boolean getIsTheorical() {
 		return isTheorical;
 	}
 
-	public void setTheorical(boolean isTheorical) {
+	public void setIsTheorical(boolean isTheorical) {
 		this.isTheorical = isTheorical;
 	}
 
