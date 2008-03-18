@@ -41,9 +41,12 @@ public class MySqlSessionDAO implements SessionDAO {
 			
 			DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
 			s.setGroup(doff.getGroup(r.getInt("group")));
-			s.setTheorical(r.getInt("isTheorical")==1);
+			s.setRoom(doff.getRoom(r.getInt("room")));
+			s.setHour(doff.getHour(r.getInt("hour")));
+			s.setIsTheorical(r.getInt("isTheorical")==1);
 			s.setUsedHours(r.getInt("usedHours"));
-			
+			if( s.getIsTheorical() )
+				System.out.println("Soy teorico !!!!1");
 			//TODO: Llamar a la facade para obtener el grupo, la hora, y el aula como objetos
 			
 			ps.close();
@@ -61,7 +64,7 @@ public class MySqlSessionDAO implements SessionDAO {
 			ps.setInt(1, session.getGroup().getId());
 			ps.setInt(2, session.getHour().getId());
 			ps.setInt(3, session.getRoom().getId());
-			ps.setInt(4, session.isTheorical()?1:0);
+			ps.setInt(4, session.getIsTheorical()?1:0);
 			ps.setInt(5, session.getUsedHours());
 			ps.setInt(6, session.getId());
 			ps.executeUpdate();
@@ -78,7 +81,7 @@ public class MySqlSessionDAO implements SessionDAO {
 			ps.setInt(1, session.getGroup().getId());
 			ps.setInt(2, session.getHour().getId());
 			ps.setInt(3, session.getRoom().getId());
-			ps.setInt(4, session.isTheorical()?1:0);
+			ps.setInt(4, session.getIsTheorical()?1:0);
 			ps.setInt(5, session.getUsedHours());
 			ps.setInt(6, session.getId());
 			ps.executeUpdate();

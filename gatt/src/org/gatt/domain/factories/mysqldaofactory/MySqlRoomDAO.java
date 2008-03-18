@@ -9,7 +9,20 @@ import java.util.Vector;
 import org.gatt.domain.Room;
 import org.gatt.domain.factories.RoomDAO;
 public class MySqlRoomDAO implements RoomDAO {
-
+/*	class Constraint_1205788055093 implements Constraint{
+		public Constraint_1205788055093(){}	public double getSignificance(){
+			return 0.79;
+		}	
+		public ConstraintValue evaluate(Session[] session){
+			for(int i = 0; i < session.length; i++){
+				if(session[i] == null) continue;			
+				if( !session[i].getGroup().applyConstraint("1205788055093")) continue;
+				if((session[i].getIsTheorical() == true) && (!(session[i].getRoom().getType().equals( "Y") )))
+					return ConstraintValue.ONE;
+			}
+			return ConstraintValue.ZERO;
+		}
+	}*/
 	public int countRooms() {
 		Connection c = MySqlDAOFactory.getConnection();
 		try{
@@ -71,5 +84,38 @@ public class MySqlRoomDAO implements RoomDAO {
 		}
 		return room;
 	}
-
+	
+	public void randomizeMedia(double p){
+		Connection c = MySqlDAOFactory.getConnection();
+		try{			
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM Rooms", ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet r = ps.executeQuery();
+			//extract the elements from the ResultSet and create the object
+			String newType = "Y";
+			while( r.next() ){
+				if( Math.random() < p )
+					r.updateString("type", "Y");
+				//	newType = "Y"; 
+				else
+					r.updateString("type", "N");
+				//	newType = "N";
+				r.updateRow();
+				/*PreparedStatement up = c.prepareStatement("UPDATE Rooms SET type = ? WHERE id = ?");
+				up.setString(1, newType);
+				up.setInt(2, r.getInt("id"));
+				up.executeUpdate();*/
+				/*Room room = new Room();
+				room.setNumber(r.getString("number"));
+				room.setCapacity(r.getInt("capacity"));
+				room.setType(r.getString("type"));
+				room.setId(r.getInt("id"));
+				rooms.addElement(room);*/
+			}
+			ps.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("Randomized the media to " + p + " percent");
+	}
 }
