@@ -191,7 +191,7 @@ public class CreateSimpleComparisonPanel extends JWizardPanel{
 		if (pFormer == null) {
 			lbComparisonLink = new JLabel();
 			lbComparisonLink.setBounds(new Rectangle(15, 297, 156, 24));
-			lbComparisonLink.setText("Enlace de la comparasión:");
+			lbComparisonLink.setText("Enlace de la comparación:");
 			lbComparisons = new JLabel();
 			lbComparisons.setBounds(new Rectangle(15, 210, 122, 22));
 			lbComparisons.setText("Comparaciones");
