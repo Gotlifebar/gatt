@@ -230,11 +230,11 @@ public class GattFrame extends JFrame {
 			mReports.setText("Reportes");
 			mReports.add(getMiReportRoom());
 			mReports.add(getMiReportDay());
-			mReports.add(getMiOccupationRoom());
-			mReports.add(getMiOccupationTime());
-			mReports.add(getMiStatistics());
-			mReports.insertSeparator(2);
-			mReports.insertSeparator(5);
+			//mReports.add(getMiOccupationRoom());
+			//mReports.add(getMiOccupationTime());
+			//mReports.add(getMiStatistics());
+			//mReports.insertSeparator(2);
+			//mReports.insertSeparator(5);
 		}
 		return mReports;
 	}
