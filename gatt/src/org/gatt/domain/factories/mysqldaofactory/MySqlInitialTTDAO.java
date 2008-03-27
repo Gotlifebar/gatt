@@ -9,8 +9,15 @@ import java.util.Vector;
 import org.gatt.domain.InitialTT;
 import org.gatt.domain.factories.InitialTTDAO;
 
+/**
+ * @author Chucho
+ * MySQL InitialTT DAO
+ */
 public class MySqlInitialTTDAO implements InitialTTDAO{
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.InitialTTDAO#countInitial_Timetabling()
+	 */
 	public int countInitial_Timetabling() {
 		Connection c = MySqlDAOFactory.getConnection();
 		try{
@@ -24,6 +31,9 @@ public class MySqlInitialTTDAO implements InitialTTDAO{
 			return -1;
 		}
 	}
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.InitialTTDAO#findAll()
+	 */
 	public Collection<InitialTT> findAll(){
 		Connection c = MySqlDAOFactory.getConnection();
 		Vector<InitialTT> initial_timetabling = new Vector<InitialTT>();
@@ -46,6 +56,9 @@ public class MySqlInitialTTDAO implements InitialTTDAO{
 		return initial_timetabling;
 	}	
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.InitialTTDAO#findInitialTT(int)
+	 */
 	public InitialTT findInitialTT(int id) {	
 		return null;
 	}

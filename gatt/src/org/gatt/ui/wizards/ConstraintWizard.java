@@ -10,18 +10,43 @@ import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 
 import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 
+/**
+ * @author Chucho
+ * constriant wizard
+ */
 public class ConstraintWizard extends JWizardDialog {
 	
+	/**
+	 * @author Chucho
+	 * Enumeration of complement types
+	 */
 	public enum ComplementType {AND, OR}
+	/**
+	 * @author Chucho
+	 * Enumaration of constraint types
+	 */
 	public enum ConstraintType {CONDITIONAL, SIMPLE}
 	
-	
-	
+	/**
+	 * current round 
+	 */
 	private int currentRound;
+	/**
+	 * last round
+	 */
 	private int lastRound;
+	/**
+	 * complement type
+	 */
 	private ComplementType complementType;
+	/**
+	 * constraint type
+	 */
 	private ConstraintType constraintType;
 	
+	/**
+	 * constraint producer
+	 */
 	private ConstraintWizardProducer constraintProducer;
 	
 	public static final int DEFINING_OPERATION = 0,
@@ -32,13 +57,26 @@ public class ConstraintWizard extends JWizardDialog {
 							 CREATE_CONDITIONAL_COMPARISON_PANEL = 2,
 							 CONSTRAINT_PREVIEW_PANEL = 3;
 	
+	/**
+	 * current operation
+	 */
 	private int currentOperation;
 	
 	
 	private boolean canceled = false;
+	/**
+	 * constraint info wrapper
+	 */
 	private ConstraintWizardInfoWrapper constraintWrapper;
+	
+	/**
+	 * says if a constriant is being edited 
+	 */
 	private boolean editing;
 	
+	/**
+	 * cosntructor 
+	 */
 	public ConstraintWizard(){
 		
 		setModal(true);
@@ -66,6 +104,10 @@ public class ConstraintWizard extends JWizardDialog {
 		setVisible(true);
 	}
 	
+	/**
+	 * constructor
+	 * @param constraintWrapper
+	 */
 	public ConstraintWizard(ConstraintWizardInfoWrapper constraintWrapper){
 
 		setModal(true);
@@ -94,58 +136,104 @@ public class ConstraintWizard extends JWizardDialog {
 		setVisible(true);
 	}
 	
+	/**
+	 * return whether the wizard is being used to edit a constriant or to create a new one
+	 */
 	public boolean isEditing(){
 		return editing;
 	}
 	
+	/**
+	 * return the constraint info wrapper
+	 */
 	public ConstraintWizardInfoWrapper getConstraintWrapper(){
 		return constraintWrapper;
 	}
 	
+	/**
+	 * return whether the wizard has been canceled or not
+	 */
 	public boolean isCanceled(){
 		return canceled;
 	}
 		
+	/**
+	 * return the constraint type
+	 */
 	public ConstraintType getConstraintType() {
 		return constraintType;
 	}
 
+	/**
+	 * sets the constriant type
+	 * @param type
+	 */
 	public void setCType(ConstraintType type) {
 		constraintType = type;
 	}
 
+	/**
+	 * return the constraint producer
+	 */
 	public ConstraintWizardProducer getConstraintProducer() {
 		return constraintProducer;
 	}
 
+	/**
+	 * return the complement type
+	 */
 	public ComplementType getComplementType() {
 		return complementType;
 	}
 
+	/**
+	 * sets the complement type
+	 * @param comparisonType
+	 */
 	public void setComplementType(ComplementType comparisonType) {
 		this.complementType = comparisonType;
 	}
 
+	/**
+	 * return current round
+	 */
 	public int getCurrentRound() {
 		return currentRound;
 	}
 
+	/**
+	 * sets current round
+	 * @param currentRound
+	 */
 	public void setCurrentRound(int currentRound) {
 		this.currentRound = currentRound;
 	}
 
+	/**
+	 * return last round
+	 */
 	public int getLastRound() {
 		return lastRound;
 	}
 
+	/**
+	 * sets last round
+	 * @param lastRound
+	 */
 	public void setLastRound(int lastRound) {
 		this.lastRound = lastRound;
 	}
 	
+	/**
+	 * return true if last round is equal to current round, false otherwise
+	 */
 	public boolean isSameRound(){
 		return lastRound == currentRound;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.freixas.jwizard.JWizardDialog#cancel()
+	 */
 	protected void cancel(){
 		int response =
 			JOptionPane.showConfirmDialog(
@@ -160,18 +248,31 @@ public class ConstraintWizard extends JWizardDialog {
 		}
 	}
 
+	/**
+	 * return the curren operation
+	 */
 	public int getCurrentOperation() {
 		return currentOperation;
 	}
 	
+	/**
+	 * sets the current operation
+	 * @param currentOperation
+	 */
 	public void setCurrentOperation(int currentOperation) {
 		this.currentOperation = currentOperation;
 	}
 	
+	/**
+	 * return the produced constraint as a ConstraintInfo object
+	 */
 	public ConstraintInfo getProducedConstraint(){
 		return constraintProducer.getProducedConstraint();
 	}
 	
+	/**
+	 * return the next panel to be shown in the wizard
+	 */
 	public int getNextPanel(){
 		int next = -1;		
 		switch(this.getCurrentStep()){

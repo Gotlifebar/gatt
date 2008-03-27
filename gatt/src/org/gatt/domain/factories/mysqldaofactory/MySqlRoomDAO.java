@@ -8,6 +8,10 @@ import java.util.Vector;
 
 import org.gatt.domain.Room;
 import org.gatt.domain.factories.RoomDAO;
+/**
+ * @author Chucho
+ * MySQL Room DAO
+ */
 public class MySqlRoomDAO implements RoomDAO {
 /*	class Constraint_1205788055093 implements Constraint{
 		public Constraint_1205788055093(){}	public double getSignificance(){
@@ -23,6 +27,9 @@ public class MySqlRoomDAO implements RoomDAO {
 			return ConstraintValue.ZERO;
 		}
 	}*/
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.RoomDAO#countRooms()
+	 */
 	public int countRooms() {
 		Connection c = MySqlDAOFactory.getConnection();
 		try{
@@ -36,6 +43,9 @@ public class MySqlRoomDAO implements RoomDAO {
 			return -1;
 		}
 	}
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.RoomDAO#findAll()
+	 */
 	public Collection<Room> findAll(){
 		Connection c = MySqlDAOFactory.getConnection();
 		Vector<Room> rooms = new Vector<Room>();
@@ -59,6 +69,9 @@ public class MySqlRoomDAO implements RoomDAO {
 		return rooms;
 	}	
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.RoomDAO#findRoom(int)
+	 */
 	public Room findRoom(int id) {
 		Connection c = MySqlDAOFactory.getConnection();
 		Room room = null;
@@ -85,6 +98,9 @@ public class MySqlRoomDAO implements RoomDAO {
 		return room;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.RoomDAO#randomizeMedia(double)
+	 */
 	public void randomizeMedia(double p){
 		Connection c = MySqlDAOFactory.getConnection();
 		try{			

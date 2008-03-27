@@ -7,8 +7,16 @@ import org.fife.plaf.OfficeXP.OfficeXPLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaGreenDreamLookAndFeel;
 
 
+/**
+ * @author Chucho
+ * Initial application class
+ */
 public class GattApp {
 
+	/**
+	 * @param args
+	 * Application point of entry
+	 */
 	public static void main(String[] args) {
 		try{
 			SyntheticaGreenDreamLookAndFeel.setAntiAliasEnabled(true);

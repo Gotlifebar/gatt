@@ -11,12 +11,25 @@ import org.jgap.Chromosome;
 import org.jgap.IChromosome;
 import org.jgap.impl.IntegerGene;
 
+/**
+ * @author Chucho
+ * Class in charge of serializing a timetabling solution
+ */
 public class SolutionIO {
 	
+	/**
+	 * file name 
+	 */
 	private static final String fileName = "solutions/solution.dat";
 	
+	/**
+	 * File object
+	 */
 	private File file;
 	
+	/**
+	 * constructor
+	 */
 	public SolutionIO(){
 		file = new File(fileName);
 	}
@@ -32,6 +45,11 @@ public class SolutionIO {
 		}
 	}*/
 	
+	/**
+	 * Save the solutions given a genetic algorithm chromosome
+	 * @param c
+	 * @throws Exception
+	 */
 	public void saveSolution(IChromosome c) throws Exception{
 		ObjectOutputStream out;
 		out = new ObjectOutputStream(new FileOutputStream(file));
@@ -39,6 +57,10 @@ public class SolutionIO {
 		out.close();
 	}
 	
+	/**
+	 * return a genetic algorithm chromosome build from a serialized timetabling
+	 * solution
+	 */
 	public Chromosome loadSolution(){
 		ObjectInputStream in;
 		Chromosome c = null;

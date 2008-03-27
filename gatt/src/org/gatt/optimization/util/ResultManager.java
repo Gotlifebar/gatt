@@ -6,13 +6,34 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+/**
+ * @author david
+ * Result manager
+ */
 public class ResultManager {
+	
+	/**
+	 * total time 
+	 */
 	private float totalTime;
+	/**
+	 * vector of fitnesses
+	 */
 	private Vector<Double> fitnesses;
+	
+	/**
+	 * constructor
+	 * @param totalTime
+	 * @param fitnesses
+	 */
 	public ResultManager(float totalTime, Vector<Double> fitnesses){
 		this.totalTime = totalTime;
 		this.fitnesses = fitnesses;
 	}
+	
+	/**
+	 * saves the results to a txt file
+	 */
 	public void saveResults(){
 		File f = new File("resultados.txt");
 		PrintWriter out = null;

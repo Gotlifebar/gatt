@@ -7,16 +7,44 @@ import org.jgap.Genotype;
 import org.jgap.event.GeneticEvent;
 import org.jgap.event.GeneticEventListener;
 
+/**
+ * @author Chucho
+ * A listener of the timetabling evolution process events
+ */
 public class TimeTablingEvolutionListener implements GeneticEventListener {
 	
+	/**
+	 * Evolution thread
+	 */
 	private Thread evolutionThread;	
+	
+	/**
+	 * flag that indicates if the thread is suspended 
+	 */
 	private boolean suspendedFlag = false;
+	
+	/**
+	 * last time 
+	 */
 	private long lastTime;
 	
+	/**
+	 * vector of fitness values
+	 */
 	private Vector<Double> fitnessValues;
+	/**
+	 * vector of times
+	 */
 	private Vector<Long> times;
+	/**
+	 * vector of durations
+	 */
 	private Vector<Float> durations;
 	
+	/**
+	 * constructor
+	 * @param evolutionThread
+	 */
 	public TimeTablingEvolutionListener(Thread evolutionThread){
 		this.evolutionThread = evolutionThread;
 		fitnessValues = new Vector<Double>();
@@ -26,6 +54,9 @@ public class TimeTablingEvolutionListener implements GeneticEventListener {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see org.jgap.event.GeneticEventListener#geneticEventFired(org.jgap.event.GeneticEvent)
+	 */
 	public void geneticEventFired(GeneticEvent firedEvent) {
 		long taken = System.currentTimeMillis();
 		times.add(taken);
@@ -54,16 +85,25 @@ public class TimeTablingEvolutionListener implements GeneticEventListener {
 	}
 
 
+	/**
+	 * return a vector of durations
+	 */
 	public Vector<Float> getDurations() {
 		return durations;
 	}
 
 
+	/**
+	 * return a vector of fitness values
+	 */
 	public Vector<Double> getFitnessValues() {
 		return fitnessValues;
 	}
 
 
+	/**
+	 * return a vector of times
+	 */
 	public Vector<Long> getTimes() {
 		return times;
 	}

@@ -9,7 +9,14 @@ import java.util.Vector;
 import org.gatt.domain.Subject;
 import org.gatt.domain.factories.SubjectDAO;
 
+/**
+ * @author Chucho
+ * MySQL Subject DAO
+ */
 public class MySqlSubjectDAO implements SubjectDAO {
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.SubjectDAO#countSubjects()
+	 */
 	public int countSubjects() {
 		Connection c = MySqlDAOFactory.getConnection();
 		try{
@@ -23,6 +30,9 @@ public class MySqlSubjectDAO implements SubjectDAO {
 			return -1;
 		}
 	}
+	/**
+	 * Perform the query to find all Subjects in the database
+	 */
 	public Collection<Subject> findAll(){
 		Connection c = MySqlDAOFactory.getConnection();
 		Vector<Subject> subjects = new Vector<Subject>();
@@ -49,6 +59,9 @@ public class MySqlSubjectDAO implements SubjectDAO {
 		return subjects;
 	}	
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.SubjectDAO#findSubject(int)
+	 */
 	public Subject findSubject(int id) {
 		Connection c = MySqlDAOFactory.getConnection();
 		Subject subject = null;
@@ -81,6 +94,9 @@ public class MySqlSubjectDAO implements SubjectDAO {
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.SubjectDAO#findSubjectByCode(int)
+	 */
 	public Subject findSubjectByCode(int code){
 		return findSubject(code);
 	/*	Connection c = MySqlDAOFactory.getConnection();

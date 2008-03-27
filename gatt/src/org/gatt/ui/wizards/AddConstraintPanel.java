@@ -20,6 +20,10 @@ import org.freixas.jwizard.JWizardPanel;
 import org.gatt.constraint.ConstraintInfo;
 import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 
+/**
+ * @author Chucho
+ * A panel of the constraint wizard
+ */
 public class AddConstraintPanel extends JWizardPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -51,6 +55,9 @@ public class AddConstraintPanel extends JWizardPanel {
 	    	//loadData();
 	}
 	
+	/**
+	 * load the data for the panel
+	 */
 	private void loadData(){
 		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
 		ConstraintWizardInfoWrapper cWrapper = wizard.getConstraintWrapper();
@@ -78,6 +85,9 @@ public class AddConstraintPanel extends JWizardPanel {
 			this.getRbVeryHigh().setSelected(true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.freixas.jwizard.JWizardPanel#next()
+	 */
 	protected void next(){
 		boolean error = false;
 		String msg = "Atención:";
@@ -129,6 +139,9 @@ public class AddConstraintPanel extends JWizardPanel {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.freixas.jwizard.JWizardPanel#makingVisible()
+	 */
 	protected void makingVisible(){
 		
 		if(((ConstraintWizard)getWizardParent()).isEditing())
@@ -140,6 +153,9 @@ public class AddConstraintPanel extends JWizardPanel {
 
 	}
 	
+	/**
+	 * resets the components of the panel
+	 */
 	private void resetView(){
 		this.getComboConstraintTypes().setSelectedIndex(0);
 		this.getRbMedium().setSelected(true);

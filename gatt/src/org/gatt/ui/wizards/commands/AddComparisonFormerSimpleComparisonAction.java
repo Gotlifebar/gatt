@@ -18,16 +18,30 @@ import org.gatt.ui.wizards.helper.FieldTreeNode;
 import org.gatt.ui.wizards.helper.ListConstraintRepresentation;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
+/**
+ * @author Chucho
+ * Add comparison command in former panel in simple comparison
+ */
 public class AddComparisonFormerSimpleComparisonAction extends AbstractAction {
 	
+	/**
+	 * the panel
+	 */
 	private CreateSimpleComparisonPanel panel;
 	
 	private static final char LEFT_SIDE_VAR = 'i',RIGHT_SIDE_VAR = 'j';
 	
+	/**
+	 * constructor
+	 * @param panel
+	 */
 	public AddComparisonFormerSimpleComparisonAction(CreateSimpleComparisonPanel panel){
 		this.panel = panel;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		
 		boolean error = false;

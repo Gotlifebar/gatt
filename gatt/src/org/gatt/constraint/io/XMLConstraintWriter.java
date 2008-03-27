@@ -26,6 +26,10 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+/**
+ * @author Chucho
+ * This class is in charge of writing constraint to an xml file. it's a singleton
+ */
 public class XMLConstraintWriter {
 	
 	protected final String CONSTRAINT_ELEMENT = "constraint";
@@ -37,12 +41,30 @@ public class XMLConstraintWriter {
 	protected final String SIGNIFICANCE_ATTR = "significance";
 	protected final String INDENT = "     ";
 	
+	/**
+	 * Instance of this class (for the singleton pattern)
+	 */
 	public static XMLConstraintWriter instance;
+	
+	/**
+	 * Output writer
+	 */
 	private XMLOutputter outp;
+	
+	/**
+	 * The file in which the constraint will be written 
+	 */
 	private File file;
+	
+	/**
+	 * The directory
+	 */
 	private String dir;
 	
 	
+	/**
+	 * Constructor
+	 */
 	private XMLConstraintWriter(){
 		
 		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
@@ -62,6 +84,9 @@ public class XMLConstraintWriter {
 		file = new File(sFile);
 	}
 	
+	/**
+	 * return the instance of this class (for the singleton pattern)
+	 */
 	public static XMLConstraintWriter getInstance(){
 		if(instance == null)
 			instance = new XMLConstraintWriter();
@@ -69,6 +94,10 @@ public class XMLConstraintWriter {
 		return instance;
 	}
 	
+	/**
+	 * Writes a constraint to a file
+	 * @param cInfo
+	 */
 	public void write(ConstraintInfo cInfo){
 		SAXBuilder builder = new SAXBuilder(); 
 		Document doc = null;
@@ -114,6 +143,10 @@ public class XMLConstraintWriter {
 		}
 	}
 	
+	/**
+	 * Writes a list of constraints to the file
+	 * @param constraints
+	 */
 	public void write(List<ConstraintInfo> constraints){
 		SAXBuilder builder = new SAXBuilder(); 
 		Document doc = null;
@@ -167,6 +200,10 @@ public class XMLConstraintWriter {
 		}
 	}
 	
+	/**
+	 * Delete a constraint from the file given the constraint's id
+	 * @param id
+	 */
 	public void deleteConstraint(String id){
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
@@ -208,6 +245,10 @@ public class XMLConstraintWriter {
 		deleteConstraintWrapperFile(id);
 	}
 	
+	/**
+	 * Update the information of a constraint
+	 * @param cInfo
+	 */
 	public void updateConstraint(ConstraintInfo cInfo){
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
@@ -266,6 +307,10 @@ public class XMLConstraintWriter {
 		}
 	}
 	
+	/**
+	 * Writes a ConstraintWizardInfoWrapper to a file
+	 * @param constraintWrapper
+	 */
 	public void writeConstraintWrapper(ConstraintWizardInfoWrapper constraintWrapper){
 		String nFile = "Constraint_" + constraintWrapper.getConstraintInfo().getId() + ".constraint";
 		File cFile = new File(dir + nFile);
@@ -280,12 +325,20 @@ public class XMLConstraintWriter {
 		}
 	}
 	
+	/**
+	 * deletes a file of a serialized ConstraintWizardInfoWrapper
+	 * @param id
+	 */
 	private void deleteConstraintWrapperFile(String id){
 		String nFile = "Constraint_" + id + ".constraint";
 		File cFile = new File(dir + nFile);
 		cFile.delete();
 	}
 	
+	/**
+	 * @param id
+	 * reads a ConstraintWizardInfoWrapper object from a file
+	 */
 	public ConstraintWizardInfoWrapper readConstraintWrapper(String id){
 		String nFile = "Constraint_" + id + ".constraint";
 		File cFile = new File(dir + nFile);
@@ -306,7 +359,7 @@ public class XMLConstraintWriter {
 		return wrapper;
 	}
 	
-	public static void main(String ar[]){
+	/*public static void main(String ar[]){
 		ConstraintInfo info = new ConstraintInfo();
 		info.setDescription("Mas bla bla bla ... de la tales 3 (QUE MIERDA)");
 		info.setId("0003");
@@ -335,6 +388,6 @@ public class XMLConstraintWriter {
 		
 		System.out.println("File written");
 		
-	}
+	}*/
 	
 }

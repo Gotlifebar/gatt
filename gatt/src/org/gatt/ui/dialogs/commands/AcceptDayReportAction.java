@@ -15,14 +15,28 @@ import org.gatt.ui.dialogs.DayReportDialog;
 import org.gatt.ui.dialogs.helper.DayWrapper;
 import org.gatt.ui.reports.DayReport;
 
+/**
+ * @author Chucho
+ * Accept command in Day report dialog
+ */
 public class AcceptDayReportAction extends AbstractAction {
 	
+	/**
+	 * the dialog
+	 */
 	private DayReportDialog dialog;
 	
+	/**
+	 * constructor
+	 * @param dialog
+	 */
 	public AcceptDayReportAction(DayReportDialog dialog){
 		this.dialog = dialog;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		GattFrame mainFrame = GattFrame.getInstance();
 		DayWrapper dw = (DayWrapper)dialog.getCbDays().getSelectedItem();

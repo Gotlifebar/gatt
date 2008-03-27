@@ -31,6 +31,10 @@ import javax.swing.plaf.basic.BasicButtonUI;
 public class ButtonTabComponent extends JPanel {
     private final JTabbedPane pane;
 
+    /**
+     * constructor
+     * @param pane
+     */
     public ButtonTabComponent(final JTabbedPane pane) {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -61,7 +65,14 @@ public class ButtonTabComponent extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
     }
 
+    /**
+     * @author Chucho
+     * represents a Button of a TabComponent
+     */
     private class TabButton extends JButton implements ActionListener {
+        /**
+         * Constructor
+         */
         public TabButton() {
             int size = 17;
             setPreferredSize(new Dimension(size, size));
@@ -82,6 +93,9 @@ public class ButtonTabComponent extends JPanel {
             addActionListener(this);
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
         public void actionPerformed(ActionEvent e) {
             int i = pane.indexOfTabComponent(ButtonTabComponent.this);
             if (i != -1) {
@@ -90,10 +104,16 @@ public class ButtonTabComponent extends JPanel {
         }
 
         //we don't want to update UI for this button
+        /* (non-Javadoc)
+         * @see javax.swing.JButton#updateUI()
+         */
         public void updateUI() {
         }
 
         //paint the cross
+        /* (non-Javadoc)
+         * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+         */
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g.create();
@@ -113,6 +133,9 @@ public class ButtonTabComponent extends JPanel {
         }
     }
 
+    /**
+     * Mouse listener
+     */
     private final static MouseListener buttonMouseListener = new MouseAdapter() {
         public void mouseEntered(MouseEvent e) {
             Component component = e.getComponent();
@@ -122,6 +145,9 @@ public class ButtonTabComponent extends JPanel {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mouseExited(java.awt.event.MouseEvent)
+         */
         public void mouseExited(MouseEvent e) {
             Component component = e.getComponent();
             if (component instanceof AbstractButton) {

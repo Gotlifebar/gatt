@@ -3,7 +3,15 @@ package org.gatt.ui.wizards.helper;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+/**
+ * @author david
+ * manages the content of the tree controls in one panel of the constraint wizard
+ */
 public class TreeContentManager {
+	/**
+	 * @param c
+	 * generates the tree structure for a given class
+	 */
 	private boolean generateFor(Class c){
 		if(c == null)
 			return false;
@@ -14,6 +22,11 @@ public class TreeContentManager {
 		return true;
 	}
 	
+	/**
+	 * @param root
+	 * @param f
+	 * @param filter
+	 */
 	private void addNodeTo(FieldTreeNode root, Field f, Class filter){		
 		if( Modifier.isStatic(f.getModifiers()) )
 			return;		
@@ -22,11 +35,19 @@ public class TreeContentManager {
 		addNodeTo(root, new FieldTreeNode(f));
 	}
 	
+	/**
+	 * @param root
+	 * @param node
+	 */
 	private void addNodeTo(FieldTreeNode root, FieldTreeNode node){
 		if( node.toString() != null )
 			root.add(node);
 	}
 	
+	/**
+	 * @param fields
+	 * @return
+	 */
 	private Field[] getAndArrange(Field[] fields){
 		Field[] fs = new Field[fields.length];
 		int latter = fs.length - 1;
@@ -43,10 +64,19 @@ public class TreeContentManager {
 		return fs;
 	}	
 	
+	/**
+	 * @param c
+	 * @return
+	 */
 	public FieldTreeNode generateAttributesTree(Class c){
 		return this.generateAttributesTree(c, null);
 	}
 	
+	/**
+	 * @param c
+	 * @param filter
+	 * @return
+	 */
 	public FieldTreeNode generateAttributesTree(Class c, Class filter){
 		FieldTreeNode root = new FieldTreeNode(c.getSimpleName(), true);		
 			
@@ -66,6 +96,11 @@ public class TreeContentManager {
 		}
 		return root;
 	}
+	/**
+	 * @param field
+	 * @param filter
+	 * @return
+	 */
 	private FieldTreeNode generateAttributesTree(Field field, Class filter){		
 		FieldTreeNode root = new FieldTreeNode(field, true);	
 		//System.out.println("Generating for " + field.getName());
@@ -83,6 +118,10 @@ public class TreeContentManager {
 		return root;
 	}
 	
+	/**
+	 * @param fieldName
+	 * @return
+	 */
 	private String createGetter(String fieldName){
 		StringBuffer buf = new StringBuffer("get");
 		buf.append(fieldName);
@@ -91,6 +130,11 @@ public class TreeContentManager {
 		return buf.toString();
 	}
 	
+	/**
+	 * @param node
+	 * @param var
+	 * @return
+	 */
 	public String getFieldJavaStringFromNode(FieldTreeNode node, char var){
 		String name = createGetter(node.getJavaName());
 		FieldTreeNode n = (FieldTreeNode)node.getParent();
@@ -102,6 +146,10 @@ public class TreeContentManager {
 		return name;
 	}
 	
+	/**
+	 * @param node
+	 * @return
+	 */
 	public String getFieldReadableStringFromNode(FieldTreeNode node){
 		String readable = node.toString();
 		FieldTreeNode n = (FieldTreeNode)node.getParent();
@@ -112,9 +160,9 @@ public class TreeContentManager {
 		return readable;
 	}
 	
-	public static void main(String[] ar){
+	/*public static void main(String[] ar){
 		
-	}
+	}*/
 	
 	/*public static int depth = -1;
 	

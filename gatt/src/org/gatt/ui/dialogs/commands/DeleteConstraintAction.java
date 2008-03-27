@@ -9,14 +9,28 @@ import javax.swing.table.DefaultTableModel;
 import org.gatt.constraint.io.XMLConstraintWriter;
 import org.gatt.ui.dialogs.ManageConstraintsDialog;
 
+/**
+ * @author Chucho
+ * Delete command in the constraint dialog
+ */
 public class DeleteConstraintAction extends AbstractAction {
 
+	/**
+	 * the dialog
+	 */
 	private ManageConstraintsDialog dialog;
 	
+	/**
+	 * constructor
+	 * @param dialog
+	 */
 	public DeleteConstraintAction(ManageConstraintsDialog dialog) {
 		this.dialog = dialog;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		int row = dialog.getTabConstraints().getSelectedRow();
 		

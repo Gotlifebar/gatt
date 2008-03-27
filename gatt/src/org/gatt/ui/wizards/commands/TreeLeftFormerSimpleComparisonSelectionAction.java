@@ -14,14 +14,28 @@ import org.gatt.ui.wizards.CreateSimpleComparisonPanel;
 import org.gatt.ui.wizards.helper.FieldTreeNode;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
+/**
+ * @author Chucho
+ *
+ */
 public class TreeLeftFormerSimpleComparisonSelectionAction implements TreeSelectionListener {
 
+	/**
+	 * the panel in which this command is used
+	 */
 	private CreateSimpleComparisonPanel panel;
 	
+	/**
+	 * constructor
+	 * @param panel
+	 */
 	public TreeLeftFormerSimpleComparisonSelectionAction(CreateSimpleComparisonPanel panel){
 		this.panel = panel;
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
+	 */
 	public void valueChanged(TreeSelectionEvent e) {
 		
 		JTree tree = (JTree)e.getSource();

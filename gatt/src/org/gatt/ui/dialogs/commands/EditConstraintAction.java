@@ -12,16 +12,30 @@ import org.gatt.ui.dialogs.ManageConstraintsDialog;
 import org.gatt.ui.wizards.ConstraintWizard;
 import org.gatt.ui.wizards.helper.ConstraintWizardInfoWrapper;
 
+/**
+ * @author Chucho
+ * Edit command in the constraint dialog
+ */
 public class EditConstraintAction extends AbstractAction {
 	
+	/**
+	 * the dialog
+	 */
 	private ManageConstraintsDialog dialog;
 	
 	private final int ID_COLUMN = 0;
 	
+	/**
+	 * constructor
+	 * @param dialog
+	 */
 	public EditConstraintAction(ManageConstraintsDialog dialog){
 		this.dialog = dialog;
 	}	
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		int row = dialog.getTabConstraints().getSelectedRow();
 		

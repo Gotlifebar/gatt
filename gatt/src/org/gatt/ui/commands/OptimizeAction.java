@@ -7,14 +7,28 @@ import javax.swing.AbstractAction;
 import org.gatt.optimization.ttga.OptimizationFacade;
 import org.gatt.ui.GattFrame;
 
+/**
+ * @author Chucho
+ * Optimize command
+ */
 public class OptimizeAction extends AbstractAction {
 	
+	/**
+	 * frame instance
+	 */
 	private GattFrame frame;
 	
+	/**
+	 * constructor
+	 * @param frame
+	 */
 	public OptimizeAction(GattFrame frame){
 		this.frame = frame;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		//JOptionPane.showMessageDialog(null, "Optimize Action");
 		OptimizationFacade opFacade = OptimizationFacade.getInstance();

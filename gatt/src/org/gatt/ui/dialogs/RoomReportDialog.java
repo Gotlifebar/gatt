@@ -21,6 +21,10 @@ import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.ui.dialogs.commands.AcceptRoomReportAction;
 import org.gatt.ui.dialogs.helper.RoomWrapper;
 
+/**
+ * @author Chucho
+ * Room Report dialog
+ */
 public class RoomReportDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +33,7 @@ public class RoomReportDialog extends JDialog {
 	private JPanel pRoomSelection = null;
 	private JButton bOk = null;
 	/**
+	 * constructor
 	 * @param owner
 	 */
 	public RoomReportDialog(Frame owner) {

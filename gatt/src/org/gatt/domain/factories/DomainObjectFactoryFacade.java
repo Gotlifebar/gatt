@@ -12,29 +12,64 @@ import org.gatt.domain.Session;
 import org.gatt.domain.Subject;
 import org.gatt.domain.Teacher;
 
+
+/**
+ * @author david
+ * A facade that provides services for getting domain objects information from the database
+ */
 public class DomainObjectFactoryFacade {
+	
+	/**
+	 * a repository
+	 */
 	private Repository cache;
+	/**
+	 * indicates whether to use cache or not
+	 */
 	private boolean useCache;
 	
 	//Singleton Implementation
+	/**
+	 * Singleton implementation instance
+	 */
 	private static DomainObjectFactoryFacade instance = null;
+	/**
+	 * DAO factory
+	 */
 	private DAOFactory factory;
+	/**
+	 * return the instance
+	 */
 	public static DomainObjectFactoryFacade getInstance(){
 		if( instance == null )
 			instance = new DomainObjectFactoryFacade();
 		return instance;
 	}
 	
+	/**
+	 * constructor
+	 */
 	private DomainObjectFactoryFacade(){
 		//TODO: These values should be loaded from a config file
 		cache = new HashMapRepository();
 		useCache = true;
 	}	
+	/**
+	 * sets the DAO factory class
+	 * @param daoFactoryClass
+	 * @throws ClassNotFoundException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
 	public void setDAOFactoryClass(String daoFactoryClass) 
 		throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 		factory = DAOFactory.getDAOFactory(daoFactoryClass);
 	}
 	
+	/**
+	 * @param id
+	 * return a group from the database given its id
+	 */
 	public Group getGroup(int id){
 		if( !useCache )
 			return factory.getGroupDAO().findGroup(id);
@@ -46,9 +81,16 @@ public class DomainObjectFactoryFacade {
 		}
 		return g; 
 	}
+	/**
+	 * return the number of groups in the database
+	 */
 	public int getGroupsCount(){
 		return factory.getGroupDAO().countGroups();
 	}
+	/**
+	 * return a hour object from the database given its id
+	 * @param id
+	 */
 	public Hour getHour(int id){
 		if( !useCache )
 			return factory.getHourDAO().findHour(id);
@@ -60,9 +102,16 @@ public class DomainObjectFactoryFacade {
 		}
 		return h;
 	}
+	/**
+	 * return the number of hour objects in the database
+	 */
 	public int getHoursCount(){
 		return factory.getHourDAO().countHours();
 	}
+	/**
+	 * @param id
+	 * return a media type from the database given its id
+	 */
 	public MediaType getMediaType(int id){
 		if( !useCache )
 			return factory.getMediaTypeDAO().findMediaType(id);
@@ -74,9 +123,16 @@ public class DomainObjectFactoryFacade {
 		}
 		return m;
 	}
+	/**
+	 * return the number of MediaTypes objects in the database
+	 */
 	public int getMediaTypesCount(){
 		return factory.getMediaTypeDAO().countMediaTypes();
 	}
+	/**
+	 * @param id
+	 * return a room from the database given its id
+	 */
 	public Room getRoom(int id){
 		if( !useCache )
 			return factory.getRoomDAO().findRoom(id);
@@ -88,12 +144,22 @@ public class DomainObjectFactoryFacade {
 		}
 		return r;
 	}
+	/**
+	 * return all the rooms in the database
+	 */
 	public Collection<Room> getAllRooms(){
 		return factory.getRoomDAO().findAll();
 	}
+	/**
+	 * return the number of rooms in the database
+	 */
 	public int getRoomsCount(){
 		return factory.getRoomDAO().countRooms();
 	}
+	/**
+	 * @param id
+	 * return a session from the database given its id
+	 */
 	public Session getSession(int id){
 		if( !useCache )
 			return factory.getSessionDAO().findSession(id);
@@ -105,9 +171,16 @@ public class DomainObjectFactoryFacade {
 		}
 		return s;
 	}
+	/**
+	 * return the number of sessions in the database
+	 */
 	public int getSessionsCount(){
 		return factory.getSessionDAO().countSessions();
 	}
+	/**
+	 * @param id
+	 * return a subject from the database given its id
+	 */
 	public Subject getSubject(int id){
 		if( !useCache )
 			return factory.getSubjectDAO().findSubject(id);
@@ -119,6 +192,10 @@ public class DomainObjectFactoryFacade {
 		}
 		return s;
 	}
+	/**
+	 * @param id
+	 * return a subject from the database given its code
+	 */
 	public Subject getSubjectByCode(int id){
 		if( !useCache )
 			return factory.getSubjectDAO().findSubjectByCode(id);
@@ -131,9 +208,16 @@ public class DomainObjectFactoryFacade {
 		}
 		return s;
 	}
+	/**
+	 * return the number of subjects in the database
+	 */
 	public int getSubjectsCount(){
 		return factory.getSubjectDAO().countSubjects();
 	}
+	/**
+	 * @param id
+	 * return a teacher from the database given its id
+	 */
 	public Teacher getTeacher(int id){
 		if( !useCache )
 			return factory.getTeacherDAO().findTeacher(id);
@@ -145,15 +229,28 @@ public class DomainObjectFactoryFacade {
 		}
 		return t;		
 	}
+	/**
+	 * return the number of teachers in the database
+	 */
 	public int getTeachersCount(){
 		return factory.getTeacherDAO().countTeachers();
 	}
+	/**
+	 * deletes all the sessions from the database
+	 */
 	public void deleteAllSessions(){
 		factory.getSessionDAO().deleteAllSessions();
 	}
+	/**
+	 * inserts a session to the database
+	 * @param s
+	 */
 	public void insertSession(Session s){
 		factory.getSessionDAO().insertSession(s);
 	}
+	/**
+	 * return the initial timetabling from the database
+	 */
 	public Collection<InitialTT> getInitialTT(){
 		return factory.getInitialTTDAO().findAll();
 	}

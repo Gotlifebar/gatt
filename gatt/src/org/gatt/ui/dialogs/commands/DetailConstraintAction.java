@@ -16,17 +16,31 @@ import org.igfay.jfig.JFigException;
 import org.igfay.jfig.JFigIF;
 import org.igfay.jfig.JFigLocatorIF;
 
+/**
+ * @author Chucho
+ * Detail command in the constraint dialog
+ */
 public class DetailConstraintAction extends AbstractAction {
 
+	/**
+	 * the dialog
+	 */
 	private ManageConstraintsDialog dialog;
 	
 	private final int ID_COLUMN = 0;
 	
+	/**
+	 * constructor
+	 * @param dialog
+	 */
 	public DetailConstraintAction(ManageConstraintsDialog dialog){
 		this.dialog = dialog;
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		int row = dialog.getTabConstraints().getSelectedRow();
 		
