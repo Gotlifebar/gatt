@@ -19,10 +19,20 @@ import org.igfay.jfig.JFigException;
 import org.igfay.jfig.JFigIF;
 import org.igfay.jfig.JFigLocatorIF;
 
+/**
+ * @author Chucho
+ * DAO Facotry for MYSQL
+ */
 public class MySqlDAOFactory extends DAOFactory {
 	
+	/**
+	 * The connection object
+	 */
 	private static Connection conn = null;
 	
+	/**
+	 * return the connection
+	 */
 	public static Connection getConnection() {
 		if(conn != null)
 			return conn;
@@ -46,40 +56,64 @@ public class MySqlDAOFactory extends DAOFactory {
 		return conn;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.DAOFactory#getGroupDAO()
+	 */
 	@Override
 	public GroupDAO getGroupDAO() {
 		return new MySqlGroupDAO();		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.DAOFactory#getHourDAO()
+	 */
 	@Override
 	public HourDAO getHourDAO() {
 		return new MySqlHourDAO();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.DAOFactory#getMediaTypeDAO()
+	 */
 	@Override
 	public MediaTypeDAO getMediaTypeDAO() {
 		return new MySqlMediaTypeDAO();		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.DAOFactory#getRoomDAO()
+	 */
 	@Override
 	public RoomDAO getRoomDAO() {		
 		return new MySqlRoomDAO();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.DAOFactory#getSessionDAO()
+	 */
 	@Override
 	public SessionDAO getSessionDAO() {
 		return new MySqlSessionDAO();		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.DAOFactory#getSubjectDAO()
+	 */
 	@Override
 	public SubjectDAO getSubjectDAO() {
 		return new MySqlSubjectDAO();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.DAOFactory#getTeacherDAO()
+	 */
 	@Override
 	public TeacherDAO getTeacherDAO() {		
 		return new MySqlTeacherDAO();
 	}
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.DAOFactory#getInitialTTDAO()
+	 */
 	@Override
 	public InitialTTDAO getInitialTTDAO(){
 		return new MySqlInitialTTDAO();

@@ -1,7 +1,14 @@
 package org.gatt.optimization.util;
 
+/**
+ * @author Chucho
+ * Mix possition of an array
+ */
 public class ImpShuffler implements Shuffler{
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.optimization.util.Shuffler#shuffle(java.lang.Object[])
+	 */
 	public void shuffle(Object[] arr) {
 		int n = arr.length;
 		int rPos = 0;

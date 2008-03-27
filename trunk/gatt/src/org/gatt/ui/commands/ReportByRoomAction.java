@@ -9,14 +9,28 @@ import org.gatt.optimization.ttga.OptimizationFacade;
 import org.gatt.ui.GattFrame;
 import org.gatt.ui.dialogs.RoomReportDialog;
 
+/**
+ * @author Chucho
+ * report by room action
+ */
 public class ReportByRoomAction extends AbstractAction {
 
+	/**
+	 * frame instance
+	 */
 	private GattFrame frame;
 	
+	/**
+	 * constructor
+	 * @param frame
+	 */
 	public ReportByRoomAction(GattFrame frame){
 		this.frame = frame;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		OptimizationFacade opFac = OptimizationFacade.getInstance();
 		if(!opFac.isOptimizationProcessStarted()){

@@ -41,6 +41,10 @@ import org.gatt.ui.wizards.helper.ConstraintWizardProducer;
 import org.gatt.ui.wizards.helper.ListConstraintRepresentation;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
+/**
+ * @author Chucho
+ * Constraint wizard's create conditional comparison panel
+ */
 public class CreateConditionalComparisonPanel extends JWizardPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -115,6 +119,9 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		this.getContentPane().add(getPLatter(), null);
 	}
 	
+	/**
+	 * load panel data
+	 */
 	private void loadData(){
 		ConstraintWizard wizard = (ConstraintWizard)getWizardParent();
 		ConstraintWizardInfoWrapper cWrapper = wizard.getConstraintWrapper();
@@ -126,6 +133,9 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		this.habilitarAndOr1();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.freixas.jwizard.JWizardPanel#next()
+	 */
 	protected void next(){
 		boolean error = false;
 		String msg = "Atención:";
@@ -228,6 +238,9 @@ public class CreateConditionalComparisonPanel extends JWizardPanel {
 		return;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.freixas.jwizard.JWizardPanel#makingVisible()
+	 */
 	protected void makingVisible(){
 		
 		if(((ConstraintWizard)getWizardParent()).isEditing())

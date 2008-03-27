@@ -8,8 +8,15 @@ import org.gatt.domain.Group;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.domain.factories.GroupDAO;
 
+/**
+ * @author Chucho
+ * MySQL Group DAO
+ */
 public class MySqlGroupDAO implements GroupDAO {
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.GroupDAO#findGroup(int)
+	 */
 	public Group findGroup(int id) {	
 		Connection c = MySqlDAOFactory.getConnection();
 		Group g = null;
@@ -42,6 +49,9 @@ public class MySqlGroupDAO implements GroupDAO {
 		return g;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.GroupDAO#countGroups()
+	 */
 	public int countGroups() {
 		Connection c = MySqlDAOFactory.getConnection();		
 		try{			

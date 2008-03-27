@@ -16,12 +16,25 @@ import org.igfay.jfig.JFigIF;
 import org.igfay.jfig.JFigLocatorIF;
 
 
+/**
+ * @author david
+ * Class for managing constraints
+ */
 public class ConstraintManager {
 	
+	/**
+	 * Constraint repository
+	 */
 	private XMLConstraintRepository repository;
 	//private String xmlConstraintFilePath;
+	/**
+	 * Vector that contains all the compiled constraints
+	 */
 	private Vector<Constraint> compiledConstraints;
 	
+	/**
+	 * Constructor
+	 */
 	public ConstraintManager(){
 		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
 		JFigIF config = JFig.getInstance(locator);
@@ -45,6 +58,9 @@ public class ConstraintManager {
 		//repository = new XMLConstraintRepository(new File(uri));		
 	}	
 	
+	/**
+	 * return all the compiled constraints
+	 */
 	public Vector<Constraint> getCompiledConstraints(){
 		if( compiledConstraints == null )
 			if( !compileConstraints() )
@@ -52,6 +68,9 @@ public class ConstraintManager {
 		return compiledConstraints;
 	}
 	
+	/**
+	 * return true if it's necessary to compile the constraints, false otherwise.
+	 */
 	private boolean compileConstraints(){
 		//Load all the constraints from the repository.
 		if( !repository.load() )
@@ -78,6 +97,10 @@ public class ConstraintManager {
 		}
 		return true;
 	}
+	/**
+	 * @param cInfo
+	 * return the compiled constraint corresponding the ConstraintInfo object passed as parameter
+	 */
 	private Constraint getCompiledConstraint(ConstraintInfo cInfo){
 		String className = ConstraintSourceGenerator.getGeneratedClassName(cInfo);
 		Constraint c = null;

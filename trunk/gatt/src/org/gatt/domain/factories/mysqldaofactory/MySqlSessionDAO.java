@@ -7,8 +7,15 @@ import java.sql.ResultSet;
 import org.gatt.domain.Session;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.domain.factories.SessionDAO;
+/**
+ * @author Chucho
+ * MySQL Session DAO
+ */
 public class MySqlSessionDAO implements SessionDAO {
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.SessionDAO#countSessions()
+	 */
 	public int countSessions() {
 		Connection c = MySqlDAOFactory.getConnection();		
 		try{			
@@ -23,6 +30,9 @@ public class MySqlSessionDAO implements SessionDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.SessionDAO#findSession(int)
+	 */
 	public Session findSession(int id) {
 		Connection c = MySqlDAOFactory.getConnection();
 		Session s = null;
@@ -57,6 +67,9 @@ public class MySqlSessionDAO implements SessionDAO {
 		return s;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.SessionDAO#insertSession(org.gatt.domain.Session)
+	 */
 	public void insertSession(Session session){
 		Connection c = MySqlDAOFactory.getConnection();
 		try{			
@@ -74,6 +87,9 @@ public class MySqlSessionDAO implements SessionDAO {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.SessionDAO#updateSession(org.gatt.domain.Session)
+	 */
 	public void updateSession(Session session){
 		Connection c = MySqlDAOFactory.getConnection();
 		try{			
@@ -90,6 +106,9 @@ public class MySqlSessionDAO implements SessionDAO {
 			e.printStackTrace();
 		}
 	}
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.SessionDAO#deleteAllSessions()
+	 */
 	public void deleteAllSessions(){
 		Connection c= MySqlDAOFactory.getConnection();
 		try{

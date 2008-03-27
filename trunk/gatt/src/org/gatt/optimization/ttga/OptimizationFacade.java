@@ -192,10 +192,16 @@ public class OptimizationFacade {
 		
 	}
 	
+	/**
+	 * return the best solution
+	 */
 	public IChromosome getBestSolution(){
 		return genotype.getFittestChromosome();
 	}
 	
+	/**
+	 * return true if a optimization process has been started
+	 */
 	public boolean isOptimizationProcessStarted(){
 		return (genotype != null);
 	}
@@ -210,9 +216,9 @@ public class OptimizationFacade {
 	}
 	
 	// TODO: Delete this method
-	public void printBestSolution(){
+	/*public void printBestSolution(){
 		System.out.println(genotype.getFittestChromosome().toString());
-	}
+	}*/
 	
 	/**
 	 * Pauses the optimization process
@@ -421,10 +427,10 @@ public class OptimizationFacade {
 	}
 	
 	// TODO: Delete this method
-	public static void main(String ar[]){
+	/*public static void main(String ar[]){
 		OptimizationFacade of = OptimizationFacade.getInstance();
 		//of.createConfiguration();
 		of.optimize();
 		Thread.yield();
-	}
+	}*/
 }

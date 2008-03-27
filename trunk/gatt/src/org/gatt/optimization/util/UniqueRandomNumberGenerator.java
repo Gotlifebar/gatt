@@ -1,9 +1,14 @@
 package org.gatt.optimization.util;
 
+/**
+ * @author Chucho
+ * generates random numbers
+ */
 public class UniqueRandomNumberGenerator {
 	private Integer[] numbers;
 	private int uniqueNumbersLeft;
 	/**
+	 * constructor
 	 * @param totalRandomNumbers  
 	 */
 	public UniqueRandomNumberGenerator(int totalRandomNumbers){		
@@ -12,12 +17,20 @@ public class UniqueRandomNumberGenerator {
 			numbers[i] = new Integer(i);
 		uniqueNumbersLeft = totalRandomNumbers;
 	}
+	/**
+	 * constructor
+	 * @param lowBound
+	 * @param highBound
+	 */
 	public UniqueRandomNumberGenerator(int lowBound, int highBound){
 		uniqueNumbersLeft = highBound - lowBound;
 		numbers = new Integer[uniqueNumbersLeft];
 		for(int i = lowBound; i < highBound; i++)
 			numbers[i - lowBound] = new Integer(i);
 	}
+	/**
+	 * return the next random number
+	 */
 	public Integer nextRandom(){
 		//------- This step is for iterative calls ---------
 		//0. If the uniqueNumbersLeft is 0, start again

@@ -7,7 +7,16 @@ import org.gatt.domain.InitialTT;
 import org.gatt.domain.Session;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 
+/**
+ * @author david
+ * Session resetter
+ */
 public class SessionsResetter {
+	
+	/**
+	 * resets all the sessions
+	 * @param p probability
+	 */
 	public void resetSessions(double p){
 		DomainObjectFactoryFacade doff = DomainObjectFactoryFacade.getInstance();
 		doff.deleteAllSessions();

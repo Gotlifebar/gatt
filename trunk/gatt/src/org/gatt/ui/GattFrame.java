@@ -37,6 +37,10 @@ import javax.swing.JProgressBar;
 import java.awt.Rectangle;
 import java.awt.Point;
 
+/**
+ * @author Chucho
+ * this class represents the main frame of the application
+ */
 public class GattFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -97,6 +101,9 @@ public class GattFrame extends JFrame {
 
 	private JLabel lbIterations = null;
 	
+	/**
+	 * return the instance of the frame
+	 */
 	public static GattFrame getInstance(){
 		if(instance == null)
 			instance = new GattFrame();
@@ -114,6 +121,10 @@ public class GattFrame extends JFrame {
 		disableStopCommands();
 	}
 	
+	/**
+	 * sets a status message for the frame
+	 * @param msg
+	 */
 	public void setStatusMessage(String msg){
 		
 	}
@@ -136,31 +147,49 @@ public class GattFrame extends JFrame {
 		});
 	}
 	
+	/**
+	 * disable the optimization commands
+	 */
 	public void disableOptimizationCommands(){
 		getBOptimize().setEnabled(false);
 		getMiOptimize().setEnabled(false);
 	}
 	
+	/**
+	 * enable the optimization commands
+	 */
 	public void enableOptimizationCommands(){
 		getBOptimize().setEnabled(true);
 		getMiOptimize().setEnabled(true);
 	}
 	
+	/**
+	 * disable pause commands
+	 */
 	public void disablePauseCommands(){
 		getBPause().setEnabled(false);
 		getMiPause().setEnabled(false);
 	}
 	
+	/**
+	 * enable pause commands
+	 */
 	public void enablePauseCommands(){
 		getBPause().setEnabled(true);
 		getMiPause().setEnabled(true);
 	}
 	
+	/**
+	 * disbale stop commands
+	 */
 	public void disableStopCommands(){
 		getBStop().setEnabled(false);
 		getMiStop().setEnabled(false);
 	}
 	
+	/**
+	 * enable stop commands
+	 */
 	public void enableStopCommands(){
 		getBStop().setEnabled(true);
 		getMiStop().setEnabled(true);
@@ -540,6 +569,11 @@ public class GattFrame extends JFrame {
 		return bPrint;
 	}
 	
+	/**
+	 * Add a report to the frame
+	 * @param title
+	 * @param report
+	 */
 	public void addReport(String title, JScrollPane report){
 		tpTabs.add(title,report);
 		int i = tpTabs.getTabCount() - 1;
@@ -583,29 +617,48 @@ public class GattFrame extends JFrame {
 		return pbOpProgress;
 	}
 	
+	/**
+	 * increases the progress panel shown in the status bar
+	 * @param iteration
+	 */
 	public void increaseProgressPanel(int iteration){
 		lbIterations.setText("Iteración: " + iteration);
 		getPbOpProgress().setValue(iteration);
 	}
 	
+	/**
+	 * shows the progress panel
+	 */
 	public void showProgressPanel(){
 		getPProgress().setVisible(true);
 	}
 	
+	/**
+	 * hides the progress panel
+	 */
 	public void hideProgressPanel(){
 		getPProgress().setVisible(false);
 	}
 	
+	/**
+	 * pauses the progress bar
+	 */
 	public void pauseProgressBar(){
 		getPbOpProgress().setIndeterminate(false);
 		getPbOpProgress().setToolTipText("El algoritmo de optimización está pausado.");
 	}
 	
+	/**
+	 * restarts the progress bar
+	 */
 	public void restartProgressBar(){
 		getPbOpProgress().setIndeterminate(true);
 		getPbOpProgress().setToolTipText("El algoritmo de optimización se está ejecutando.");
 	}
 	
+	/**
+	 * disable some menu options
+	 */
 	public void disableOptions(){
 		getBSave().setEnabled(false);
 		getMiReportDay().setEnabled(false);
@@ -618,6 +671,9 @@ public class GattFrame extends JFrame {
 		getMiOptimizePrevious().setEnabled(false);
 	}
 	
+	/**
+	 * enable some menu options
+	 */
 	public void enableOptions(){
 		getBSave().setEnabled(true);
 		getMiReportDay().setEnabled(true);

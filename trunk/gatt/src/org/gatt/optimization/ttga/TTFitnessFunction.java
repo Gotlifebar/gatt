@@ -12,16 +12,31 @@ import org.jgap.FitnessFunction;
 import org.jgap.Gene;
 import org.jgap.IChromosome;
 
+/**
+ * @author Chucho
+ * Timetabling fitness function
+ */
 public class TTFitnessFunction extends FitnessFunction {
 	
+	/**
+	 * A solution manager
+	 */
 	private SolutionManager solutionManager;
 	
 	
+	/**
+	 * constructor
+	 * @param countRooms
+	 * @param countHours
+	 */
 	public TTFitnessFunction(int countRooms, int countHours){
 		super();
 		solutionManager = new SolutionManager(new NumericTransformationFunction(countRooms, countHours));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jgap.FitnessFunction#evaluate(org.jgap.IChromosome)
+	 */
 	@Override
 	protected double evaluate(IChromosome individual) {
 		// TODO Auto-generated method stub

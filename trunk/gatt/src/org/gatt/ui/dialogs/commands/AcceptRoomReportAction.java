@@ -15,14 +15,28 @@ import org.gatt.ui.dialogs.RoomReportDialog;
 import org.gatt.ui.dialogs.helper.RoomWrapper;
 import org.gatt.ui.reports.RoomReport;
 
+/**
+ * @author Chucho
+ * Accept command in Room report dialog
+ */
 public class AcceptRoomReportAction extends AbstractAction {
 	
+	/**
+	 * the dialog
+	 */
 	private RoomReportDialog dialog;
 	
+	/**
+	 * constructor
+	 * @param dialog
+	 */
 	public AcceptRoomReportAction(RoomReportDialog dialog){
 		this.dialog = dialog;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		GattFrame mainFrame = GattFrame.getInstance();
 		RoomWrapper rw = (RoomWrapper)dialog.getCbRoom().getSelectedItem();

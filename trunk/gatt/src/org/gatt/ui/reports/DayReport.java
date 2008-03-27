@@ -13,10 +13,17 @@ import org.gatt.domain.Hour;
 import org.gatt.domain.Session;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 
+/**
+ * @author Chucho
+ * Report by day
+ */
 public class DayReport extends JScrollPane implements Printable {
 
 	private static final long serialVersionUID = 1L;
 	private JEditorPane epReportArea = null;
+	/**
+	 * The sessions that will appear in the report
+	 */
 	private Vector<Session> assignatedSessions;
 	
 	private Hashtable<String, Integer> hourIndex;
@@ -74,6 +81,9 @@ public class DayReport extends JScrollPane implements Printable {
 		return epReportArea;
 	}
 	
+	/**
+	 * convert session to a hashtable a returns it
+	 */
 	private Hashtable<String,String[]> convertSessionsToHashtable(){
 		
 		Hashtable<String,String[]> roomsHash = new Hashtable<String,String[]>();
@@ -105,6 +115,9 @@ System.out.println("Tratando de encontrar: " + hour);
 		return hourIndex.get(hour);
 	}*/
 	
+	/**
+	 * generates de report as a string
+	 */
 	private String generateReport(){
 		String html = "<html>" +
 					"<head>" +
@@ -157,6 +170,9 @@ System.out.println("Tratando de encontrar: " + hour);
 					
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.ui.reports.Printable#print()
+	 */
 	public void print(){
 		try{
 			getEpReportArea().print();

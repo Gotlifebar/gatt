@@ -8,15 +8,29 @@ import javax.swing.JOptionPane;
 
 import org.gatt.ui.wizards.CreateConditionalComparisonPanel;
 
+/**
+ * @author Chucho
+ *
+ */
 public class DeleteComparisonLatterAction extends AbstractAction {
 
 	
+	/**
+	 * the panel in which this command is used
+	 */
 	private CreateConditionalComparisonPanel panel;
 	
+	/**
+	 * constructor
+	 * @param panel
+	 */
 	public DeleteComparisonLatterAction(CreateConditionalComparisonPanel panel){
 		this.panel = panel;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		int[] indexes = panel.getListComparisons1().getSelectedIndices();
 		

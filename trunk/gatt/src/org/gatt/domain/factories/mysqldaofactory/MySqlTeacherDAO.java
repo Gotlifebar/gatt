@@ -6,8 +6,15 @@ import java.sql.ResultSet;
 
 import org.gatt.domain.Teacher;
 import org.gatt.domain.factories.TeacherDAO;
+/**
+ * @author Chucho
+ * MySQL teacher DAO
+ */
 public class MySqlTeacherDAO implements TeacherDAO {
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.TeacherDAO#findTeacher(int)
+	 */
 	public Teacher findTeacher(int registerNumber) {
 		Connection c = MySqlDAOFactory.getConnection();
 		Teacher t = null;
@@ -32,6 +39,9 @@ public class MySqlTeacherDAO implements TeacherDAO {
 		return t;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.TeacherDAO#countTeachers()
+	 */
 	public int countTeachers() {
 		Connection c = MySqlDAOFactory.getConnection();		
 		try{			

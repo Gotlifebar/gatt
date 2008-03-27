@@ -9,8 +9,15 @@ import java.util.Vector;
 import org.gatt.domain.Hour;
 import org.gatt.domain.factories.HourDAO;
 
+/**
+ * @author Chucho
+ * MySQL Hour DAO
+ */
 public class MySqlHourDAO implements HourDAO {
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.HourDAO#countHours()
+	 */
 	public int countHours() {
 		Connection c = MySqlDAOFactory.getConnection();		
 		try{			
@@ -25,6 +32,9 @@ public class MySqlHourDAO implements HourDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.HourDAO#findHour(int)
+	 */
 	public Hour findHour(int id) {
 		Connection c = MySqlDAOFactory.getConnection();
 		Hour h = null;
@@ -53,6 +63,9 @@ public class MySqlHourDAO implements HourDAO {
 		return h;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.domain.factories.HourDAO#findAll()
+	 */
 	public Collection<Hour> findAll(){
 		Connection c = MySqlDAOFactory.getConnection();
 		Vector<Hour> hours = new Vector<Hour>();

@@ -54,6 +54,7 @@ public class ManageConstraintsDialog extends JDialog {
 	private final int COLUMN_SIGNIFICANCE = 3;
 	
 	/**
+	 * constructor
 	 * @param owner
 	 */
 	public ManageConstraintsDialog(Frame owner) {
@@ -114,6 +115,10 @@ public class ManageConstraintsDialog extends JDialog {
 		return new ConstraintsTableModel(data,columnNames);
 	}
 	
+	/**
+	 * add a constraint to the list of constraint in the constraints dialog
+	 * @param cWrapper
+	 */
 	public void addConstraint(ConstraintWizardInfoWrapper cWrapper){
 		
 		ConstraintInfo constraint = cWrapper.getConstraintInfo();
@@ -132,6 +137,11 @@ public class ManageConstraintsDialog extends JDialog {
 		model.addRow(row);
 	}
 	
+	/**
+	 * updates the information of a constraints in the list of constraints in the
+	 * constraints dialog
+	 * @param cWrapper
+	 */
 	public void updateConstraint(ConstraintWizardInfoWrapper cWrapper){
 		ConstraintInfo constraint = cWrapper.getConstraintInfo();
 		
@@ -262,13 +272,25 @@ public class ManageConstraintsDialog extends JDialog {
 		return bDelete;
 	}
 	
+	/**
+	 * @author Chucho
+	 * The model for the constraints list
+	 */
 	class ConstraintsTableModel extends DefaultTableModel {
 		
+		/**
+		 * constructor
+		 * @param data
+		 * @param columnNames
+		 */
 		public ConstraintsTableModel(Vector data, Vector columnNames) {
 			super(data, columnNames);
 			// TODO Auto-generated constructor stub
 		}
 
+		/* (non-Javadoc)
+		 * @see javax.swing.table.DefaultTableModel#isCellEditable(int, int)
+		 */
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;

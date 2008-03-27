@@ -20,6 +20,10 @@ import javax.swing.JTextField;
 import org.gatt.constraint.ConstraintInfo;
 import org.gatt.ui.dialogs.commands.CloseDetailConstraintDialogAction;
 
+/**
+ * @author Chucho
+ * Detail Constraint dialog
+ */
 public class DetailConstraintDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -39,9 +43,13 @@ public class DetailConstraintDialog extends JDialog {
 	private JButton bClose = null;
 	private JPanel pSeparator = null;
 	
+	/**
+	 * Constraint information object
+	 */
 	private ConstraintInfo constraint;
 	
 	/**
+	 * constructr
 	 * @param owner
 	 */
 	public DetailConstraintDialog(Frame owner, ConstraintInfo constraint) {
@@ -51,6 +59,11 @@ public class DetailConstraintDialog extends JDialog {
 	}
 	
 	
+	/**
+	 * constructor
+	 * @param owner
+	 * @param constraint
+	 */
 	public DetailConstraintDialog(Dialog owner, ConstraintInfo constraint) {
 		super(owner);
 		this.constraint = constraint;

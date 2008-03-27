@@ -18,6 +18,10 @@ import javax.swing.border.TitledBorder;
 import org.gatt.ui.dialogs.commands.AcceptDayReportAction;
 import org.gatt.ui.dialogs.helper.DayWrapper;
 
+/**
+ * @author Chucho
+ * Day Report Dialog
+ */
 public class DayReportDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +31,7 @@ public class DayReportDialog extends JDialog {
 	private JButton bOk = null;
 
 	/**
+	 * constructor
 	 * @param owner
 	 */
 	public DayReportDialog(Frame owner) {

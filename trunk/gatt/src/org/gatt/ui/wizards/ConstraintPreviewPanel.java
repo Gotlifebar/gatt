@@ -15,6 +15,10 @@ import javax.swing.border.TitledBorder;
 
 import org.freixas.jwizard.JWizardPanel;
 
+/**
+ * @author Chucho
+ * Constraint wizard's constraint previe panel
+ */
 public class ConstraintPreviewPanel extends JWizardPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +36,9 @@ public class ConstraintPreviewPanel extends JWizardPanel {
 	    setNextStep(-1);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.freixas.jwizard.JWizardPanel#makingVisible()
+	 */
 	protected void makingVisible(){
 		 // Asignarle al label la previsualización de la restriccion
 		getWizardParent().setPreferredSize(new Dimension(620,445));
@@ -70,6 +77,11 @@ public class ConstraintPreviewPanel extends JWizardPanel {
 		return pConstraintPreview;
 	}
 	
+	/**
+	 * This method initializes TaConstraint
+	 * 
+	 * @return javax.swing.JTextArea
+	 */
 	private JTextArea getTaConstraint(){
 		if(taConstraint == null){
 			taConstraint = new JTextArea();

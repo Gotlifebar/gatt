@@ -6,15 +6,29 @@ import javax.swing.AbstractAction;
 
 import org.gatt.ui.wizards.CreateConditionalComparisonPanel;
 
+/**
+ * @author Chucho
+ *
+ */
 public class CompTypeAttributeFormerSelectedAction extends AbstractAction {
 
-private CreateConditionalComparisonPanel panel;
+	/**
+	 * the panel in which this command is used
+	 */
+	private CreateConditionalComparisonPanel panel;
 	
+	/**
+	 * constructor
+	 * @param panel
+	 */
 	public CompTypeAttributeFormerSelectedAction(CreateConditionalComparisonPanel panel){
 		this.panel = panel;
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		panel.getTreeRight().setEnabled(true);
 		panel.getTfConstantValue().setEnabled(false);

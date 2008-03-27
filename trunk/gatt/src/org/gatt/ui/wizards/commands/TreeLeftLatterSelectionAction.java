@@ -14,14 +14,28 @@ import org.gatt.ui.wizards.CreateConditionalComparisonPanel;
 import org.gatt.ui.wizards.helper.FieldTreeNode;
 import org.gatt.ui.wizards.helper.TreeContentManager;
 
+/**
+ * @author Chucho
+ *
+ */
 public class TreeLeftLatterSelectionAction implements TreeSelectionListener {
 
+	/**
+	 * the panel in which this command is used 
+	 */
 	private CreateConditionalComparisonPanel panel;
 	
+	/**
+	 * constructor
+	 * @param panel
+	 */
 	public TreeLeftLatterSelectionAction(CreateConditionalComparisonPanel panel){
 		this.panel = panel;
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
+	 */
 	public void valueChanged(TreeSelectionEvent e) {
 		JTree tree = (JTree)e.getSource();
 		FieldTreeNode treeNode = (FieldTreeNode)tree.getSelectionPath().getLastPathComponent();

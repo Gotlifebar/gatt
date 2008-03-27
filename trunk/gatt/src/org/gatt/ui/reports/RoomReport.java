@@ -11,11 +11,18 @@ import javax.swing.JScrollPane;
 import org.gatt.domain.Room;
 import org.gatt.domain.Session;
 
+/**
+ * @author Chucho
+ * Report by room
+ */
 public class RoomReport extends JScrollPane implements Printable {
 
 	private static final long serialVersionUID = 1L;
 	private JEditorPane epReportArea = null;
 	private Room room;
+	/**
+	 * The sessions that will appear in the report
+	 */
 	private Vector<Session> assignatedSessions;
 	
 	private Hashtable<String, Integer> hourIndex;
@@ -85,6 +92,9 @@ public class RoomReport extends JScrollPane implements Printable {
 		return epReportArea;
 	}
 	
+	/**
+	 * converts sessions to an array of strings and returns it
+	 */
 	private String[][] convertSessionsToArray(){
 		
 		String[][] schedule = new String[NUMBER_OF_HOURS][NUMBER_OF_DAYS];
@@ -114,11 +124,9 @@ public class RoomReport extends JScrollPane implements Printable {
 		return schedule;
 	}
 	
-	private int extractDays(String hourRep){
-		
-		return 0;
-	}
-	
+	/**
+	 * generate the report
+	 */
 	private String generateReport(){
 		String html = "<html>" +
 					"<head>" +
@@ -165,6 +173,9 @@ public class RoomReport extends JScrollPane implements Printable {
 					
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.ui.reports.Printable#print()
+	 */
 	public void print(){
 		try{
 			getEpReportArea().print();
