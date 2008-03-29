@@ -13,13 +13,40 @@ import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
 //The idea is that if the antecedent is true, then the consequent has to be true;
 //If antecedent is false, it doesn't care
 //but if antecedent is true and consequent is false, the penality must be returned.
+
+/** 
+ * Represents a conditional constraint, this is a constraint of the type “if antecedent then consequent” that is, 
+ * if an antecedent is met, the consequent must be true
+ * @author David *
+ */
 public class ConditionalConstraint implements CodifiableDisplayableObject{	
 	
+	/** 
+	 * Penalty of the constraint 
+	 */
 	private CodifiableConstraintValue penality;
-	private BooleanOperand antecedent,  consequent;
+	
+	/** 
+	 * Antecedent part of the conditional	  
+	 */
+	
+	private BooleanOperand antecedent;
+	/**
+	 * Consequent part of the conditional 
+	 */
+	private BooleanOperand consequent;
+	
+	/**
+	 * Internal representation of the constraint
+	 */
 	private CompositeBooleanExpression cbe;
 	
 	
+	/** Constructur
+	 * @param antecedent antecedent part of the constraint
+	 * @param consequent consequent part of the constraint
+	 * @param penality penalty of the constraint
+	 */
 	public ConditionalConstraint(BooleanOperand antecedent, BooleanOperand consequent, CodifiableConstraintValue penality){		
 		this.penality = penality;
 		cbe = new CompositeBooleanExpression(BooleanOperator.AND, 
@@ -34,6 +61,9 @@ public class ConditionalConstraint implements CodifiableDisplayableObject{
 	 * 		return penalty;
 	 */
 	
+	/* (non-Javadoc)
+	 * @see org.gatt.constraint.codifiable.Codifiable#getJavaString()
+	 */
 	public String getJavaString(){
 		StringBuffer buffer = new StringBuffer();		
 		buffer.append("if");
@@ -48,6 +78,9 @@ public class ConditionalConstraint implements CodifiableDisplayableObject{
 		//buffer.append("}");
 		return buffer.toString();
 	}
+	/* (non-Javadoc)
+	 * @see org.gatt.constraint.codifiable.CodifiableDisplayableObject#getDisplayName()
+	 */
 	public String getDisplayName() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("Si pasa que: ");
@@ -58,6 +91,9 @@ public class ConditionalConstraint implements CodifiableDisplayableObject{
 		return buffer.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gatt.constraint.codifiable.CodifiableDisplayableObject#getReadableName()
+	 */
 	public String getReadableName() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("Si pasa que: ");
@@ -68,14 +104,4 @@ public class ConditionalConstraint implements CodifiableDisplayableObject{
 		return buffer.toString();
 	}
 	
-	public static void main(String ar[]){
-		
-		StringComparableOperand compOperand1 = new StringComparableOperand("chucho", "Value1", "cosa1");
-		StringComparableOperand compOperand2 = new StringComparableOperand("iValue2", "Value2", "cosa2");
-		StringComparison co = new StringComparison(StringComparisonOperator.EQUALS, compOperand1, compOperand2);
-		CompositeBooleanExpression cbe = new CompositeBooleanExpression(BooleanOperator.AND, ConstBooleanOperand.TRUE, co);
-		CompositeBooleanExpression cbe2 = new CompositeBooleanExpression(BooleanOperator.OR, cbe, cbe);
-		ConditionalConstraint conditional = new ConditionalConstraint(co, cbe, CodifiableConstraintValue.ONE);
-		System.out.println(conditional.getJavaString());
-	}
 }

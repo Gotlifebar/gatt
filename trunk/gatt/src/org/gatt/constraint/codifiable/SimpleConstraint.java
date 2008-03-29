@@ -9,20 +9,39 @@ import org.gatt.constraint.codifiable.boolexpression.DefaultComparison;
 import org.gatt.constraint.codifiable.boolexpression.DefaultComparisonOperator;
 
 
-//Constraint type if !Constraint then return penalty
-//The idea is that if the constraint is not true,
-//then the penality must be returned.
+
+/**
+ * This class represents a simple constraint, this is a constraint that evaluates a condition and 
+ * if the condition is false then returns a penalty, else, if the condition is met, then 
+ * returns no (zero) penalty.
+ * @author David
+ *
+ */
 public class SimpleConstraint implements CodifiableDisplayableObject {
+	
+
+	/**
+	 * Penalty of the constraint 
+	 */
 	private CodifiableConstraintValue penality;
+	
+	/**
+	 * Internal representation of the constraint
+	 */
 	private BooleanOperand cbe;
 	
+	/** Constructur
+	 * @param condition condition of the constraint to be evaluated
+	 * @param penality penalty value of the constraint
+	 */
 	public SimpleConstraint(BooleanOperand condition, CodifiableConstraintValue penality){
 		this.penality = penality;
 		cbe = condition;
 	}
 	
-	/**
-	 * The idea is: Debe cumplirse que: cbe
+	
+	/* (non-Javadoc)
+	 * @see org.gatt.constraint.codifiable.CodifiableDisplayableObject#getDisplayName()
 	 */
 	public String getDisplayName() {
 		StringBuffer buffer = new StringBuffer();		
@@ -30,8 +49,9 @@ public class SimpleConstraint implements CodifiableDisplayableObject {
 		buffer.append(cbe.getDisplayName());		
 		return buffer.toString();
 	}
-	/**
-	 * The idea is: Debe cumplirse que: cbe
+	
+	/* (non-Javadoc)
+	 * @see org.gatt.constraint.codifiable.CodifiableDisplayableObject#getReadableName()
 	 */
 	public String getReadableName() {
 		StringBuffer buffer = new StringBuffer();		
@@ -39,8 +59,9 @@ public class SimpleConstraint implements CodifiableDisplayableObject {
 		buffer.append(cbe.getReadableName());		
 		return buffer.toString();
 	}
-	/**
-	 * The idea is: if( !(condition) ) return penalty.
+	
+	/* (non-Javadoc)
+	 * @see org.gatt.constraint.codifiable.Codifiable#getJavaString()
 	 */
 	public String getJavaString() {
 		StringBuffer buffer = new StringBuffer();		
@@ -55,12 +76,5 @@ public class SimpleConstraint implements CodifiableDisplayableObject {
 		buffer.append(NL);
 		return buffer.toString();
 	}
-	public static void main(String[] ar){
-		ComparableOperand compOperand1 = new BooleanOperand("chucho", "Value1", "cosa1");
-		ComparableOperand compOperand2 = new BooleanOperand("iValue2", "Value2", "cosa2");
-		DefaultComparison co = new DefaultComparison(DefaultComparisonOperator.LESS_EQUAL_THAN, compOperand1, compOperand2);
-		CompositeBooleanExpression cbe = new CompositeBooleanExpression(BooleanOperator.AND, ConstBooleanOperand.TRUE, co);		
-		SimpleConstraint conditional = new SimpleConstraint(cbe, CodifiableConstraintValue.ONE);
-		System.out.println(conditional.getJavaString());
-	}
+	
 }
