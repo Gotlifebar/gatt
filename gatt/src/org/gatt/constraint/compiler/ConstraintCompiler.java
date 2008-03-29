@@ -24,24 +24,49 @@ import org.igfay.jfig.JFigException;
 import org.igfay.jfig.JFigIF;
 import org.igfay.jfig.JFigLocatorIF;
 
+/**
+ * This class is the compiler of contraints; it creates the .class files from a ConstraintInfo element. 
+ * The compiler uses the JavaCompiler defined in the javax.tools package.
+ * @author David
+ *
+ */
 public class ConstraintCompiler {
 	
 //	private static final String CONSTRAINT_OUTPUT_PATH = "bin/";
 	
+	/**
+	 * Configuration instance
+	 */
 	private JFigIF config;
 	
+	/**
+	 * Compiler instance
+	 */
 	private static ConstraintCompiler instance = null;
+	
+	/** Singleton method implementation 
+	 * @return the compiler instance
+	 */
 	public static ConstraintCompiler getInstance(){
 		if( instance == null)
 			instance = new ConstraintCompiler();
 		return instance;
 	}
 	
+	/**
+	 * Constructor of the compiler
+	 */
 	public ConstraintCompiler(){
 		JFigLocatorIF locator = new GattConfigLocator("config.xml","config");
 		config = JFig.getInstance(locator);
 	}
 	
+	/**
+	 * compiles a constraint given its information
+	 * @param cInfo information of the constraint
+	 * @return true if the compilation process is successfull, false otherwise
+	 * @throws URISyntaxException
+	 */
 	public boolean compileConstraint(ConstraintInfo cInfo) throws URISyntaxException{
 		//Get the compiler Tool
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
@@ -126,7 +151,16 @@ try {
 	}*/
 	
 	//This class is a listener of the problems.
+	/**
+	 * This class observes the compilation process
+	 * @author David
+	 *
+	 */
 	private static class ConstraintDiagnosticListener implements DiagnosticListener {
+		
+		/* (non-Javadoc)
+		 * @see javax.tools.DiagnosticListener#report(javax.tools.Diagnostic)
+		 */
 		public void report(Diagnostic message) {
 			StringBuffer messageString = new StringBuffer()
 			.append("Kind: ").append(message.getKind()).append('\n')

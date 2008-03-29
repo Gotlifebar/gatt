@@ -12,24 +12,70 @@ import org.gatt.constraint.codifiable.stringexpression.StringComparableOperand;
 import org.gatt.constraint.codifiable.stringexpression.StringComparison;
 import org.gatt.constraint.codifiable.stringexpression.StringComparisonOperator;
 
+/**
+ * This class generates the code of a constraint from a ConstraintInfo element. 
+ * The class acts as a java code generator template similar to the generator classes produced by JET 1.0
+ * @author David
+ *
+ */
 public class ConstraintSourceGenerator {
+	
+	/**
+	 * information of the constraint
+	 */
 	private ConstraintInfo cInfo;
+	
+	/**
+	 * Prefix for the constraint class names
+	 */
 	public static final String CLASS_NAME_PREFIX = "Constraint_";
+	
+	/**
+	 * Package where the constraints will be located after the compilation
+	 */
 	public static final String DEFAULT_OUTPUT_PACKAGE = "org.gatt.constraint.implemented";
+	
+	/**
+	 * Package with the constraint base classes to be imported
+	 */
 	public static final String CONSTRAINT_PACKAGE = "org.gatt.constraint";
+	
+	/**
+	 * Package with the domain base classes to be imported
+	 */
 	public static final String DOMAIN_PACKAGE = "org.gatt.domain";
 	
+	/**
+	 * Represents a simple new Line.
+	 */
 	private static final String NL = System.getProperties().getProperty("line.separator");
 	
+	/** Constructor
+	 * @param cInfo information of the constraint to be generated
+	 */
 	public ConstraintSourceGenerator(ConstraintInfo cInfo){
 		this.cInfo = cInfo;
 	}
+	
+	/** Returns the class name of the constraint to be generated
+	 * @param cInfo information of the constraint
+	 * @return the class name of the constraint to be generated
+	 */
 	public static String getGeneratedClassName(ConstraintInfo cInfo){	
 		return DEFAULT_OUTPUT_PACKAGE + "." + CLASS_NAME_PREFIX + cInfo.getId();
 	}	
+	
+	/** Returns the simple (without the package prefix) class name of a constraint 
+	 * @param cInfo information of the constraint
+	 * @return the simple class name of a constraint
+	 */
 	public static String getSimpleGeneratedClassName(ConstraintInfo cInfo){	
 		return CLASS_NAME_PREFIX + cInfo.getId();
 	}
+	
+	/** Returns the source code of the class for the constraint
+	 * @return the source code of the class for the constraint
+	 */
 	public String getClassSourceCode(){
 		StringBuffer buf = new StringBuffer();
 		buf.append("package " + DEFAULT_OUTPUT_PACKAGE + ";" + NL + NL);
@@ -45,6 +91,12 @@ public class ConstraintSourceGenerator {
 		System.out.println("SOURCE CODE: " + buf.toString());
 		return buf.toString();
 	}
+	/** Returns the source code of the method "evaluate" of a constraint
+	 * @param constraint constraint source code
+	 * @param usedVars variables used in the iterations of the cycle over the sessions array
+	 * @param cInfo information of the constraint
+	 * @return the source code of the method "evaluate" of a constraint
+	 */
 	public static String generateStrategySourceCode(String constraint, Vector<Character> usedVars, ConstraintInfo cInfo){
 		StringBuffer buf = new StringBuffer();
 		for(char c : usedVars){
@@ -59,17 +111,5 @@ public class ConstraintSourceGenerator {
 		buf.append("\t return " + CodifiableConstraintValue.ZERO.getJavaString() +";" + NL +"\t}");
 		return buf.toString();
 	}
-	public static void main(String[] ar){
-		StringComparableOperand compOperand1 = new StringComparableOperand("chucho", "Value1", "cosa1");
-		StringComparableOperand compOperand2 = new StringComparableOperand("iValue2", "Value2", "cosa2");
-		StringComparison co = new StringComparison(StringComparisonOperator.EQUALS, compOperand1, compOperand2);
-		CompositeBooleanExpression cbe = new CompositeBooleanExpression(BooleanOperator.AND, ConstBooleanOperand.TRUE, co);
-		CompositeBooleanExpression cbe2 = new CompositeBooleanExpression(BooleanOperator.OR, cbe, cbe);
-		ConditionalConstraint conditional = new ConditionalConstraint(co, cbe, CodifiableConstraintValue.ONE);
-		ConstraintInfo cInfo = new ConstraintInfo();
-		cInfo.setId("myId");
-		cInfo.setStrategyCodeImplementation(conditional.getJavaString());
-		ConstraintSourceGenerator gen = new ConstraintSourceGenerator(cInfo);
-		System.out.println(gen.getClassSourceCode());
-	}
+	
 }
