@@ -1,8 +1,8 @@
 package org.gatt.optimization.util;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-import org.gatt.domain.Hour;
 import org.gatt.domain.Room;
 import org.gatt.domain.Session;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
@@ -13,7 +13,7 @@ import org.jgap.IChromosome;
  * @author Chucho
  * Solution manager
  */
-public class SolutionManager {
+public class SolutionManager implements Serializable {
 	
 	/**
 	 * cache of sessions 
