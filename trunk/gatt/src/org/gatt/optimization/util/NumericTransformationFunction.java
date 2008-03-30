@@ -1,10 +1,12 @@
 package org.gatt.optimization.util;
 
+import java.io.Serializable;
+
 /**
  * @author david
  * Numeric transformation
  */
-public class NumericTransformationFunction {
+public class NumericTransformationFunction implements Serializable {
 	
 	/**
 	 * number of rooms
