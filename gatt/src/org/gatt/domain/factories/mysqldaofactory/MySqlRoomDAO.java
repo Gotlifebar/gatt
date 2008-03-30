@@ -111,10 +111,10 @@ public class MySqlRoomDAO implements RoomDAO {
 			String newType = "Y";
 			while( r.next() ){
 				if( Math.random() < p )
-					r.updateString("type", "Y");
+					r.updateString("type", "MEDIOS");
 				//	newType = "Y"; 
 				else
-					r.updateString("type", "N");
+					r.updateString("type", "");
 				//	newType = "N";
 				r.updateRow();
 				/*PreparedStatement up = c.prepareStatement("UPDATE Rooms SET type = ? WHERE id = ?");

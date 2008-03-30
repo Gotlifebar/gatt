@@ -31,7 +31,7 @@ public class SessionsResetter {
 			if (Math.random() < p)
 				g.getSubject().setRestrictions("Y");
 			else
-				g.getSubject().setRestrictions("N");
+				g.getSubject().setRestrictions("");
 			s.setGroup(g);
 			
 			s.setHour(doff.getHour(tt.getHour()));
