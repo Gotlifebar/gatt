@@ -163,7 +163,7 @@ public class OptimizationFacade {
 	/**
 	 * Starts the optimization process from a previously obtained solution
 	 */
-	public void optimizeFromPreviousSolution(){
+	public void optimizeFromPreviousSolution(IChromosome previousSolution){
 		System.out.println("Initializating...");
 		
 		setOptimizationState(OptimizationState.RUNNING);
@@ -176,8 +176,11 @@ public class OptimizationFacade {
 
 			SessionsResetter resetter = new SessionsResetter();
 			resetter.resetSessions(REQUIRED_MEDIA_PCT);
-			SolutionIO sIO = new SolutionIO();
-			IChromosome sampleChromosome = sIO.loadSolution(); 
+			
+			MySqlRoomDAO roomDao = new MySqlRoomDAO();
+			roomDao.randomizeMedia(DISPONIBLE_MEDIA_PCT);
+			
+			IChromosome sampleChromosome = createSampleChromosome();
 			gaConfig.setSampleChromosome(sampleChromosome);
 		} catch (InvalidConfigurationException e) {
 			e.printStackTrace();
@@ -186,8 +189,10 @@ public class OptimizationFacade {
 		
 		genotype = initPopulation();
 		evolutionThread = new Thread(genotype);
+		listener = new TimeTablingEvolutionListener(evolutionThread);
 		gaConfig.getEventManager().addEventListener(GeneticEvent.GENOTYPE_EVOLVED_EVENT,
-												new TimeTablingEvolutionListener(evolutionThread));
+												listener);
+		startTime = System.currentTimeMillis();
 		evolutionThread.start();
 		
 	}
