@@ -51,6 +51,7 @@ public class SolutionIO {
 	 * @throws Exception
 	 */
 	public void saveSolution(IChromosome c) throws Exception{
+		System.out.println(file.getAbsolutePath());
 		ObjectOutputStream out;
 		out = new ObjectOutputStream(new FileOutputStream(file));
 		out.writeObject(c);
