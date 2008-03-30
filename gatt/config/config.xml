@@ -2,8 +2,8 @@
 <configuration>
 	<section name="GAParameters">
 		<entry key="CrossoverRate" value="80"/>
-		<entry key="MutationRate" value="20"/>
-		<entry key="PopulationSize" value="5"/>
+		<entry key="MutationRate" value="80"/>
+		<entry key="PopulationSize" value="15"/>
 	</section>
 	<section name="MySqlConnectionInfo">
 		<entry key="URLConnectionString" value="jdbc:mysql://localhost:3306/dbgatt"/>
@@ -33,7 +33,7 @@
 		<entry key="letterCode" value="Código de letras"/>
 		<entry key="credits" value="Créditos"/>
 		<entry key="code" value="Código"/>
-		<entry key="restrictions" value="Restricciones"/>
+		<entry key="restrictions" value="Medios"/>
 	</section>
 	<section name="ConstraintCompilerOptions">
 		<entry key="OutputDir" value="bin"/>
