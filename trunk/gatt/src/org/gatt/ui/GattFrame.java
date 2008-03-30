@@ -306,7 +306,7 @@ public class GattFrame extends JFrame {
 		if (miOptimizePrevious == null) {
 			miOptimizePrevious = new JMenuItem();
 			miOptimizePrevious.setText("Optimizar desde solución anterior");
-			miOptimizePrevious.addActionListener(new OptimizePreviousAction());
+			miOptimizePrevious.addActionListener(new OptimizePreviousAction(this));
 		}
 		return miOptimizePrevious;
 	}
