@@ -2,8 +2,8 @@
 <configuration>
 	<section name="GAParameters">
 		<entry key="CrossoverRate" value="80"/>
-		<entry key="MutationRate" value="80"/>
-		<entry key="PopulationSize" value="15"/>
+		<entry key="MutationRate" value="20"/>
+		<entry key="PopulationSize" value="5"/>
 	</section>
 	<section name="MySqlConnectionInfo">
 		<entry key="URLConnectionString" value="jdbc:mysql://localhost:3306/dbgatt"/>
