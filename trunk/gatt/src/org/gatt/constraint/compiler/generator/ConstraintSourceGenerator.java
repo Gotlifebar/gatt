@@ -100,15 +100,19 @@ public class ConstraintSourceGenerator {
 	public static String generateStrategySourceCode(String constraint, Vector<Character> usedVars, ConstraintInfo cInfo){
 		StringBuffer buf = new StringBuffer();
 		for(char c : usedVars){
+			buf.append("int cont = 0;" + NL);
+			buf.append("int total = 0;" + NL);
 			buf.append("\t\tfor(int " +  c + " = 0; " +  c  + " < session.length; " + c + "++){" + NL);
 			buf.append("\t\t\tif(session[" + c + "] == null) continue;");
+			buf.append("total++;" + NL);
 			buf.append("\t\t\tif( !session[" + c + "].getGroup().applyConstraint(\"" + cInfo.getId() + "\")) continue;");	
 		}
 		buf.append(constraint);		
 		for(char c : usedVars){
 			buf.append("\t\t}" + NL);
 		}
-		buf.append("\t return " + CodifiableConstraintValue.ZERO.getJavaString() +";" + NL +"\t}");
+		//buf.append("\t return " + CodifiableConstraintValue.ZERO.getJavaString() +";" + NL +"\t}");
+		buf.append("\t return new ConstraintValue((float)cont / (float)total);" + NL +"\t}");
 		return buf.toString();
 	}
 	

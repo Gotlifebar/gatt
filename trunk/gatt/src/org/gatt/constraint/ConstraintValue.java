@@ -33,7 +33,7 @@ public class ConstraintValue{
 	 * Constructor
 	 * @param value
 	 */
-	protected ConstraintValue (double value){
+	public ConstraintValue (double value){
 		this.value = value;		
 	}	
 	

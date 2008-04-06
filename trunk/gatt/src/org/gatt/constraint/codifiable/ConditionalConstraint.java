@@ -70,9 +70,10 @@ public class ConditionalConstraint implements CodifiableDisplayableObject{
 		buffer.append(cbe.getJavaString());
 		//buffer.append("{");
 		buffer.append(NL);
-		buffer.append("\t");		
-		buffer.append("return ");
-		buffer.append(penality.getJavaString());
+		buffer.append("\t");
+		buffer.append("cont++");
+		//buffer.append("return ");
+		//buffer.append(penality.getJavaString());
 		buffer.append(";");
 		buffer.append(NL);
 		//buffer.append("}");
