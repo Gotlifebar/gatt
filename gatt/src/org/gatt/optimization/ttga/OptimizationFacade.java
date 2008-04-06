@@ -6,12 +6,12 @@ import java.util.List;
 import org.gatt.domain.InitialTT;
 import org.gatt.domain.factories.DomainObjectFactoryFacade;
 import org.gatt.domain.factories.mysqldaofactory.MySqlRoomDAO;
-import org.gatt.optimization.io.SolutionIO;
 import org.gatt.optimization.util.ImpShuffler;
 import org.gatt.optimization.util.NumericTransformationFunction;
 import org.gatt.optimization.util.ResultManager;
 import org.gatt.optimization.util.SessionsResetter;
 import org.gatt.optimization.util.Shuffler;
+import org.gatt.optimization.util.UniqueRandomNumberGenerator;
 import org.gatt.util.GattConfigLocator;
 import org.igfay.jfig.JFig;
 import org.igfay.jfig.JFigIF;
@@ -319,8 +319,8 @@ public class OptimizationFacade {
 		//int lowBound = numberOfGroups - genesArraySize;
 		int lowBound = -genesArraySize;//numberOfSessions - genesArraySize;
 		
-//		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
-		//UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfSessions);		
+		//UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfGroups);
+		UniqueRandomNumberGenerator rand = new UniqueRandomNumberGenerator(lowBound,numberOfSessions);		
 		
 		NumericTransformationFunction ntf = new NumericTransformationFunction(numberOfRooms, numberOfHours);
 		
@@ -335,15 +335,15 @@ public class OptimizationFacade {
 				genes[i].setAllele(-(i+1));				
 			}
 			
-			for(InitialTT tt : initialTT)
-				genes[ntf.getIndexFor(tt.getRoom(), tt.getHour())].setAllele(tt.getGroup());
+			/*for(InitialTT tt : initialTT)
+				genes[ntf.getIndexFor(tt.getRoom(), tt.getHour())].setAllele(tt.getGroup());*/
 			
 			
-			/*for (int i = 0; i < genes.length; i++) {
+			for (int i = 0; i < genes.length; i++) {
 				//genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfGroups-1);
 				genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfSessions-1);
-				//genes[i].setAllele(rand.nextRandom());
-			}*/
+				genes[i].setAllele(rand.nextRandom());
+			}
 			
 			IChromosome sample = new Chromosome(getConfiguration(),genes);
 				
