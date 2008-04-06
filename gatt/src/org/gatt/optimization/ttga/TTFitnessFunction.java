@@ -53,7 +53,7 @@ public class TTFitnessFunction extends FitnessFunction {
 			double significance = c.getSignificance(); 
 			//val = c.getSignificance() * c.evaluate(sessions).getValue();
 			val = significance * eval;
-//			System.out.println("Eval: " + eval + " : significance " + significance + " : factor " + val);
+			System.out.println("Eval: " + eval + " : significance " + significance + " : factor " + val);
 		}
 		System.out.println("Constraints evaluated. Fitness: " + (1/val) + "  taken: " + (System.currentTimeMillis() - timeInit) +" ms");
 		return 1 / val;
