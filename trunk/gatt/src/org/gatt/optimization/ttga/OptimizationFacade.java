@@ -335,15 +335,15 @@ public class OptimizationFacade {
 				genes[i].setAllele(-(i+1));				
 			}
 			
-			for(InitialTT tt : initialTT)
-				genes[ntf.getIndexFor(tt.getRoom(), tt.getHour())].setAllele(tt.getGroup());
+		/*	for(InitialTT tt : initialTT)
+				genes[ntf.getIndexFor(tt.getRoom(), tt.getHour())].setAllele(tt.getGroup());*/
 			
 			
-		/*	for (int i = 0; i < genes.length; i++) {
+			for (int i = 0; i < genes.length; i++) {
 				//genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfGroups-1);
 				genes[i] = new IntegerGene(getConfiguration(),lowBound,numberOfSessions-1);
 				genes[i].setAllele(rand.nextRandom());
-			}*/
+			}
 			
 			IChromosome sample = new Chromosome(getConfiguration(),genes);
 				
