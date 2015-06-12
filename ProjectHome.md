@@ -1,0 +1,1 @@
+Genetic algorithm for timetabling the lectures of a school of engineering.
